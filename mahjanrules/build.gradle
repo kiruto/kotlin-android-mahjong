@@ -28,6 +28,8 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    compile project(':mahjanmodels')
 }
 repositories {
     mavenCentral()

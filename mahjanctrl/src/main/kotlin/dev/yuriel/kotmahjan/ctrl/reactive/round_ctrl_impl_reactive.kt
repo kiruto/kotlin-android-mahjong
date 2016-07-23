@@ -2,7 +2,6 @@ package dev.yuriel.kotmahjan.ctrl.reactive
 
 import dev.yuriel.kotmahjan.ctrl.Flags
 import dev.yuriel.kotmahjan.ctrl.HaiMgr
-import dev.yuriel.kotmahjan.ctrl.RoundContext
 import dev.yuriel.kotmahjan.models.*
 import rx.Observable
 import rx.Observer
@@ -13,33 +12,6 @@ import kotlin.reflect.KProperty
 /**
  * Created by yuriel on 7/20/16.
  */
-
-interface RoundContextV2: RoundContext {
-    fun getPlayerContext(player: Player): PlayerContext
-}
-
-interface PlayerContext {
-    fun onStart()
-    fun onReceiveHai(hai: Hai)
-    fun onHaiPai(haiList: List<Hai>)
-    fun onEnd()
-
-    fun onRichi()
-    fun onChi()
-    fun onPon()
-    fun onKan()
-    fun onRon()
-
-    //fun could(): Flags
-    fun onReceive(event: RoundEvent): RoundEventResponse
-    //fun getSubscriber(): Subscriber<RoundEvent>
-    fun getObservable(event: RoundEvent, duration: Long): Observable<RoundEvent>?
-    //fun getPlayer(): Player
-}
-
-class RoundEventResponse: RoundEvent() {
-
-}
 
 /**
  * 开始
@@ -208,7 +180,7 @@ class RoundController(val rounder: RoundContextV2) {
             result.addAll(askOtherPlayersFor(event, context, player))
             roundEvent = event.change()
         } else {
-            throw RuntimeException("can not get Hai for event: ${event.toString()}")
+            throw RuntimeException("can not newInstance Hai for event: ${event.toString()}")
         }
         pContext.onEnd()
         return result

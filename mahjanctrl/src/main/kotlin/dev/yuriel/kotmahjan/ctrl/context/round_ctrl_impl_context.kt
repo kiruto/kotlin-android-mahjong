@@ -1,6 +1,5 @@
 package dev.yuriel.kotmahjan.ctrl.context
 
-import dev.yuriel.kotmahjan.ctrl.RoundContext
 import dev.yuriel.kotmahjan.models.*
 import java.util.*
 import java.util.concurrent.CountDownLatch
@@ -11,53 +10,6 @@ import kotlin.properties.Delegates
 /**
  * Created by yuriel on 7/17/16.
  */
-
-interface RoundContextV1: RoundContext {
-    fun getLoopContext(player: Player): LoopContext
-}
-
-interface LoopContext {
-    fun onStart()
-
-    fun onRichi()
-    fun onChi()
-    fun onPon()
-    fun onKan()
-    fun onRon()
-
-    /**
-     * ツモる時
-     */
-    fun tsumo()
-    fun tsumoAfterKan()
-
-    /**
-     * 牌を捨てる時
-     */
-    fun sute()
-
-    /**
-     * 全て完了
-     */
-    fun onEnd()
-
-    /**
-     * 九種九牌
-     */
-    fun is9x9Hai(): Boolean
-
-    fun couldRichi(): Boolean
-    fun couldChi(): Boolean
-    fun couldPon(): Boolean
-    fun couldKan(): Boolean
-    fun couldRon(): Boolean
-    fun hasAction(): Boolean {
-        return couldChi() || couldPon() || couldKan() || couldRon()
-    }
-
-    fun waitForAction()
-    fun getAction(): RoundEvent
-}
 
 class RoundLooper(val rounder: RoundContextV1) {
     private var log: RoundEvent by Delegates.observable(RoundEvent()) {

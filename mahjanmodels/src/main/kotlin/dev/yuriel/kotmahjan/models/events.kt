@@ -26,3 +26,7 @@ open class RoundEvent(val action: Int = EVENT_INIT, val hai: Hai? = null, val ex
         return "^A(${action.toString()}),P(${hai.toString()}),F(${from.toString()}),T(${to.toString()}),E(${extra})$"
     }
 }
+
+class RoundEventResponse: RoundEvent() {
+
+}
