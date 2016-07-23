@@ -1,12 +1,12 @@
 package dev.yuriel.kotmahjan.rules
 
 import dev.yuriel.kotmahjan.models.*
+import dev.yuriel.kotmahjan.rules.yaku.国士無双
 
 import java.util.*
 
 /**
  * Created by yuriel on 7/23/16.
- *
  * 手牌に関する操作全般を扱います
  * このクラスのインスタンスをMahjongクラスに投げると
  * 点数が返ってくるようにしたいと考えています
@@ -150,8 +150,8 @@ class Hands {
 
         // 国士無双型の判定
         initStock()
-        val kokushimuso = KokushimusoResolver(handStocks)
-        if (kokushimuso.isMatch()) {
+
+        if (国士無双.getMatch(handStocks)) {
             isKokushimuso = true
             canWin = true
             return

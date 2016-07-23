@@ -64,6 +64,9 @@ enum class HaiType (val type: String, val id: Long) {
     T(TIUN, 0x200000000L);
 }
 
+val TSUHAI_ID = 0x3f8000000L
+val SANGEN_ID = 0x380000000L
+
 
 class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL): Comparable<Hai> {
 

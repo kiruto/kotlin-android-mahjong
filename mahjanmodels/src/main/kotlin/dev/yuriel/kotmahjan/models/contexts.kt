@@ -36,6 +36,12 @@ interface RoundContext {
      * 親から東南西北順
      */
     fun getPlayerList(): List<Player>
+
+    fun getBakaze(): Hai
+
+    fun isRich(): Boolean
+
+    fun isHoutei(): Boolean
 }
 
 interface RoundContextV1: RoundContext {
@@ -110,5 +116,12 @@ interface PlayerContext {
     //fun getSubscriber(): Subscriber<RoundEvent>
     fun getObservable(event: RoundEvent, duration: Long): Observable<RoundEvent>?
     //fun getPlayer(): Player
+    fun isChankan(): Boolean
+
+    fun isDoubleReach(): Boolean
+
+    fun isTsumo(): Boolean
+
+    fun getJikaze(): Hai
 }
 
