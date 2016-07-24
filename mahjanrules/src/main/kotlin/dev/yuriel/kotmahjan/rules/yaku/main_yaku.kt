@@ -39,29 +39,32 @@ val 純全帯 = MatchableYaku(1L shl 28, 3, 3, "純全帯", ::純全帯Impl)
 val 混一色 = MatchableYaku(1L shl 29, 3, 3, "混一色", ::混一色Impl)
 val 清一色 = MatchableYaku(1L shl 30, 6, 5, "清一色", ::清一色Impl)
 
-val 四暗刻 = Yaku(1L shl 31, 13, 0, "四暗刻") { s -> null }
-val 四暗刻単騎待ち = Yaku(1L shl 32, 26, 0, "四暗刻単騎待ち") { s -> null }
-val 大三元 = Yaku(1L shl 33, 13, 13, "大三元") { s -> null }
-val 字一色 = Yaku(1L shl 34, 13, 13, "字一色") { s -> null }
-val 四喜和 = Yaku(1L shl 35, 13, 13, "四喜和") { s -> null }
-val 大四喜 = Yaku(1L shl 36, 26, 26, "大四喜") { s -> null }
-val 緑一色 = Yaku(1L shl 37, 13, 13, "緑一色") { s -> null }
-val 九蓮宝燈 = Yaku(1L shl 38, 13, 0, "九蓮宝燈") { s -> null }
-val 純正九連宝燈 = Yaku(1L shl 39, 26, 0, "純正九連宝燈") { s -> null }
-val 清老頭 = Yaku(1L shl 40, 13, 13, "清老頭") { s -> null }
-val 四槓子 = Yaku(1L shl 41, 13, 13, "四槓子") { s -> null }
+val 四暗刻 = MatchableYaku(1L shl 31, 13, 0, "四暗刻", ::四暗刻Impl)
+// todo
+val 四暗刻単騎待ち = Yaku(1L shl 32, 26, 0, "四暗刻単騎待ち")
+val 大三元 = MatchableYaku(1L shl 33, 13, 13, "大三元", ::大三元Impl)
+val 字一色 = MatchableYaku(1L shl 34, 13, 13, "字一色", ::字一色Impl)
+val 小四喜 = MatchableYaku(1L shl 35, 13, 13, "小四喜", ::小四喜Impl)
+val 大四喜 = MatchableYaku(1L shl 36, 26, 26, "大四喜", ::大四喜Impl)
+val 緑一色 = MatchableYaku(1L shl 37, 13, 13, "緑一色", ::緑一色Impl)
+val 九蓮宝燈 = MatchableYaku(1L shl 38, 13, 0, "九蓮宝燈", ::九蓮宝燈Impl)
+// todo
+val 純正九連宝燈 = Yaku(1L shl 39, 26, 0, "純正九連宝燈")
+val 清老頭 = MatchableYaku(1L shl 40, 13, 13, "清老頭", ::清老頭Impl)
+val 四槓子 = MatchableYaku(1L shl 41, 13, 13, "四槓子", ::四槓子Impl)
 val 国士無双 = MatchableYaku(1L shl 42, 13, 0, "国士無双", ::国士無双Impl)
 val 国士無双十三面待ち = Yaku(1L shl 43, 26, 0, "国士無双十三面待ち")
-val 天和 = Yaku(1L shl 44, 13, 0, "天和") { s -> null }
-val 地和 = Yaku(1L shl 45, 13, 0, "地和") { s -> null }
-val ドラ = Yaku(1L shl 46, 1, 1, "ドラ") { s -> null }
-val 裏ドラ = Yaku(1L shl 47, 1, 0, "裏ドラ") { s -> null }
-val 三連刻 = Yaku(1L shl 48, 2, 2, "三連刻") { s -> null }
-val 四連刻 = Yaku(1L shl 49, 13, 13, "四連刻") { s -> null }
-val 大車輪 = Yaku(1L shl 50, 13, 0, "大車輪") { s -> null }
-val 人和 = Yaku(1L shl 51, 13, 0, "人和") { s -> null }
-val 八連荘 = Yaku(1L shl 52, 13, 13, "八連荘") { s -> null }
-val 流し満貫 = Yaku(1L shl 53, 8, 8, "流し満貫") { s -> null }
+val 天和 = ContextYaku(1L shl 44, 13, 0, "天和", ::天和Impl)
+val 地和 = ContextYaku(1L shl 45, 13, 0, "地和", ::地和Impl)
+// todo
+val ドラ = Yaku(1L shl 46, 1, 1, "ドラ")
+val 裏ドラ = Yaku(1L shl 47, 1, 0, "裏ドラ")
+val 三連刻 = Yaku(1L shl 48, 2, 2, "三連刻")
+val 四連刻 = Yaku(1L shl 49, 13, 13, "四連刻")
+val 大車輪 = Yaku(1L shl 50, 13, 0, "大車輪")
+val 人和 = ContextYaku(1L shl 51, 13, 0, "人和", ::人和Impl)
+val 八連荘 = Yaku(1L shl 52, 13, 13, "八連荘")
+val 流し満貫 = Yaku(1L shl 53, 8, 8, "流し満貫")
 
 var normalYaku: MutableMap<String, Yaku> = mutableMapOf()
 var yakuMan: MutableMap<String, Yaku> = mutableMapOf()

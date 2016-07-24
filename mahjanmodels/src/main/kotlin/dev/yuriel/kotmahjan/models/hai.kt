@@ -66,16 +66,19 @@ enum class HaiType (val type: String, val id: Long) {
 
 private val TSUHAI_ID = 0x3f8000000L
 private val SANGEN_ID = 0x380000000L
+private val FONPAI_ID = 0x78000000L
 
 fun isTsuHai(type: HaiType?): Boolean = type?.id?.and(TSUHAI_ID) == type?.id
 fun isSanGen(type: HaiType?): Boolean = type?.id?.and(SANGEN_ID) == type?.id
+fun isFonPai(type: HaiType?): Boolean = type?.id?.and(FONPAI_ID) == type?.id
 
 fun isTsuHai(hai: Hai?): Boolean = isTsuHai(hai?.type)
 fun isSanGen(hai: Hai?): Boolean = isSanGen(hai?.type)
+fun isFonPai(hai: Hai?): Boolean = isFonPai(hai?.type)
 
 class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL): Comparable<Hai> {
 
-    val id: Int by lazy { (Math.log((if (-1 != num) 0x3f8040201L and type.id else type.id).toDouble()) / Math.log(2.0)).toInt() }
+    val id: Int by lazy { genId() }
     constructor(type: String, num: Int = -1): this(HaiType.valueOf(type), num)
 
     infix fun sameAs(hai: Hai): Boolean = type == hai.type && num == hai.num
@@ -96,6 +99,24 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
 
     fun getCode(): Int {
         return id
+    }
+
+    private fun genId(): Int {
+        //(Math.log((if (-1 != num) 0x3f8040201L and type.id else type.id).toDouble()) / Math.log(2.0)).toInt()
+        var rank = 9
+        when(type) {
+            HaiType.E -> return 27
+            HaiType.S -> return 28
+            HaiType.W -> return 29
+            HaiType.N -> return 30
+            HaiType.D -> return 31
+            HaiType.H -> return 32
+            HaiType.T -> return 33
+            HaiType.MZ -> rank *= 0
+            HaiType.PZ -> rank *= 1
+            HaiType.SZ -> rank *= 2
+        }
+        return num + rank
     }
 
     override fun compareTo(other: Hai): Int = num - other.num

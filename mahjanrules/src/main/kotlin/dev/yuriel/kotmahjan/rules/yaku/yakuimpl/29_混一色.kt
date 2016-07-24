@@ -14,7 +14,7 @@ fun 混一色Impl(s: MentsuSupport): Boolean {
     var type: HaiType? = null
 
     fun hasOnlyOneType(mentsu: Mentsu): Boolean {
-        if (mentsu.getHai()?.num == 0) {
+        if (mentsu.getHai()?.num == -1) {
             hasJihai = true
         } else if (type == null) {
             type = mentsu.getHai()?.type

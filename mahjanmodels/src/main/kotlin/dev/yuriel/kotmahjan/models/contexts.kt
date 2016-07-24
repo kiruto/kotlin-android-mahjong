@@ -42,6 +42,9 @@ interface RoundContext {
     fun isRich(): Boolean
 
     fun isHoutei(): Boolean
+
+    fun isFirstLoop(): Boolean
+
 }
 
 interface RoundContextV1: RoundContext {
@@ -129,6 +132,8 @@ interface PlayerContext {
     fun  isRinshankaihoh(): Boolean
 
     fun  isIppatsu(): Boolean
+
+    fun isParent(): Boolean
 
 }
 

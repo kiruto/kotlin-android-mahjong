@@ -4,7 +4,7 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
  * Created by yuriel on 7/24/16.
- * 混老頭判定クラス
+ * 混老頭判定
  * 么九牌のみで構成される場合成立
  */
 fun 混老頭Impl(s: MentsuSupport): Boolean {
