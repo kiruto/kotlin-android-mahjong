@@ -94,11 +94,11 @@ open class Yaku(val id: Int, val han: Int, val kuisagari: Int, val name: String)
     }
 }
 
-open class MatchableYaku(id: Int, han: Int, kuisagari: Int, name: String, val getMatch: (MentsuSupport) -> Boolean): Yaku(id, han, kuisagari, name) {
+open class MatchableYaku(id: Int, han: Int, kuisagari: Int, name: String, private val getMatch: (MentsuSupport) -> Boolean): Yaku(id, han, kuisagari, name) {
     fun isMatch(support: MentsuSupport): Boolean = getMatch(support)
 }
 
-open class ContextYaku(id: Int, han: Int, kuisagari: Int, name: String, val getMatch: (RoundContext?, PlayerContext?, MentsuSupport) -> Boolean): Yaku(id, han, kuisagari, name) {
+open class ContextYaku(id: Int, han: Int, kuisagari: Int, name: String, private val getMatch: (RoundContext?, PlayerContext?, MentsuSupport) -> Boolean): Yaku(id, han, kuisagari, name) {
     fun isMatch(roundContext: RoundContext?, playerContext: PlayerContext?, support: MentsuSupport): Boolean = getMatch(roundContext, playerContext, support)
 }
 
@@ -106,7 +106,7 @@ open class NormalYaku(id: Int, han: Int, kuisagari: Int, name: String): Yaku(id,
 
 open class YakuMan(id: Int, han: Int, kuisagari: Int, name: String): Yaku(id, han, kuisagari, name)
 
-open class ExtremeYaku(id: Int, han: Int, kuisagari: Int, name: String, val getMatch: (RoundContext?, PlayerContext?, MentsuSupport?, IntArray) -> Boolean): Yaku(id, han, kuisagari, name) {
+open class ExtremeYaku(id: Int, han: Int, kuisagari: Int, name: String, private val getMatch: (RoundContext?, PlayerContext?, MentsuSupport?, IntArray) -> Boolean): Yaku(id, han, kuisagari, name) {
     fun isMatch(roundContext: RoundContext?, playerContext: PlayerContext?, support: MentsuSupport?, hai: IntArray): Boolean = getMatch(roundContext, playerContext, support, hai)
 }
 

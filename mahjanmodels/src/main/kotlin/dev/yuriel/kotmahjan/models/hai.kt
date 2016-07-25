@@ -81,6 +81,8 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
     val id: Int by lazy { genId() }
     constructor(type: String, num: Int = -1): this(HaiType.valueOf(type), num)
 
+    var aka = false
+
     infix fun sameAs(hai: Hai): Boolean = type == hai.type && num == hai.num
 
     fun hasStatus(flag: Int): Boolean {
@@ -99,6 +101,27 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
 
     fun getCode(): Int {
         return id
+    }
+
+    @Throws(DoraCannotFoundException::class)
+    fun nextDora(): Hai {
+        val haiNum: Int =
+        if (9 == num) 1
+        else if (-1 != num) num + 1
+        else {
+            val haiId: Int = when(type) {
+                HaiType.E -> 28
+                HaiType.S -> 29
+                HaiType.W -> 30
+                HaiType.N -> 27
+                HaiType.D -> 32
+                HaiType.H -> 33
+                HaiType.T -> 31
+                else -> throw DoraCannotFoundException(this)
+            }
+            return newInstance(haiId)
+        }
+        return Hai(type, haiNum)
     }
 
     private fun genId(): Int {
@@ -122,10 +145,47 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
     override fun compareTo(other: Hai): Int = num - other.num
 
     override fun toString(): String {
-        return type.name + if (0 > num && 10 < num) "" else num
+        return type.name + (if (aka) "+" else "") + if (0 > num && 10 < num) "" else num
     }
 
     companion object factory {
+
+        @Throws(DoraCannotFoundException::class)
+        fun parse(s: String): Hai {
+            if (s.length == 1) {
+                val id: Int = when (s[0]) {
+                    'E' -> 27
+                    'S' -> 28
+                    'W' -> 29
+                    'N' -> 30
+                    'D' -> 31
+                    'H' -> 32
+                    'T' -> 33
+                    else -> throw ParseHaiException(s)
+                }
+                return newInstance(id)
+            }
+            val aka: Boolean
+            var id: Int =
+            when (s[0]) {
+                'm' -> 0
+                'p' -> 9
+                's' -> 18
+                else -> throw ParseHaiException(s)
+            }
+            val num: Char = if (s.length == 3 && s[1] == '+') {
+                aka = true
+                s[2]
+            } else if (s.length == 2) {
+                aka = false
+                s[1]
+            } else throw ParseHaiException(s)
+            id += num.toInt()
+            val result = newInstance(id)
+            result.aka = aka
+            return result
+        }
+
         fun newInstance(id: Int):Hai {
             when (id) {
                 27 -> return Hai(HaiType.E)

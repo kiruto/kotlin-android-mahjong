@@ -14,8 +14,8 @@ import java.util.*
  * 役の判定は別のクラスで行うがここから呼び出します
  */
 class Agari(private var hands: Hands? = null,
-            private val generalSituation: RoundContext? = null,
-            private val personalSituation: PlayerContext? = null) {
+            private val roundContext: RoundContext? = null,
+            private val playerContext: PlayerContext? = null) {
 
     //付いた役満リスト
     private var yakumanList: MutableList<Yaku> = ArrayList(1)
@@ -24,7 +24,7 @@ class Agari(private var hands: Hands? = null,
     private var normalYakuList: MutableList<Yaku> = ArrayList(0)
 
     //その時の面子の組
-    private var comp: MentsuSupport? = null
+    private var support: MentsuSupport? = null
 
     // 翻
     var han = 0
@@ -56,11 +56,11 @@ class Agari(private var hands: Hands? = null,
 
         //役満を探し見つかれば通常役は調べずに終了
         if (findYakuman()) {
-            if (personalSituation == null) {
+            if (playerContext == null) {
                 score = SCORE0
                 return
             }
-            score = Score.calculateYakumanScore(personalSituation.isParent(), yakumanList.size)
+            score = Score.calculateYakumanScore(playerContext.isParent(), yakumanList.size)
             return
         }
 
@@ -76,12 +76,12 @@ class Agari(private var hands: Hands? = null,
 
         //それぞれの面子の完成形で判定する
         for (comp in hands!!.getMentsuCompSet()) {
-            //val yakumanResolverSet = Mahjong4jYakuConfig.getYakumanResolverSet(comp, generalSituation, personalSituation)
+            //val yakumanResolverSet = Mahjong4jYakuConfig.getYakumanResolverSet(support, roundContext, playerContext)
 
             for ((name, yaku) in yakuMan) {
                 if (yaku is MatchableYaku && yaku.isMatch(comp)) {
                     yakumanStock.add(yaku)
-                } else if (yaku is ContextYaku && yaku.isMatch(generalSituation, personalSituation, comp)) {
+                } else if (yaku is ContextYaku && yaku.isMatch(roundContext, playerContext, comp)) {
                     yakumanStock.add(yaku)
                 }
             }
@@ -89,7 +89,7 @@ class Agari(private var hands: Hands? = null,
             //ストックと保存する役満リストと比較し大きい方を保存する
             if (yakumanList.size < yakumanStock.size) {
                 yakumanList = yakumanStock
-                this.comp = comp
+                this.support = comp
             }
         }
 
@@ -101,11 +101,11 @@ class Agari(private var hands: Hands? = null,
         for (comp in hands!!.getMentsuCompSet()) {
             //役をストックしておく
             val yakuStock = ArrayList<Yaku>(7)
-            //val resolverSet = Mahjong4jYakuConfig.getNormalYakuResolverSet(comp, generalSituation, personalSituation)
+            //val resolverSet = Mahjong4jYakuConfig.getNormalYakuResolverSet(support, roundContext, playerContext)
             for ((name, yaku) in normalYaku) {
                 if (yaku is MatchableYaku && yaku.isMatch(comp)) {
                     yakuStock.add(yaku)
-                } else if (yaku is ContextYaku && yaku.isMatch(generalSituation, personalSituation, comp)) {
+                } else if (yaku is ContextYaku && yaku.isMatch(roundContext, playerContext, comp)) {
                     yakuStock.add(yaku)
                 }
             }
@@ -114,22 +114,22 @@ class Agari(private var hands: Hands? = null,
             if (hanSum > this.han) {
                 han = hanSum
                 normalYakuList = yakuStock
-                this.comp = comp
+                this.support = comp
             }
         }
 
         if (han > 0) {
-            calcDora(hands!!.handsComp, generalSituation, normalYakuList.contains(リーチ))
+            calcDora(hands!!.handsComp, roundContext, normalYakuList.contains(リーチ))
         }
         calcScore()
     }
 
     private fun calcScore() {
-        fu = calcFu(comp)
-        if (personalSituation == null) {
+        fu = calcFu(support)
+        if (playerContext == null) {
             return
         }
-        score = Score.calculateScore(personalSituation.isParent(), han, fu)
+        score = Score.calculateScore(playerContext.isParent(), han, fu)
     }
 
     /**
@@ -141,7 +141,7 @@ class Agari(private var hands: Hands? = null,
         if (normalYakuList.size == 0) {
             return 0
         }
-        if (personalSituation == null || generalSituation == null) {
+        if (playerContext == null || roundContext == null) {
             return 20
         }
         // 特例の平和ツモと七対子の符
@@ -174,12 +174,12 @@ class Agari(private var hands: Hands? = null,
      * @return
      */
     private fun calcFuByJanto(): Int {
-        val jantoTile = comp!!.janto?.getHai()
+        val jantoTile = support!!.janto?.getHai()
         var tmp = 0
-        if (jantoTile == generalSituation!!.getBakaze()) {
+        if (jantoTile == roundContext!!.getBakaze()) {
             tmp += 2
         }
-        if (jantoTile == personalSituation!!.getJikaze()) {
+        if (jantoTile == playerContext!!.getJikaze()) {
             tmp += 2
         }
         if (isSanGen(jantoTile)) {
@@ -190,7 +190,7 @@ class Agari(private var hands: Hands? = null,
 
     private fun calcFuByAgari(): Int {
         // ツモ
-        if (personalSituation!!.isTsumo()) {
+        if (playerContext!!.isTsumo()) {
             return 2
         }
         // 門前ロン

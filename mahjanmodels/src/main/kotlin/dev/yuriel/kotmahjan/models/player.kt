@@ -14,8 +14,8 @@ const val ROLE_N = 1 shl 6
 
 open class Player(args: Map<String, Any>) {
     val tehai: Tehai by lazy { Tehai() }
-    val furo: Furo by lazy { Furo() }
     val kawa: Kawa by lazy { Kawa() }
+    val mentsu: MutableList<Mentsu> by lazy { mutableListOf<Mentsu>() }
 
     var tsumo: Hai? = null
 
@@ -24,7 +24,6 @@ open class Player(args: Map<String, Any>) {
 
     fun resetHai() {
         tehai.clear()
-        furo.clear()
         kawa.clear()
         tsumo = null
     }

@@ -73,20 +73,6 @@ class Tehai: Comparator<Hai> {
     }
 }
 
-class HaiGroup(val hai: List<Hai>, val isFuro: Boolean = false, val isAnkan: Boolean = false) {
-    constructor(vararg hai: Hai): this(hai.toList())
-
-    fun isShun(): Boolean = hai.isShun()
-
-    fun isKo(): Boolean = hai.isKo()
-
-    fun isKan(): Boolean = hai.isKan()
-
-    fun isDoi(): Boolean = hai.isDoi()
-
-    fun isGroup(): Boolean = hai.isGroup()
-}
-
 abstract class Mentsu {
     /**
      * どの牌で面子となっているか
@@ -131,9 +117,7 @@ class Kantsu(override var identifierTile: Hai?): Mentsu() {
     /**
      * 槓子が完成していることを前提にしているため
      * 槓子であるかのチェックは伴いません。
-
      * @param isOpen         暗槓の場合false, 明槓の場合はtrueを入れて下さい
-     * *
      * @param identifierTile どの牌の槓子なのか
      */
     constructor(isOpen: Boolean, identifierTile: Hai): this(identifierTile) {
@@ -144,15 +128,10 @@ class Kantsu(override var identifierTile: Hai?): Mentsu() {
     /**
      * 槓子であるかのチェックも伴います
      * すべての牌(t1~4)が同じ場合にisMentsuがtrueになります
-
      * @param isOpen 暗槓の場合false, 明槓の場合はtrueを入れて下さい
-     * *
      * @param tile1  1枚目
-     * *
      * @param tile2  2枚目
-     * *
      * @param tile3  3枚目
-     * *
      * @param tile4  4枚目
      */
     constructor(isOpen: Boolean, tile1: Hai, tile2: Hai, tile3: Hai, tile4: Hai): this(tile1) {
@@ -195,15 +174,10 @@ class Kantsu(override var identifierTile: Hai?): Mentsu() {
 
         /**
          * t1~4が同一の牌かを調べます
-
          * @param tile1 1枚目
-         * *
          * @param tile2 2枚目
-         * *
          * @param tile3 3枚目
-         * *
          * @param tile4 4枚目
-         * *
          * @return 槓子の場合true 槓子でない場合false
          */
         fun check(tile1: Hai, tile2: Hai, tile3: Hai, tile4: Hai): Boolean {
@@ -220,9 +194,7 @@ class Kotsu(override var identifierTile: Hai?) : Mentsu() {
 
     /**
      * 刻子であることがわかっている場合に利用します
-
      * @param isOpen         暗刻ならばfalse 明刻ならばtrue
-     * *
      * @param identifierTile どの牌の刻子なのか
      */
     constructor(isOpen: Boolean, identifierTile: Hai?): this(identifierTile) {
@@ -233,13 +205,9 @@ class Kotsu(override var identifierTile: Hai?) : Mentsu() {
     /**
      * 刻子であるかのチェックも伴います
      * すべての牌(t1~3)が同じ場合にisMentsuがtrueになります
-
      * @param isOpen 暗刻の場合false, 明刻の場合はtrueを入れて下さい
-     * *
      * @param tile1  1枚目
-     * *
      * @param tile2  2枚目
-     * *
      * @param tile3  3枚目
      */
     constructor(isOpen: Boolean, tile1: Hai, tile2: Hai, tile3: Hai): this(tile1) {
@@ -283,13 +251,9 @@ class Kotsu(override var identifierTile: Hai?) : Mentsu() {
 
         /**
          * 刻子であるかの判定を行ないます
-
          * @param tile1 1枚目
-         * *
          * @param tile2 2枚目
-         * *
          * @param tile3 3枚目
-         * *
          * @return 刻子であればtrue 刻子でなければfalse
          */
         fun check(tile1: Hai, tile2: Hai, tile3: Hai): Boolean {
@@ -306,9 +270,7 @@ class Shuntsu(override var identifierTile: Hai?) : Mentsu() {
 
     /**
      * 順子であることがわかっている場合に利用します
-
      * @param isOpen         明順子ならばtrue 暗順子ならばfalse
-     * *
      * @param identifierTile 順子の組の二番目
      */
     @Throws(IllegalShuntsuIdentifierException::class)
@@ -320,13 +282,9 @@ class Shuntsu(override var identifierTile: Hai?) : Mentsu() {
 
     /**
      * 順子であるかの判定も伴います
-
      * @param isOpen 明順子ならばtrue 暗順子ならばfalseを入力して下さい
-     * *
      * @param tile1  1枚目
-     * *
      * @param tile2  2枚目
-     * *
      * @param tile3  3枚目
      */
     constructor(isOpen: Boolean, tile1: Hai, tile2: Hai, tile3: Hai): this(tile2) {
@@ -391,13 +349,9 @@ class Shuntsu(override var identifierTile: Hai?) : Mentsu() {
 
         /**
          * 順子かどうかの判定を行ないます
-
          * @param t1 1枚目
-         * *
          * @param t2 2枚目
-         * *
          * @param t3 3枚目
-         * *
          * @return 順子であればtrue 順子でなければfalse
          */
         fun check(t1: Hai, t2: Hai, t3: Hai): Boolean {
@@ -443,7 +397,6 @@ class Toitsu(override var identifierTile: Hai?) : Mentsu() {
 
     /**
      * 対子であることがわかっている場合に使います
-
      * @param identifierTile 対子の種類
      */
     init {
@@ -452,9 +405,7 @@ class Toitsu(override var identifierTile: Hai?) : Mentsu() {
 
     /**
      * 対子であるかのチェックを伴います
-
      * @param tile1 1枚目
-     * *
      * @param tile2 2枚目
      */
     constructor(tile1: Hai, tile2: Hai): this(tile1) {
@@ -486,9 +437,7 @@ class Toitsu(override var identifierTile: Hai?) : Mentsu() {
 
         /**
          * @param tile1 1枚目
-         * *
          * @param tile2 2枚目
-         * *
          * @return 2枚が一致すればtrue
          */
         fun check(tile1: Hai, tile2: Hai): Boolean {
@@ -497,9 +446,7 @@ class Toitsu(override var identifierTile: Hai?) : Mentsu() {
 
         /**
          * 対子になりうる牌をリストにして返す
-
          * @param tiles 手牌
-         * *
          * @return 雀頭候補の対子リスト
          */
         @Throws(MahjongTileOverFlowException::class)
@@ -515,23 +462,5 @@ class Toitsu(override var identifierTile: Hai?) : Mentsu() {
             }
             return result
         }
-    }
-}
-
-
-/**
- * 副露
- */
-class Furo {
-    val group: MutableList<HaiGroup> by lazy {
-        ArrayList<HaiGroup>()
-    }
-
-    fun add(group: HaiGroup) {
-        this.group.add(group)
-    }
-
-    fun clear() {
-        group.clear()
     }
 }

@@ -125,7 +125,7 @@ interface PlayerContext {
     //fun getPlayer(): Player
     fun isChankan(): Boolean
 
-    fun  isRich(): Boolean
+    fun isRich(): Boolean
 
     fun isDoubleRich(): Boolean
 
@@ -133,9 +133,9 @@ interface PlayerContext {
 
     fun getJikaze(): Hai
 
-    fun  isRinshankaihoh(): Boolean
+    fun isRinshankaihoh(): Boolean
 
-    fun  isIppatsu(): Boolean
+    fun isIppatsu(): Boolean
 
     fun isParent(): Boolean
 

@@ -10,9 +10,7 @@ import java.util.*
 class MentsuSupport
 /**
  * @param mentsuList 上がりとなった面子のリスト
- * *
  * @param last
- * *
  * @throws IllegalMentsuSizeException 和了れる形になっていなければthrow
  */
 @Throws(IllegalMentsuSizeException::class)
@@ -39,7 +37,6 @@ constructor(mentsuList: List<Mentsu>, val last: Hai?) {
 
     /**
      * どの面子が入っても対応可能なセッター
-
      * @param mentsu 入力したい面子
      */
     private fun setMentsu(mentsu: Mentsu) {
@@ -56,7 +53,6 @@ constructor(mentsuList: List<Mentsu>, val last: Hai?) {
 
     /**
      * 七対子の場合はnullを返します
-
      * @return 雀頭を返します
      */
     val janto: Toitsu?
@@ -74,7 +70,6 @@ constructor(mentsuList: List<Mentsu>, val last: Hai?) {
     /**
      * 対子の数を返します
      * 1もしくは7以外を返すことはありません
-
      * @return 通常の型の場合1 七対子の型の場合7
      */
     val toitsuCount: Int
@@ -87,7 +82,6 @@ constructor(mentsuList: List<Mentsu>, val last: Hai?) {
     /**
      * 順子の数を返します
      * 0~4のどれかです
-
      * @return 順子の数
      */
     val shuntsuCount: Int
@@ -101,7 +95,6 @@ constructor(mentsuList: List<Mentsu>, val last: Hai?) {
      * 刻子でも槓子でも役の判定に影響しない場合に利用します
      * 刻子と槓子をまとめて返します。
      * TODO:good name
-
      * @return 刻子と槓子をまとめたリスト
      */
     val kotsuKantsu: List<Kotsu>
@@ -116,7 +109,6 @@ constructor(mentsuList: List<Mentsu>, val last: Hai?) {
     /**
      * 刻子の数を返します
      * 0~4のどれかです
-
      * @return 刻子の数
      */
     val kotsuCount: Int
@@ -129,7 +121,6 @@ constructor(mentsuList: List<Mentsu>, val last: Hai?) {
     /**
      * 槓子の数を返します
      * 0~4のどれかです
-
      * @return 槓子の数
      */
     val kantsuCount: Int
@@ -137,7 +128,6 @@ constructor(mentsuList: List<Mentsu>, val last: Hai?) {
 
     /**
      * 対子も含めて全ての面子をリストにして返します
-
      * @return 構成する全ての面子のリスト
      */
     val allMentsu: List<Mentsu>
@@ -214,9 +204,7 @@ constructor(mentsuList: List<Mentsu>, val last: Hai?) {
     /**
      * 各面子のリストの順番は関係ないので、
      * 面子の順番が違っていてもtrueになります
-
      * @param o
-     * *
      * @return
      */
     override fun equals(o: Any?): Boolean {

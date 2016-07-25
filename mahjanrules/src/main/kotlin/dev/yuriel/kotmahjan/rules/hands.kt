@@ -151,7 +151,7 @@ class Hands {
         // 国士無双型の判定
         initStock()
 
-        if (国士無双.getMatch(handStocks)) {
+        if (国士無双.isMatch(null, null, null, handStocks)) {
             isKokushimuso = true
             canWin = true
             return
