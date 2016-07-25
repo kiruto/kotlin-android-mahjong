@@ -45,6 +45,10 @@ interface RoundContext {
 
     fun isFirstLoop(): Boolean
 
+    fun getDora(): List<Hai>
+
+    fun getUradora(): List<Hai>
+
 }
 
 interface RoundContextV1: RoundContext {

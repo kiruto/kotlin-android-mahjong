@@ -1,5 +1,9 @@
 package dev.yuriel.kotmahjan.rules.yaku.yakuimpl
 
+import dev.yuriel.kotmahjan.models.PlayerContext
+import dev.yuriel.kotmahjan.models.RoundContext
+import dev.yuriel.kotmahjan.rules.MentsuSupport
+
 /**
  * Created by yuriel on 7/23/16.
  */
@@ -10,7 +14,7 @@ private val 国士無双Kata = intArrayOf(
         1, 1, 1, 1,
         1, 1, 1
 )
-fun 国士無双Impl(hai: IntArray): Boolean {
+fun 国士無双Impl(r: RoundContext?, p: PlayerContext?, s: MentsuSupport?, hai: IntArray): Boolean {
     //国士の形一個ずつ減らす
     var count = 0
     for (i in hai.indices) {
