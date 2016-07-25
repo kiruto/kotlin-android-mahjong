@@ -1,5 +1,6 @@
 # kotlin-android-mahjong
 趣味で作ったスマホ麻雀ゲームです。いつの日か知り合いと共にAIを気軽に戦うのなら幸いです。
+
 Feature:
 * Japanese Mahjong rules
 * AI
