@@ -79,6 +79,7 @@ fun isFonPai(hai: Hai?): Boolean = isFonPai(hai?.type)
 class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL): Comparable<Hai> {
 
     val id: Int by lazy { genId() }
+    val idFZ: Int by lazy { id - 1 }
     constructor(type: String, num: Int = -1): this(HaiType.valueOf(type), num)
 
     var aka = false
@@ -128,13 +129,13 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
         //(Math.log((if (-1 != num) 0x3f8040201L and type.id else type.id).toDouble()) / Math.log(2.0)).toInt()
         var rank = 9
         when(type) {
-            HaiType.E -> return 27
-            HaiType.S -> return 28
-            HaiType.W -> return 29
-            HaiType.N -> return 30
-            HaiType.D -> return 31
-            HaiType.H -> return 32
-            HaiType.T -> return 33
+            HaiType.E -> return 28
+            HaiType.S -> return 29
+            HaiType.W -> return 30
+            HaiType.N -> return 31
+            HaiType.D -> return 32
+            HaiType.H -> return 33
+            HaiType.T -> return 34
             HaiType.MZ -> rank *= 0
             HaiType.PZ -> rank *= 1
             HaiType.SZ -> rank *= 2
@@ -145,7 +146,13 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
     override fun compareTo(other: Hai): Int = num - other.num
 
     override fun toString(): String {
-        return type.name + (if (aka) "+" else "") + if (0 > num && 10 < num) "" else num
+        val type = when(type) {
+            HaiType.MZ -> "m"
+            HaiType.PZ -> "p"
+            HaiType.SZ -> "s"
+            else -> return type.name
+        }
+        return type + (if (aka) "+" else "") + if (0 > num && 10 < num) "" else num
     }
 
     companion object factory {
@@ -154,13 +161,13 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
         fun parse(s: String): Hai {
             if (s.length == 1) {
                 val id: Int = when (s[0]) {
-                    'E' -> 27
-                    'S' -> 28
-                    'W' -> 29
-                    'N' -> 30
-                    'D' -> 31
-                    'H' -> 32
-                    'T' -> 33
+                    'E' -> 28
+                    'S' -> 29
+                    'W' -> 30
+                    'N' -> 31
+                    'D' -> 32
+                    'H' -> 33
+                    'T' -> 34
                     else -> throw ParseHaiException(s)
                 }
                 return newInstance(id)
@@ -180,7 +187,7 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
                 aka = false
                 s[1]
             } else throw ParseHaiException(s)
-            id += num.toInt()
+            id += Character.getNumericValue(num)
             val result = newInstance(id)
             result.aka = aka
             return result
@@ -188,22 +195,22 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
 
         fun newInstance(id: Int):Hai {
             when (id) {
-                27 -> return Hai(HaiType.E)
-                28 -> return Hai(HaiType.S)
-                29 -> return Hai(HaiType.W)
-                30 -> return Hai(HaiType.N)
-                31 -> return Hai(HaiType.D)
-                32 -> return Hai(HaiType.H)
-                33 -> return Hai(HaiType.T)
+                28 -> return Hai(HaiType.E)
+                29 -> return Hai(HaiType.S)
+                30 -> return Hai(HaiType.W)
+                31 -> return Hai(HaiType.N)
+                32 -> return Hai(HaiType.D)
+                33 -> return Hai(HaiType.H)
+                34 -> return Hai(HaiType.T)
             }
-            if (0 <= id && 9 > id) {
+            if (1 <= id && 10 > id) {
                 return Hai(HaiType.MZ, id)
-            } else if (9 <= id && 18 > id) {
+            } else if (10 <= id && 19 > id) {
                 return Hai(HaiType.PZ, id - 9)
-            } else if (18 <= id && 27 > id) {
+            } else if (19 <= id && 28 > id) {
                 return Hai(HaiType.SZ, id - 18)
             } else {
-                throw RuntimeException()
+                throw NoSuchTileException(id)
             }
         }
     }

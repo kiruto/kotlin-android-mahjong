@@ -1,29 +1,42 @@
 package dev.yuriel.kotmahjan.ctrl.analysis
 
 import dev.yuriel.kotmahjan.models.Hai
+import dev.yuriel.kotmahjan.models.Mentsu
 
 /**
  * Created by yuriel on 7/25/16.
  */
-object HaiUtil {
+fun isYaochuhai(id: Int): Boolean {
+    val haiId = id - 1
+    return haiId == 0 || haiId == 8 ||
+            haiId == 9 || haiId == 17 ||
+            haiId == 18 || haiId == 26 ||
+            27 <= haiId && haiId < 34
+}
 
-    fun isYaochuhai(id: Int): Boolean {
-        val haiId = id - 1
-        return haiId == 0 || haiId == 8 ||
-                haiId == 9 || haiId == 17 ||
-                haiId == 18 || haiId == 26 ||
-                27 <= haiId && haiId < 34
+fun isSangenpai(id: Int): Boolean {
+    return 32 <= id && id < 35
+}
+
+fun haiListToCountVector(haiList: List<Hai>): IntArray {
+    val countVector = IntArray(NUM_HAI_ID)
+    for (hai in haiList) {
+        countVector[hai.idFZ]++
     }
+    return countVector
+}
 
-    fun isSangenpai(id: Int): Boolean {
-        return 32 <= id && id < 35
-    }
-
-    fun haiListToCountVector(haiList: List<Hai>): IntArray {
-        val countVector = IntArray(NUM_HAI_ID)
-        for (hai in haiList) {
-            countVector[hai.id - 1]++
+fun getDistance(currentVector: IntArray, targetVector: IntArray): Int {
+    var count = 0
+    for (haiId in 0..NUM_HAI_ID - 1) {
+        if (targetVector[haiId] > currentVector[haiId]) {
+            count += targetVector[haiId] - currentVector[haiId]
         }
-        return countVector
     }
+    return count
+}
+
+fun calculateShantensu(tehais: List<Hai>, furos: List<Mentsu>): Int {
+    val currentVector = haiListToCountVector(tehais)
+    return ShantensuCalculatorInternal(currentVector, furos.size).calculateShantensu()
 }
