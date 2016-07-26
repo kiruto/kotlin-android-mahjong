@@ -8,14 +8,14 @@ private val MAX_SHANTENSU = 8
 val NUM_HAI_ID = 34
 val NUM_MENTSU_ID = 55
 
-class ShantensuCalculatorInternal private constructor(private val currentVector: IntArray, private val numFuros: Int) {
+class ShantensuCalculatorInternal constructor(private val currentVector: IntArray, private val numFuros: Int) {
     private var minShantensu: Int = 0
 
     init {
         this.minShantensu = MAX_SHANTENSU
     }
 
-    private fun calculateShantensu(): Int {
+    fun calculateShantensu(): Int {
         tryChitoitsu()
         tryNormalHora()
         return minShantensu
@@ -87,14 +87,4 @@ class ShantensuCalculatorInternal private constructor(private val currentVector:
         }
         return true
     }
-}
-
-private fun getDistance(currentVector: IntArray, targetVector: IntArray): Int {
-    var count = 0
-    for (haiId in 0..NUM_HAI_ID - 1) {
-        if (targetVector[haiId] > currentVector[haiId]) {
-            count += targetVector[haiId] - currentVector[haiId]
-        }
-    }
-    return count
 }
