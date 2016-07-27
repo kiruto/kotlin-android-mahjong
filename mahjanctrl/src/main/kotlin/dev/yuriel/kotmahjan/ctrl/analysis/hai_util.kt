@@ -6,8 +6,8 @@ import dev.yuriel.kotmahjan.models.Mentsu
 /**
  * Created by yuriel on 7/25/16.
  */
-fun isYaochuhai(id: Int): Boolean {
-    val haiId = id - 1
+fun isYaochuhai(haiId: Int): Boolean {
+    //val haiId = id - 1
     return haiId == 0 || haiId == 8 ||
             haiId == 9 || haiId == 17 ||
             haiId == 18 || haiId == 26 ||
@@ -15,7 +15,7 @@ fun isYaochuhai(id: Int): Boolean {
 }
 
 fun isSangenpai(id: Int): Boolean {
-    return 32 <= id && id < 35
+    return 31 <= id && id < 34
 }
 
 fun haiListToCountVector(haiList: List<Hai>): IntArray {

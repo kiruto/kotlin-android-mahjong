@@ -10,7 +10,7 @@ class HaiTest {
     fun initStringArray() {
         haiStrings.clear()
         for (i in 0..2) {
-            var s: String =
+            val s: String =
             when(i) {
                 0 -> "m"
                 1 -> "p"

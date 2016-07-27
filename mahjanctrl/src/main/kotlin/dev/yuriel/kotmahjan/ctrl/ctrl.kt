@@ -1,5 +1,6 @@
 package dev.yuriel.kotmahjan.ctrl
 
+//import dev.yuriel.kotmahjan.models.CouldNotKanException
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.HaiType
 
@@ -11,7 +12,9 @@ object HaiUtil {
 
     fun getAllHai(): MutableList<Hai> {
         val result = mutableListOf<Hai>()
+//        var i = 0
         for (type in HaiType.values()) {
+//            println("${type.id}, ${type.name}, ${type.ordinal}, ${i++}")
             result.addAll(getAllHaiByType(type))
         }
         return result
@@ -36,7 +39,8 @@ object HaiUtil {
     }
 
     private fun getAllHaiByType(type: HaiType): List<Hai> {
-        return if (type.ordinal < 4) {
+//        println(type.ordinal)
+        return if (type.ordinal < 3) {
             Array(4 * 9, { i -> Hai(type, i / 4 + 1) }).toList()
         } else {
             Array(4, { i -> Hai(type, -1)}).toList()
@@ -46,9 +50,9 @@ object HaiUtil {
 
 class HaiMgr(private val u: HaiUtil = HaiUtil) {
 
-    private val haiList: MutableList<Hai> by lazy {u.getAllHaiRand()}
-    private val haiSan: MutableList<Hai> = haiList.subList(0, haiList.lastIndex - 15)
-    private val ouHai: MutableList<Hai> = haiList.subList(haiList.lastIndex - 14, haiList.lastIndex)
+    private val haiList: MutableList<Hai> = u.getAllHaiRand()
+    private val haiSan: MutableList<Hai> = mutableListOf()
+    private val ouHai: MutableList<Hai> = mutableListOf()
     private val dora: MutableList<Hai> = mutableListOf()
     private val doraUra: MutableList<Hai> = mutableListOf()
 
@@ -56,6 +60,8 @@ class HaiMgr(private val u: HaiUtil = HaiUtil) {
     private val preDoraUra: Array<Hai>
 
     init {
+        haiSan.addAll(haiList.subList(0, haiList.lastIndex - 13))
+        ouHai.addAll(haiList.subList(haiList.lastIndex - 14, haiList.lastIndex + 1))
         preDora = Array(5) { i -> ouHai[8 - i * 2] }
         preDoraUra = Array(5) { i -> ouHai[9 - i * 2] }
         dora.add(preDora[0])
@@ -81,14 +87,18 @@ class HaiMgr(private val u: HaiUtil = HaiUtil) {
 
     fun hasHai(): Boolean = !haiSan.isEmpty()
 
+//    @Throws(CouldNotKanException::class)
     fun kan(): Hai {
+//        if (!couldKan()) {
+//            throw CouldNotKanException()
+//        }
         val keyHai = haiSan.last()
         val result = ouHai.last()
         haiSan.removeAt(haiSan.lastIndex)
         ouHai.add(0, keyHai)
         ouHai.removeAt(ouHai.lastIndex)
         dora.add(preDora[dora.size])
-        doraUra.add(preDoraUra[preDoraUra.size])
+        doraUra.add(preDoraUra[doraUra.size])
         return result
     }
 
