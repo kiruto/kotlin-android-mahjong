@@ -33,11 +33,19 @@ class Tehai: Comparator<Hai> {
         ArrayList<Hai>()
     }
 
+    fun put(hai: Hai) {
+        haiList.add(hai)
+    }
+
+    fun put(list: Collection<Hai>) {
+        haiList.addAll(list)
+    }
+
     fun clear() {
         haiList.clear()
     }
 
-    fun enouph(): Boolean {
+    fun enough(): Boolean {
         return haiList.size > 12
     }
 
@@ -49,7 +57,7 @@ class Tehai: Comparator<Hai> {
             for (t: HaiType in HaiType.values()) {
                 if (hai.type == t) {
                     resultArray[t.ordinal].add(hai)
-                    continue;
+                    continue
                 }
             }
         }
@@ -68,8 +76,16 @@ class Tehai: Comparator<Hai> {
         return result
     }
 
+    override fun toString(): String {
+        var result = ""
+        for (h in haiList) {
+            result += h.toString() + ","
+        }
+        return result.substring(0, result.length - 1)
+    }
+
     override fun compare(hai1: Hai, hai2: Hai): Int {
-        return hai2.num - hai1.num
+        return hai1.num - hai2.num
     }
 }
 

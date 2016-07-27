@@ -1,7 +1,5 @@
 package dev.yuriel.kotmahjan.models
 
-import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmahjan.models.Mentsu
 
 /**
  * Created by yuriel on 7/23/16.
@@ -14,6 +12,7 @@ open class MahjanException(message: String) : Exception(message) {
 }
 
 class HandsOverFlowException : MahjanException("多牌です")
+class CouldNotKanException : MahjanException("もうカンはできません。")
 
 /**
  * 面子の組が和了の形になっていない場合に投げられます
