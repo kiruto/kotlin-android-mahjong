@@ -39,7 +39,6 @@ class HaiMgrTest {
             assert(num == 3 * 4 * 9 + 7 * 4 - 14 - kan) {
                 "num is $num, should be ${3 * 4 * 9 + 7 * 4 - 14 - kan}"
             }
-
         }
     }
 }
