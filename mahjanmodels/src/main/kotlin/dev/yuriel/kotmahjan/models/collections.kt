@@ -67,11 +67,17 @@ class Tehai: Comparator<Hai> {
         }
     }
 
-    fun toTypeArray(removeFuro:Boolean = true): Array<Int> {
-        val result = Array(34) { i -> 0 }
+    /**
+     * [0,0,0,0,0,0,0,0,0,  MZ
+     *  0,0,0,0,0,0,0,0,0,  PZ
+     *  0,0,0,0,0,0,0,0,0,  SZ
+     *  0,0,0,0,0,0,0]      TSUHAI
+     */
+    fun toTypedArray(removeFuro:Boolean = true): IntArray {
+        val result = IntArray(34) { i -> 0 }
         for (hai in haiList) {
             if (removeFuro && hai.hasStatus(STATUS_FURO)) continue
-            result[hai.id]++
+            result[hai.id - 1]++
         }
         return result
     }

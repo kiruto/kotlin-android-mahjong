@@ -12,7 +12,6 @@ open class MahjanException(message: String) : Exception(message) {
 }
 
 class HandsOverFlowException : MahjanException("多牌です")
-class CouldNotKanException : MahjanException("もうカンはできません。")
 
 /**
  * 面子の組が和了の形になっていない場合に投げられます
@@ -48,7 +47,7 @@ class MahjongTileOverFlowException(//Tile.code
 }
 
 class NoSuchTileException(private val id: Int): MahjanException("牌は見つかりません") {
-    override val advice: String = "id($id)は 0 から 33 までの数字でなければなりません"
+    override val advice: String = "id($id)は 1 から 34 までの数字でなければなりません"
 }
 
 class ParseHaiException(private val string: String): MahjanException("牌は見つかりません") {

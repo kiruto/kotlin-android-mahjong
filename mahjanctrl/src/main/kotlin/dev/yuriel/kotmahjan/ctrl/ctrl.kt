@@ -1,8 +1,8 @@
 package dev.yuriel.kotmahjan.ctrl
 
-//import dev.yuriel.kotmahjan.models.CouldNotKanException
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.HaiType
+import dev.yuriel.kotmahjan.models.MahjanException
 
 /**
  * Created by yuriel on 7/17/16.
@@ -48,7 +48,7 @@ object HaiUtil {
     }
 }
 
-class HaiMgr(private val u: HaiUtil = HaiUtil) {
+class HaiMgr(u: HaiUtil = HaiUtil) {
 
     private val haiList: MutableList<Hai> = u.getAllHaiRand()
     private val haiSan: MutableList<Hai> = mutableListOf()
@@ -87,11 +87,11 @@ class HaiMgr(private val u: HaiUtil = HaiUtil) {
 
     fun hasHai(): Boolean = !haiSan.isEmpty()
 
-//    @Throws(CouldNotKanException::class)
+    @Throws(MahjanException::class)
     fun kan(): Hai {
-//        if (!couldKan()) {
-//            throw CouldNotKanException()
-//        }
+        if (!couldKan()) {
+            throw MahjanException("もうカンはできません。")
+        }
         val keyHai = haiSan.last()
         val result = ouHai.last()
         haiSan.removeAt(haiSan.lastIndex)
