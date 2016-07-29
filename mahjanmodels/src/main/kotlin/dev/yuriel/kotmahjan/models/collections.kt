@@ -29,6 +29,22 @@ class Kawa {
 }
 
 class Tehai: Comparator<Hai> {
+
+    companion object {
+        fun fromString(string: String): Tehai {
+            val list: MutableList<Hai> = mutableListOf()
+            if (!string.isEmpty()) {
+                val haiStrings = string.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                for (haiString in haiStrings) {
+                    list.add(Hai.parse(haiString))
+                }
+            }
+            val result = Tehai()
+            result.put(list)
+            return result
+        }
+    }
+
     val haiList: MutableList<Hai> by lazy {
         ArrayList<Hai>()
     }
@@ -310,30 +326,30 @@ class Shuntsu(override var identifierTile: Hai?) : Mentsu() {
      * @param tile3  3枚目
      */
     constructor(isOpen: Boolean, tile1: Hai, tile2: Hai, tile3: Hai): this(tile2) {
-        var tile1 = tile1
-        var tile2 = tile2
-        var tile3 = tile3
+        var t1 = tile1
+        var t2 = tile2
+        var t3 = tile3
         this.isOpen = isOpen
 
         // TODO: 共通化
         //ソートする
         var s: Hai
-        if (tile1.num > tile2.num) {
-            s = tile1
-            tile1 = tile2
-            tile2 = s
+        if (t1.num > t2.num) {
+            s = t1
+            t1 = t2
+            t2 = s
         }
-        if (tile1.num > tile3.num) {
-            s = tile1
-            tile1 = tile3
-            tile3 = s
+        if (t1.num > t3.num) {
+            s = t1
+            t1 = t3
+            t3 = s
         }
-        if (tile2.num > tile3.num) {
-            s = tile2
-            tile2 = tile3
-            tile3 = s
+        if (t2.num > t3.num) {
+            s = t2
+            t2 = t3
+            t3 = s
         }
-        this.isMentsu = check(tile1, tile2, tile3)
+        this.isMentsu = check(t1, t2, t3)
         if (!isMentsu) {
             identifierTile = null
         }

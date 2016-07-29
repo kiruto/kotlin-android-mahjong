@@ -1,13 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
 
     defaultConfig {
         minSdkVersion 18
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -33,6 +34,8 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    provided "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+
 }
 repositories {
     mavenCentral()

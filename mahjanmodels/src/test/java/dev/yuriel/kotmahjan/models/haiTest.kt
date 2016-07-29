@@ -35,6 +35,11 @@ class HaiTest {
     }
 
     @Test
+    fun testShantensu() {
+        val tehai = Tehai.fromString("m6,m8,p6,p7,p8,p8,p8,p9,s3,s8,s8,s9,N")
+    }
+
+    @Test
     fun testHaiFactory() {
         initStringArray()
         for (s in haiStrings) {
