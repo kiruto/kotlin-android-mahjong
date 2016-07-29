@@ -9,7 +9,14 @@ import org.junit.Test
  * Created by yuriel on 7/28/16.
  */
 class analysisTest {
-    //@Test
+
+    @Test
+    fun testShantensu() {
+        val tehai = Tehai.fromString("m6,m8,p6,p7,p8,p8,p8,p9,s3,s8,s8,s9,N")
+        println(calculateShantensu(tehai.haiList, listOf()))
+    }
+
+    @Test
     fun testDistance() {
         val mgr = HaiMgr()
         while (mgr.hasHai()) {
