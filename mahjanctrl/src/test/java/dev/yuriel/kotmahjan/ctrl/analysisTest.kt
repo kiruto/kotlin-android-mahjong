@@ -8,7 +8,7 @@ import org.junit.Test
 /**
  * Created by yuriel on 7/28/16.
  */
-class analysisTest {
+class AnalysisTest {
 
     @Test
     fun testShantensu() {
@@ -56,7 +56,7 @@ class analysisTest {
                 1, 1, 0, 1, 1, 1, 0, 1, 3,
                 0, 0, 0, 0, 0, 4, 3, 2, 2,
                 2, 1, 2, 0, 0, 4, 0)
-        val b = excludedoitsu(a)
+        val b = excludeDoitsu(a)
         val c = intArrayOf(
                 0, 0, 0, 1, 1, 2, 0, 1, 1,
                 1, 1, 0, 1, 1, 1, 0, 1, 0,
@@ -81,13 +81,13 @@ class analysisTest {
                 0, 0, 0, 0, 0, 0, 0, 0, 1,
                 0, 0, 0, 0, 0, 0, 0, 0, 1,
                 0, 1, 0, 0, 0, 0, 0)
-        for (i in 0..b.first.size - 1) {
-            print("${b.second[i]}, ")
+        for (i in 0..b.useless.size - 1) {
+            print("${b.keys[i]}, ")
         }
         println()
-        for (i in 0..b.first.size - 1) {
-            print("${b.first[i]}, ")
-            assert(b.first[i] == c [i])
+        for (i in 0..b.useless.size - 1) {
+            print("${b.useless[i]}, ")
+            assert(b.useless[i] == c [i])
         }
     }
 
@@ -105,13 +105,13 @@ class analysisTest {
                 0, 0, 0, 0, 0, 1, 0, 0, 0,
                 0, 1, 0, 0, 0, 1, 0
         )
-        for (i in 0..b.first.size - 1) {
-            print("${b.second[i]}, ")
+        for (i in 0..b.useless.size - 1) {
+            print("${b.keys[i]}, ")
         }
         println()
-        for (i in 0..b.first.size - 1) {
-            print("${b.first[i]}, ")
-            assert(b.first[i] == c [i])
+        for (i in 0..b.useless.size - 1) {
+            print("${b.useless[i]}, ")
+            assert(b.useless[i] == c [i])
         }
     }
 
@@ -130,32 +130,39 @@ class analysisTest {
 
             print("sute: ")
             val u = getUseless(tehai.toTypedArray(false))
-            for (i in 0..u.first.size - 1) {
+            for (i in 0..u.useless.size - 1) {
                 //print("${u.first[i]}, ")
-                if (0 == u.first[i]) continue
+                if (0 == u.useless[i]) continue
                 print("${Hai.newInstance(i + 1)},")
             }
             println()
-            print("want: ")
-            for (i in 0..u.second.size - 1) {
-                if (0 == u.second[i]) continue
-                print("${Hai.newInstance(i + 1)},")
+            println("want: ")
+            for (i in 0..u.keys.size - 1) {
+                if (0 == u.keys[i]) continue
+                print("   >${Hai.newInstance(i + 1)}, ")
+                print("Because: ")
+                for (b in u.map[i + 1]!!) {
+                    print("${Hai.newInstance(b)},")
+                }
+                println()
             }
             println()
 
             var resultId = 0
-            var efficiency = EfficiencyKey()
-            val list = mutableListOf<Pair<EfficiencyKey, Int>>()
-            for (i in 0..u.first.size - 1) {
-                if (u.first[i] < 1) continue
-                val e = efficiency(tehai.toTypedArray(false), i + 1)
-                list.add(Pair(e, i + 1))
-                if (e.efficiency > efficiency.efficiency) {
-                    efficiency = e
-                    resultId = i + 1
+            var efficiency = Efficiency2Key()
+            val list = mutableListOf<Pair<Efficiency2Key, Int>>()
+            if (u.useless.isNotEmpty()) {
+                for (i in 0..u.useless.size - 1) {
+                    if (u.useless[i] < 1) continue
+                    val e = efficiency(tehai.toTypedArray(false), i + 1)
+                    list.add(Pair(e, i + 1))
+                    if (e.efficiency > efficiency.efficiency) {
+                        efficiency = e
+                        resultId = i + 1
+                    }
                 }
+                println("da: ${Hai.newInstance(resultId)}")
             }
-            println("da: ${Hai.newInstance(resultId)}")
             for ((e, id) in list) {
                 println("hai: ${Hai.newInstance(id)}, efficiency: ${e.efficiency}")
                 for (h in e.keys) {
