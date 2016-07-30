@@ -20,11 +20,19 @@ class TestI {
         }
         ai.receive(mgr.getHai())
 
+        var loop = 0
         while (mgr.hasHai()) {
             //　スタート
-            ai.receive(mgr.getHai())
+
+            loop ++
+            prl("巡: $loop")
+            val hai = mgr.getHai()
+            println()
+            prl("配牌: $hai")
+            ai.receive(hai)
             val shanten = calculateShantensu(ai.getHai())
 
+            prl("手牌: ${ai.getHai()}")
             prl("向聴数: $shanten")
             if (shanten < 1) {
                 prl("ツモ")

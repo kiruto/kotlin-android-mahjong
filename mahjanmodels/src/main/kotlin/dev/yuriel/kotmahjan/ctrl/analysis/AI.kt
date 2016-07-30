@@ -10,6 +10,7 @@ abstract class AI {
     abstract fun store(haiList: List<Hai>)
     abstract fun clear()
     abstract fun getHai(): List<Hai>
+    abstract fun getHaiRaw(): String
     abstract fun da(haiList: List<Hai>, basis: List<Hai>): Hai
     abstract fun receive(hai: Hai)
     abstract fun remove(hai: Hai)

@@ -13,6 +13,7 @@ class I: AI() {
 
     override fun receive(hai: Hai) {
         tehai.put(hai)
+        tehai.sort()
     }
 
     override fun da(haiList: List<Hai>, basis: List<Hai>): Hai {
@@ -60,9 +61,9 @@ class I: AI() {
         tehai.clear()
     }
 
-    override fun getHai(): List<Hai> {
-        return tehai.haiList
-    }
+    override fun getHai(): List<Hai> = tehai.haiList
+
+    override fun getHaiRaw(): String = tehai.toString()
 
     private fun printResultByGen(u: Useless2Key2KeyMap, tehai: Tehai, hl: Boolean = false):
             Pair<Int, List<Pair<Efficiency2Key, Int>>> {
