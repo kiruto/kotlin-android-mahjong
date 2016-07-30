@@ -1,7 +1,7 @@
 package dev.yuriel.kotmahjan.ctrl.analysis
 
 import android.util.SparseArray
-import dev.yuriel.kotmahjan.models.MahjanException
+import dev.yuriel.kotmahjan.models.IllegalIntArrayException
 import dev.yuriel.kotmahjan.models.NoSuchTileException
 import java.util.*
 
@@ -15,10 +15,10 @@ import java.util.*
 /**
  * 牌の効率
  */
-@Throws(MahjanException::class, NoSuchTileException::class)
+@Throws(IllegalIntArrayException::class, NoSuchTileException::class)
 fun efficiency(tehai: IntArray, id: Int): Efficiency2Key {
     if (tehai.size != 34) {
-        throw MahjanException("手牌の形が違います。(size = ${tehai.size})")
+        throw IllegalIntArrayException(tehai.size)
     }
     if (id < 1 || id > 34) {
         throw NoSuchTileException(id)
@@ -85,10 +85,10 @@ fun distance(fromId: Int, toId: Int): Distance2Key {
     return Distance2Key(distance, k1, k2)
 }
 
-@Throws(MahjanException::class)
+@Throws(IllegalIntArrayException::class)
 fun excludeShuntsu(tehai: IntArray, antiOriented: Boolean = false): IntArray {
     if (tehai.size != 34) {
-        throw MahjanException("手牌の形が違います。(size = ${tehai.size})")
+        throw IllegalIntArrayException(tehai.size)
     }
     val result = tehai.clone()
     val range = if (antiOriented) (tehai.size - 3 - 7) downTo 0 else 0..tehai.size - 3 - 7
@@ -112,10 +112,10 @@ fun excludeShuntsu(tehai: IntArray, antiOriented: Boolean = false): IntArray {
     return result
 }
 
-@Throws(MahjanException::class)
-fun excludeDoitsu(tehai: IntArray): IntArray {
+@Throws(IllegalIntArrayException::class)
+fun excludeBy2Group(tehai: IntArray): IntArray {
     if (tehai.size != 34) {
-        throw MahjanException("手牌の形が違います。(size = ${tehai.size})")
+        throw IllegalIntArrayException(tehai.size)
     }
     val result = tehai.clone()
     loop@
@@ -129,10 +129,10 @@ fun excludeDoitsu(tehai: IntArray): IntArray {
     return result
 }
 
-@Throws(MahjanException::class)
+@Throws(IllegalIntArrayException::class)
 fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
     if (tehai.size != 34) {
-        throw MahjanException("手牌の形が違います。(size = ${tehai.size})")
+        throw IllegalIntArrayException(tehai.size)
     }
     //val map = SparseArray<MutableList<Int>>()
     val map = HashMap<Int, MutableList<Int>>()
@@ -141,10 +141,11 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
         if (this[id] == null) {
             put(id, mutableListOf(addId))
         } else {
-            this[id].add(addId)
+            this[id]!!.add(addId)
         }
     }
     */
+
     fun HashMap<Int, MutableList<Int>>.addTo(id: Int, addId: Int) {
         if (this[id] == null) {
             put(id, mutableListOf(addId))
@@ -152,6 +153,7 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
             this[id]!!.add(addId)
         }
     }
+
     fun IntArray.addKey(k1: Int, k2: Int, vararg fromId: Int) {
         if (0 < k1) {
             this[k1 - 1] += 1
@@ -206,19 +208,30 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
     return Useless2Key2KeyMap(useless, keyList, map)
 }
 
-@Throws(MahjanException::class)
+@Throws(IllegalIntArrayException::class)
 fun getUseless(tehai: IntArray): Useless2Key2KeyMap {
     if (tehai.size != 34) {
-        throw MahjanException("手牌の形が違います。(size = ${tehai.size})")
+        throw IllegalIntArrayException(tehai.size)
     }
-    val list1 = excludeDoitsu(excludeShuntsu(tehai))
-    val list2 = excludeDoitsu(excludeShuntsu(tehai, true))
+    val list1 = excludeBy2Group(excludeShuntsu(tehai))
+    val list2 = excludeBy2Group(excludeShuntsu(tehai, true))
     val merge = IntArray(34) { i -> 0 }
     for (i in 0..list1.size - 1) {
         val value = list1[i]
         if (list2[i] == value) merge[i] = value
     }
     return exclude2Correlation(merge)
+}
+
+@Throws(IllegalIntArrayException::class)
+fun breakTileGroup(data: Useless2Key2KeyMap) {
+    if (data.useless.size != 34) {
+        throw IllegalIntArrayException(data.useless.size)
+    }
+    if (data.keys.size != 34) {
+        throw IllegalIntArrayException(data.keys.size)
+    }
+
 }
 
 fun getEffectWith(id: Int): List<Int> {
@@ -270,6 +283,7 @@ private operator fun IntArray.plus(other: IntArray): IntArray {
 }
 
 /**
+ * @param distance 2つの牌の距離
  * @param key1 id
  * @param key2 id
  */
@@ -286,6 +300,15 @@ data class Efficiency2Key(val efficiency: Int = 0, val keys: Set<Int> = mutableS
  * @param keys また手に入れなくて欲しい牌
  * @param map キー牌ID：キー牌を判断する根拠
  */
-    data class Useless2Key2KeyMap(val useless: IntArray = IntArray(34),
+data class Useless2Key2KeyMap(val useless: IntArray = IntArray(34),
                               val keys: IntArray = IntArray(34),
-                              val map: HashMap<Int, MutableList<Int>> = HashMap())
+                              val map: HashMap<Int, MutableList<Int>> = HashMap()
+                              /*val map: SparseArray<MutableList<Int>> = SparseArray()*/) {
+    override fun hashCode(): Int {
+        return (0.3 * useless.hashCode() + 0.3 * keys.hashCode() + 0.4 * map.hashCode()).hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+    }
+}

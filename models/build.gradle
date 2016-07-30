@@ -24,12 +24,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile project(':core')
     provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    provided "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-
 }
 repositories {
     mavenCentral()

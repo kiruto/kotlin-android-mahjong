@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 18
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -26,8 +26,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile project(':core')
-    provided 'com.android.support:appcompat-v7:23.2.0'
-    provided 'com.android.support:recyclerview-v7:23.2.0'
+    provided 'com.android.support:appcompat-v7:24.1.1'
+    provided 'com.android.support:recyclerview-v7:24.1.1'
     provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 repositories {

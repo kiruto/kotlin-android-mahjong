@@ -57,3 +57,7 @@ class ParseHaiException(private val string: String): MahjanException("牌は見�
 class DoraCannotFoundException(private val hai: Hai): MahjanException("ドラが見つかりまえん") {
     override val advice: String = "Hai = " + hai
 }
+
+class IllegalIntArrayException(private val size: Int): MahjanException("手牌の形が違います") {
+    override val advice: String = "(size = $size)"
+}
