@@ -2,6 +2,8 @@ package dev.yuriel.kotmahjan.ctrl;
 
 import org.junit.Test;
 
+import java.lang.annotation.Target;
+
 import static org.junit.Assert.*;
 
 /**

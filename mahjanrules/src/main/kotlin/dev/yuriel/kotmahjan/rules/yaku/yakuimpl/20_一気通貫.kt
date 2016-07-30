@@ -7,7 +7,7 @@ import java.util.*
 
 /**
  * Created by yuriel on 7/24/16.
- * 一気通貫判定クラス
+ * 一気通貫判定
  * 同種の数牌で123・456・789と揃えると成立
  */
 fun 一気通貫Impl(s: MentsuSupport): Boolean {

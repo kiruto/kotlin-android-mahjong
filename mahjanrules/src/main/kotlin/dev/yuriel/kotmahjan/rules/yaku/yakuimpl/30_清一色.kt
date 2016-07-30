@@ -5,7 +5,7 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
  * Created by yuriel on 7/24/16.
- * 清一色判定クラス
+ * 清一色判定
  * 萬子、索子、筒子のどれか一種の牌だけで構成された場合成立
  */
 fun 清一色Impl(s: MentsuSupport): Boolean {

@@ -6,12 +6,31 @@ import java.util.*
  * Created by yuriel on 7/16/16.
  */
 
-class Yama(val haiList: MutableList<Hai>) {
+abstract class TileCollection {
+
+    abstract val haiList: MutableList<Hai>
+    /**
+     * [0,0,0,0,0,0,0,0,0,  MZ
+     *  0,0,0,0,0,0,0,0,0,  PZ
+     *  0,0,0,0,0,0,0,0,0,  SZ
+     *  0,0,0,0,0,0,0]      TSUHAI
+     */
+    fun toTypedArray(removeFuro:Boolean = true): IntArray {
+        val result = IntArray(34) { i -> 0 }
+        for (hai in haiList) {
+            if (removeFuro && hai.hasStatus(STATUS_FURO)) continue
+            result[hai.id - 1]++
+        }
+        return result
+    }
+}
+
+class Yama(override val haiList: MutableList<Hai>): TileCollection() {
 
 }
 
-class Kawa {
-    private val haiList: MutableList<Hai> by lazy { ArrayList<Hai>() }
+class Kawa: TileCollection() {
+    override val haiList: MutableList<Hai> by lazy { ArrayList<Hai>() }
 
     fun push(hai: Hai) = haiList.add(hai)
 
@@ -28,7 +47,7 @@ class Kawa {
     }
 }
 
-class Tehai: Comparator<Hai> {
+class Tehai: Comparator<Hai>, TileCollection() {
 
     companion object {
         fun fromString(string: String): Tehai {
@@ -45,7 +64,7 @@ class Tehai: Comparator<Hai> {
         }
     }
 
-    val haiList: MutableList<Hai> by lazy {
+    override val haiList: MutableList<Hai> by lazy {
         ArrayList<Hai>()
     }
 
@@ -81,21 +100,6 @@ class Tehai: Comparator<Hai> {
         for (list in resultArray) {
             haiList.addAll(list)
         }
-    }
-
-    /**
-     * [0,0,0,0,0,0,0,0,0,  MZ
-     *  0,0,0,0,0,0,0,0,0,  PZ
-     *  0,0,0,0,0,0,0,0,0,  SZ
-     *  0,0,0,0,0,0,0]      TSUHAI
-     */
-    fun toTypedArray(removeFuro:Boolean = true): IntArray {
-        val result = IntArray(34) { i -> 0 }
-        for (hai in haiList) {
-            if (removeFuro && hai.hasStatus(STATUS_FURO)) continue
-            result[hai.id - 1]++
-        }
-        return result
     }
 
     override fun toString(): String {

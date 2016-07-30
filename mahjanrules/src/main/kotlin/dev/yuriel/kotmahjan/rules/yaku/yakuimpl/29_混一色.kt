@@ -6,7 +6,7 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
  * Created by yuriel on 7/24/16.
- * 混一色判定クラス
+ * 混一色判定
  * 萬子、索子、筒子のどれか一種と、字牌のみで構成される場合成立
  */
 fun 混一色Impl(s: MentsuSupport): Boolean {

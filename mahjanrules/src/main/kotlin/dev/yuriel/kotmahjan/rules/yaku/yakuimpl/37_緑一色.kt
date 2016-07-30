@@ -6,7 +6,7 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
  * Created by yuriel on 7/24/16.
- * 緑一色判定クラス
+ * 緑一色判定
  * 全ての牌が緑色の場合成立
  * すなわち索子の23468 發のみの場合成立
  */

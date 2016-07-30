@@ -5,7 +5,7 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
  * Created by yuriel on 7/24/16.
- * 小四喜判定クラス
+ * 小四喜判定
  * 4つの風牌東 南 西 北のうち3つを刻子1つを雀頭に含めて和了した時に成立
  * 4つのうち3つを刻子にし残る1つを雀頭にした場合
  */

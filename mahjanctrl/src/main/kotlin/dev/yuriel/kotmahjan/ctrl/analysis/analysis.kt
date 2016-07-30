@@ -4,19 +4,80 @@ import android.util.SparseArray
 import dev.yuriel.kotmahjan.models.IllegalIntArrayException
 import dev.yuriel.kotmahjan.models.NoSuchTileException
 import java.util.*
+import kotlin.annotation.AnnotationTarget.*
 
 /**
  * Created by yuriel on 7/28/16.
  * 注意：
  *  牌のIDは配列のインデックスを等しくないこと。
  *  IntArrayから得たIntはインデックスを指し、それほかのIntはID
+ *  IntArrayはツールだけとして使用している、それ以外の牌(例えば赤ドラ牌)の表示はできません。
  */
+
+/**
+ * (1, 34)
+ */
+@Target(TYPE, TYPE_PARAMETER, LOCAL_VARIABLE, PROPERTY, FIELD, FUNCTION, EXPRESSION)
+@Retention(AnnotationRetention.SOURCE)
+annotation class ID
+
+/**
+ * (1, 33)
+ */
+@Target(TYPE, TYPE_PARAMETER, LOCAL_VARIABLE, PROPERTY, FIELD, FUNCTION, EXPRESSION)
+@Retention(AnnotationRetention.SOURCE)
+annotation class Index
+
+/**
+ * @param distance 2つの牌の距離
+ * @param key1 id
+ * @param key2 id
+ */
+data class Distance2Key(val distance: Int = -1, val key1: @ID Int = -1, val key2: @ID Int = -1)
+
+/**
+ * @param efficiency 効率、高いほど効率が悪い
+ * @param keys 欲しいの牌のID
+ */
+data class Efficiency2Key(val efficiency: Int = 0, val keys: Set<@ID Int> = mutableSetOf())
+
+data class Group2KeyList(val group: List<@ID Int>,
+                         val keys: List<@ID Int>,
+                         var probability: Float? = null): Comparable<Group2KeyList> {
+    override fun compareTo(other: Group2KeyList): Int {
+        return (((probability?:0F) - (other.probability?:0F)) * 10000).toInt()
+    }
+}
+
+/**
+ * @param useless 捨てるはずの牌
+ * @param keys また手に入れなくて欲しい牌
+ * @param k2gMap キー牌ID：キー牌を判断する根拠
+ */
+data class Useless2Key2KeyMap(val useless: IntArray = IntArray(34),
+                              val keys: IntArray = IntArray(34),
+                              val k2gMap: HashMap<@ID Int, MutableList<@ID Int>> = HashMap(),
+        /*val map: SparseArray<MutableList<Int>> = SparseArray(),*/
+                              val g2kList: List<Group2KeyList> = listOf<Group2KeyList>()) {
+    override fun hashCode(): Int {
+        return (0.3 * useless.hashCode() +
+                0.3 * keys.hashCode() +
+                0.2 * k2gMap.hashCode() +
+                0.2 * g2kList.hashCode())
+                .hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+    }
+}
+
 
 /**
  * 牌の効率
  */
 @Throws(IllegalIntArrayException::class, NoSuchTileException::class)
-fun efficiency(tehai: IntArray, id: Int): Efficiency2Key {
+fun efficiency(tehai: IntArray, id: @ID Int): Efficiency2Key {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
@@ -50,7 +111,7 @@ fun efficiency(tehai: IntArray, id: Int): Efficiency2Key {
  *  2: 離れる
  */
 @Throws(NoSuchTileException::class)
-fun distance(fromId: Int, toId: Int): Distance2Key {
+fun distance(fromId: @ID Int, toId: @ID Int): Distance2Key {
     if (fromId < 1 || fromId > 34) {
         throw NoSuchTileException(fromId)
     }
@@ -113,7 +174,7 @@ fun excludeShuntsu(tehai: IntArray, antiOriented: Boolean = false): IntArray {
 }
 
 @Throws(IllegalIntArrayException::class)
-fun excludeBy2Group(tehai: IntArray): IntArray {
+fun excludeKotsu(tehai: IntArray): IntArray {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
@@ -135,7 +196,8 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
         throw IllegalIntArrayException(tehai.size)
     }
     //val map = SparseArray<MutableList<Int>>()
-    val map = HashMap<Int, MutableList<Int>>()
+    val k2gMap = HashMap<Int, MutableList<Int>>()
+    val g2kList = mutableListOf<Group2KeyList>()
     /*
     fun SparseArray<MutableList<Int>>.addTo(id: Int, addId: Int) {
         if (this[id] == null) {
@@ -146,7 +208,7 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
     }
     */
 
-    fun HashMap<Int, MutableList<Int>>.addTo(id: Int, addId: Int) {
+    fun HashMap<Int, MutableList<Int>>.addTo(id: @ID Int, addId: @ID Int) {
         if (this[id] == null) {
             put(id, mutableListOf(addId))
         } else {
@@ -154,19 +216,24 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
         }
     }
 
-    fun IntArray.addKey(k1: Int, k2: Int, vararg fromId: Int) {
+    fun IntArray.addKey(k1: @ID Int, k2: @ID Int, vararg fromId: @ID Int) {
+        val keys = fromId.toList()
+        val group = mutableListOf<Int>()
         if (0 < k1) {
             this[k1 - 1] += 1
             for (i in fromId) {
-                map.addTo(k1, i)
+                k2gMap.addTo(k1, i)
+                group.add(i)
             }
         }
         if (0 < k2) {
             this[k2 - 1] += 1
             for (i in fromId) {
-                map.addTo(k2, i)
+                k2gMap.addTo(k2, i)
+                group.add(i)
             }
         }
+        g2kList.add(Group2KeyList(group, keys))
     }
 
     val useless = tehai.clone()
@@ -205,16 +272,16 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
             if (!found) break
         }
     }
-    return Useless2Key2KeyMap(useless, keyList, map)
+    return Useless2Key2KeyMap(useless, keyList, k2gMap, g2kList)
 }
 
 @Throws(IllegalIntArrayException::class)
-fun getUseless(tehai: IntArray): Useless2Key2KeyMap {
+fun getUselessGeneralized(tehai: IntArray): Useless2Key2KeyMap {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
-    val list1 = excludeBy2Group(excludeShuntsu(tehai))
-    val list2 = excludeBy2Group(excludeShuntsu(tehai, true))
+    val list1 = excludeKotsu(excludeShuntsu(tehai))
+    val list2 = excludeKotsu(excludeShuntsu(tehai, true))
     val merge = IntArray(34) { i -> 0 }
     for (i in 0..list1.size - 1) {
         val value = list1[i]
@@ -224,7 +291,19 @@ fun getUseless(tehai: IntArray): Useless2Key2KeyMap {
 }
 
 @Throws(IllegalIntArrayException::class)
-fun breakTileGroup(data: Useless2Key2KeyMap) {
+fun getUselessSpecialized(tehai: IntArray): Useless2Key2KeyMap {
+    if (tehai.size != 34) {
+        throw IllegalIntArrayException(tehai.size)
+    }
+    val list1 = excludeKotsu(excludeShuntsu(tehai))
+    val list2 = excludeKotsu(excludeShuntsu(tehai, true))
+    val merge = list1 or list2
+    return exclude2Correlation(merge)
+}
+
+@Throws(IllegalIntArrayException::class)
+fun breakTileGroup(data: Useless2Key2KeyMap,
+                   tehai: IntArray, range: IntArray? = null): Useless2Key2KeyMap{
     if (data.useless.size != 34) {
         throw IllegalIntArrayException(data.useless.size)
     }
@@ -232,9 +311,23 @@ fun breakTileGroup(data: Useless2Key2KeyMap) {
         throw IllegalIntArrayException(data.keys.size)
     }
 
+    val list = range?: IntArray(34) { i -> 4 - tehai[i] }
+    val probabilityTable = HashMap<Int, Float>()
+    for (i in 0..data.keys.size - 1) {
+        if (data.keys[i] == 0) continue
+        probabilityTable.put(i + 1, list[i].toFloat() / list.sum().toFloat())
+    }
+    for (id in data.g2kList) {
+        id.probability = 0F
+        for (j in id.keys) {
+            id.probability = id.probability?:0F + (probabilityTable[j]?: 0F)
+        }
+    }
+    Collections.sort(data.g2kList)
+    return data
 }
 
-fun getEffectWith(id: Int): List<Int> {
+fun getEffectWith(id: @ID Int): List<Int> {
     val result = mutableListOf<Int>()
     if (id > 27) {
         result.add(id)
@@ -282,33 +375,14 @@ private operator fun IntArray.plus(other: IntArray): IntArray {
     return result
 }
 
-/**
- * @param distance 2つの牌の距離
- * @param key1 id
- * @param key2 id
- */
-data class Distance2Key(val distance: Int = -1, val key1: Int = -1, val key2: Int = -1)
-
-/**
- * @param efficiency 効率、高いほど効率が悪い
- * @param keys 欲しいの牌のID
- */
-data class Efficiency2Key(val efficiency: Int = 0, val keys: Set<Int> = mutableSetOf())
-
-/**
- * @param useless 捨てるはずの牌
- * @param keys また手に入れなくて欲しい牌
- * @param map キー牌ID：キー牌を判断する根拠
- */
-data class Useless2Key2KeyMap(val useless: IntArray = IntArray(34),
-                              val keys: IntArray = IntArray(34),
-                              val map: HashMap<Int, MutableList<Int>> = HashMap()
-                              /*val map: SparseArray<MutableList<Int>> = SparseArray()*/) {
-    override fun hashCode(): Int {
-        return (0.3 * useless.hashCode() + 0.3 * keys.hashCode() + 0.4 * map.hashCode()).hashCode()
+@Throws(RuntimeException::class)
+private infix fun IntArray.or(other: IntArray): IntArray {
+    if (size != other.size) {
+        throw RuntimeException()
     }
-
-    override fun equals(other: Any?): Boolean {
-        return super.equals(other)
+    val result = IntArray(size)
+    for (i in 0..size - 1) {
+        result[i] = if (this[i] != 0) this[i] else if (other[i] != 0) other[i] else 0
     }
+    return result
 }

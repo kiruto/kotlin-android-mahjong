@@ -4,7 +4,7 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
  * Created by yuriel on 7/24/16.
- * チャンタ判定クラス
+ * チャンタ判定
  * 123の順子と789の順子、および一九字牌の対子と刻子
  * のみで構成された場合成立
  */

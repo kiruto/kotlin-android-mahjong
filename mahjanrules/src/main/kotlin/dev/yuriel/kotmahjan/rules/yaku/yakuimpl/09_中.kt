@@ -5,7 +5,7 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
  * Created by yuriel on 7/24/16.
- * 中判定クラス
+ * 中判定
  * 中の刻子もしくは槓子が含まれる場合成立
  */
 fun 中Impl(s: MentsuSupport): Boolean {

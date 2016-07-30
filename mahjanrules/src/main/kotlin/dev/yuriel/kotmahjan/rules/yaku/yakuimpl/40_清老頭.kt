@@ -4,7 +4,7 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
  * Created by yuriel on 7/24/16.
- * 清老頭判定クラス
+ * 清老頭判定
  * 手牌全体が老頭牌（一九牌）だけの場合成立
  *
  * 違うものが見つかったらfalseを返す方針です

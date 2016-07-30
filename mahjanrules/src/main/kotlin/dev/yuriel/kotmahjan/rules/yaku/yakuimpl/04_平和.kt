@@ -5,7 +5,7 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
  * Created by yuriel on 7/24/16.
- * 平和判定クラス
+ * 平和判定
  * 面子が全て順子で、雀頭が役牌でなく、待ちが両面待ちになっている場合に成立
  */
 fun 平和Impl(r: RoundContext?, p: PlayerContext?, s: MentsuSupport): Boolean {
