@@ -9,20 +9,24 @@ import java.util.*
 abstract class TileCollection {
 
     abstract val haiList: MutableList<Hai>
+
+
+    fun remove(hai: Hai) {
+        for (h in haiList) {
+            if (h sameAs hai) {
+                haiList.remove(hai)
+                return
+            }
+        }
+    }
+
     /**
      * [0,0,0,0,0,0,0,0,0,  MZ
      *  0,0,0,0,0,0,0,0,0,  PZ
      *  0,0,0,0,0,0,0,0,0,  SZ
      *  0,0,0,0,0,0,0]      TSUHAI
      */
-    fun toTypedArray(removeFuro:Boolean = true): IntArray {
-        val result = IntArray(34) { i -> 0 }
-        for (hai in haiList) {
-            if (removeFuro && hai.hasStatus(STATUS_FURO)) continue
-            result[hai.id - 1]++
-        }
-        return result
-    }
+    fun toTypedArray(removeFuro:Boolean = true): IntArray = toTypedArray(haiList, removeFuro)
 }
 
 class Yama(override val haiList: MutableList<Hai>): TileCollection() {
@@ -505,4 +509,19 @@ class Toitsu(override var identifierTile: Hai?) : Mentsu() {
             return result
         }
     }
+}
+
+/**
+ * [0,0,0,0,0,0,0,0,0,  MZ
+ *  0,0,0,0,0,0,0,0,0,  PZ
+ *  0,0,0,0,0,0,0,0,0,  SZ
+ *  0,0,0,0,0,0,0]      TSUHAI
+ */
+fun toTypedArray(haiList: List<Hai>, removeFuro:Boolean = true): IntArray {
+    val result = IntArray(34) { i -> 0 }
+    for (hai in haiList) {
+        if (removeFuro && hai.hasStatus(STATUS_FURO)) continue
+        result[hai.id - 1]++
+    }
+    return result
 }

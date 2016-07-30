@@ -68,6 +68,8 @@ class HaiMgr(u: HaiUtil = HaiUtil) {
         doraUra.add(preDoraUra[0])
     }
 
+    fun getHaiList4Test() = haiSan
+
     fun num(): Int = haiSan.size
 
     fun haiPai(): List<Hai> {

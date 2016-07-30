@@ -76,7 +76,7 @@ fun isTsuHai(hai: Hai?): Boolean = isTsuHai(hai?.type)
 fun isSanGen(hai: Hai?): Boolean = isSanGen(hai?.type)
 fun isFonPai(hai: Hai?): Boolean = isFonPai(hai?.type)
 
-class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL): Comparable<Hai> {
+data class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL): Comparable<Hai> {
 
     val id: Int by lazy { genId() }
     val idFZ: Int by lazy { id - 1 }
@@ -84,7 +84,7 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
 
     var aka = false
 
-    infix fun sameAs(hai: Hai): Boolean = type == hai.type && num == hai.num
+    infix fun sameAs(hai: Hai): Boolean = type == hai.type && num == hai.num && aka == hai.aka
 
     fun hasStatus(flag: Int): Boolean {
         return status and flag == flag
@@ -153,6 +153,15 @@ class Hai(val type: HaiType, val num: Int = -1, var status: Int = STATUS_NORMAL)
             else -> return type.name
         }
         return type + (if (aka) "+" else "") + if (0 > num && 10 < num) "" else num
+    }
+
+    override fun hashCode(): Int {
+        return (3 * type.hashCode() + 4 * num.hashCode() + 5 * aka.hashCode()) / 4
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Hai) return sameAs(other)
+        else return false
     }
 
     companion object factory {

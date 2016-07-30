@@ -1,8 +1,7 @@
 package dev.yuriel.kotmahjan.ctrl
 
 import dev.yuriel.kotmahjan.ctrl.analysis.*
-import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmahjan.models.Tehai
+import dev.yuriel.kotmahjan.models.*
 import org.junit.Test
 
 /**
@@ -56,7 +55,7 @@ class AnalysisTest {
                 1, 1, 0, 1, 1, 1, 0, 1, 3,
                 0, 0, 0, 0, 0, 4, 3, 2, 2,
                 2, 1, 2, 0, 0, 4, 0)
-        val b = excludeDoitsu(a)
+        val b = excludeKotsu(a)
         val c = intArrayOf(
                 0, 0, 0, 1, 1, 2, 0, 1, 1,
                 1, 1, 0, 1, 1, 1, 0, 1, 0,
@@ -98,26 +97,35 @@ class AnalysisTest {
                 1, 1, 0, 1, 1, 1, 0, 1, 3,
                 0, 0, 0, 0, 0, 4, 3, 2, 2,
                 2, 1, 2, 0, 0, 4, 0)
-        val b = getUseless(a)
+        val b = getUselessGeneralized(a)
         val c = intArrayOf(
                 0, 0, 0, 0, 0, 0, 0, 0, 1,
                 0, 0, 0, 0, 0, 0, 0, 1, 0,
                 0, 0, 0, 0, 0, 1, 0, 0, 0,
                 0, 1, 0, 0, 0, 1, 0
         )
+        val d = intArrayOf(
+                0, 0, 0, 0, 0, 0, 0, 0, 1,
+                0, 0, 0, 0, 0, 0, 0, 1, 0,
+                0, 0, 0, 0, 0, 0, 1, 0, 0,
+                0, 1, 0, 0, 0, 1, 0)
         for (i in 0..b.useless.size - 1) {
             print("${b.keys[i]}, ")
         }
         println()
         for (i in 0..b.useless.size - 1) {
             print("${b.useless[i]}, ")
-            assert(b.useless[i] == c [i])
+            assert(b.useless[i] == c [i] || b.useless[i] == d [i])
         }
     }
 
     @Test
     fun daHai() {
-        for (loop in 0..100) {
+        var loop = 0;
+        //for (loop in 0..100) {
+        loop@while(true) {
+            loop ++
+            println("loop@$loop")
             val tehai = Tehai()
             val mgr = HaiMgr()
             for (i in 0..2) {
@@ -128,42 +136,23 @@ class AnalysisTest {
             tehai.sort()
             println(tehai)
 
-            print("sute: ")
-            val u = getUseless(tehai.toTypedArray(false))
-            for (i in 0..u.useless.size - 1) {
-                //print("${u.first[i]}, ")
-                if (0 == u.useless[i]) continue
-                print("${Hai.newInstance(i + 1)},")
+            var u = getUselessGeneralized(tehai.toTypedArray(false))
+            var result = printResultByGen(u, tehai, false)
+            if (result.first != 0) {
+                println("da: ${Hai.newInstance(result.first)}")
+            } else {
+                u = getUselessSpecialized(tehai.toTypedArray(false))
+                result = printResultByGen(u, tehai, true)
             }
-            println()
-            println("want: ")
-            for (i in 0..u.keys.size - 1) {
-                if (0 == u.keys[i]) continue
-                print("   >${Hai.newInstance(i + 1)}, ")
-                print("Because: ")
-                for (b in u.map[i + 1]!!) {
-                    print("${Hai.newInstance(b)},")
-                }
-                println()
+            if (result.first != 0) {
+                println("da: ${Hai.newInstance(result.first)}")
+            } else {
+                val b = sortEffectInRange(u, tehai.toTypedArray())
+                println("extreme da: ${Hai.newInstance(b.g2kList[0].group[0])}")
+                break@loop
             }
-            println()
 
-            var resultId = 0
-            var efficiency = Efficiency2Key()
-            val list = mutableListOf<Pair<Efficiency2Key, Int>>()
-            if (u.useless.isNotEmpty()) {
-                for (i in 0..u.useless.size - 1) {
-                    if (u.useless[i] < 1) continue
-                    val e = efficiency(tehai.toTypedArray(false), i + 1)
-                    list.add(Pair(e, i + 1))
-                    if (e.efficiency > efficiency.efficiency) {
-                        efficiency = e
-                        resultId = i + 1
-                    }
-                }
-                println("da: ${Hai.newInstance(resultId)}")
-            }
-            for ((e, id) in list) {
+            for ((e, id) in result.second) {
                 println("hai: ${Hai.newInstance(id)}, efficiency: ${e.efficiency}")
                 for (h in e.keys) {
                     println("   >${Hai.newInstance(h)}, ")
@@ -171,6 +160,45 @@ class AnalysisTest {
             }
             println()
         }
+        println("total loop: $loop")
+    }
+
+    private fun printResultByGen(u: Useless2Key2KeyMap, tehai: Tehai, hl: Boolean = false):
+            Pair<Int, List<Pair<Efficiency2Key, Int>>> {
+        print("${if (hl) ANSI_YELLOW else ANSI_CYAN}")
+        print("sute: ")
+        for (i in 0..u.useless.size - 1) {
+            //print("${u.first[i]}, ")
+            if (0 == u.useless[i]) continue
+            print("${Hai.newInstance(i + 1)},")
+        }
+        println()
+        println("want: ")
+        for (i in 0..u.keys.size - 1) {
+            if (0 == u.keys[i]) continue
+            print("   >${Hai.newInstance(i + 1)}, ")
+            print("Because: ")
+            for (b in u.k2gMap[i + 1]!!) {
+                print("${Hai.newInstance(b)},")
+            }
+            println()
+        }
+        println()
+
+        var resultId = 0
+        var efficiency = Efficiency2Key()
+        val list = mutableListOf<Pair<Efficiency2Key, Int>>()
+        for (i in 0..u.useless.size - 1) {
+            if (u.useless[i] < 1) continue
+            val e = efficiency(tehai.toTypedArray(false), i + 1)
+            list.add(Pair(e, i + 1))
+            if (e.efficiency > efficiency.efficiency) {
+                efficiency = e
+                resultId = i + 1
+            }
+        }
+        print(ANSI_RESET)
+        return Pair(resultId, list)
     }
 }
 

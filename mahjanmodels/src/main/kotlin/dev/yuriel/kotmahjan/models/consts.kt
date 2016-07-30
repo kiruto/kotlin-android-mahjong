@@ -35,3 +35,9 @@ const val SHOULD_TSUMO = "st;"
 const val SHOULD_TSUMO_AFTER_KAN = "stak;"
 const val SHOULD_NOT_TSUMO = "snt;"
 const val FROM_RINSHAN = "fr;"
+
+// Console color
+val ANSI_RESET = "\u001B[0m"
+val ANSI_YELLOW = "\u001B[33m"
+val ANSI_CYAN = "\u001B[36m"
+val ANSI_RED = "\u001B[31m"

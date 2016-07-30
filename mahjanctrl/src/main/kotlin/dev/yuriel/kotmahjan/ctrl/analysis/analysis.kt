@@ -89,7 +89,7 @@ fun efficiency(tehai: IntArray, id: @ID Int): Efficiency2Key {
     for (i in 0..tehai.size - 1) {
         if (tehai[i] == 0) continue
         if (id == i + 1) {
-            keys.addAll(getEffectWith(id))
+            keys.addAll(getTileGroupRangeWith(id))
         }
         val (d, k1, k2) = distance(id, i + 1)
         if (-1 == d) {
@@ -302,8 +302,9 @@ fun getUselessSpecialized(tehai: IntArray): Useless2Key2KeyMap {
 }
 
 @Throws(IllegalIntArrayException::class)
-fun breakTileGroup(data: Useless2Key2KeyMap,
-                   tehai: IntArray, range: IntArray? = null): Useless2Key2KeyMap{
+fun sortEffectInRange(data: Useless2Key2KeyMap,
+                      tehai: IntArray,
+                      range: IntArray? = null): Useless2Key2KeyMap{
     if (data.useless.size != 34) {
         throw IllegalIntArrayException(data.useless.size)
     }
@@ -327,7 +328,7 @@ fun breakTileGroup(data: Useless2Key2KeyMap,
     return data
 }
 
-fun getEffectWith(id: @ID Int): List<Int> {
+private fun getTileGroupRangeWith(id: @ID Int): List<Int> {
     val result = mutableListOf<Int>()
     if (id > 27) {
         result.add(id)

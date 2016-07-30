@@ -36,7 +36,7 @@ fun getDistance(currentVector: IntArray, targetVector: IntArray): Int {
     return count
 }
 
-fun calculateShantensu(tehais: List<Hai>, furos: List<Mentsu>): Int {
+fun calculateShantensu(tehais: List<Hai>, furos: List<Mentsu> = listOf()): Int {
     val currentVector = haiListToCountVector(tehais)
     return ShantensuCalculatorInternal(currentVector, furos.size).calculateShantensu()
 }
