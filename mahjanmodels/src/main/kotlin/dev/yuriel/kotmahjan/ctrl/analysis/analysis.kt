@@ -1,3 +1,9 @@
+/*
+ * Copyright (C) 2016. Yuriel - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 package dev.yuriel.kotmahjan.ctrl.analysis
 
 import android.util.SparseArray
@@ -15,16 +21,16 @@ import kotlin.annotation.AnnotationTarget.*
  */
 
 /**
- * (1, 34)
+ * range(1, 34)
  */
-@Target(TYPE, TYPE_PARAMETER, LOCAL_VARIABLE, PROPERTY, FIELD, FUNCTION, EXPRESSION)
+@Target(TYPE, TYPE_PARAMETER, LOCAL_VARIABLE, PROPERTY, FIELD, FUNCTION, EXPRESSION, VALUE_PARAMETER)
 @Retention(AnnotationRetention.SOURCE)
 annotation class ID
 
 /**
- * (1, 33)
+ * range(1, 33)
  */
-@Target(TYPE, TYPE_PARAMETER, LOCAL_VARIABLE, PROPERTY, FIELD, FUNCTION, EXPRESSION)
+@Target(TYPE, TYPE_PARAMETER, LOCAL_VARIABLE, PROPERTY, FIELD, FUNCTION, EXPRESSION, VALUE_PARAMETER)
 @Retention(AnnotationRetention.SOURCE)
 annotation class Index
 
@@ -57,7 +63,7 @@ data class Group2KeyList(val group: List<@ID Int>,
 data class Useless2Key2KeyMap(val useless: IntArray = IntArray(34),
                               val keys: IntArray = IntArray(34),
                               val k2gMap: HashMap<@ID Int, MutableList<@ID Int>> = HashMap(),
-        /*val map: SparseArray<MutableList<Int>> = SparseArray(),*/
+                              /*val map: SparseArray<MutableList<Int>> = SparseArray(),*/
                               val g2kList: List<Group2KeyList> = listOf<Group2KeyList>()) {
     override fun hashCode(): Int {
         return (0.3 * useless.hashCode() +
@@ -147,22 +153,26 @@ fun distance(fromId: @ID Int, toId: @ID Int): Distance2Key {
 }
 
 @Throws(IllegalIntArrayException::class)
-fun excludeShuntsu(tehai: IntArray, antiOriented: Boolean = false): IntArray {
+fun excludeShuntsu(tehai: IntArray,
+                   antiOriented: Boolean = false,
+                   confirm: ((@ID Int, @ID Int, @ID Int, @Index IntArray) -> Boolean)? = null): IntArray {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
     val result = tehai.clone()
     val range = if (antiOriented) (tehai.size - 3 - 7) downTo 0 else 0..tehai.size - 3 - 7
     loop@
-    for (i in range) {
+    for (@Index i in range) {
         when (i + 1) {
             8, 9, 17, 18, 26, 27 -> continue@loop
             else -> {
                 while (result[i] != 0) {
                     if (result[i] > 0 && result[i + 1] > 0 && result[i + 2] > 0) {
-                        result[i] -= 1
-                        result[i + 1] -= 1
-                        result[i + 2] -= 1
+                        if (confirm?.invoke(i + 1, i + 2, i + 3, result)?:true) {
+                            result[i] -= 1
+                            result[i + 1] -= 1
+                            result[i + 2] -= 1
+                        }
                     } else {
                         continue@loop
                     }
@@ -174,7 +184,7 @@ fun excludeShuntsu(tehai: IntArray, antiOriented: Boolean = false): IntArray {
 }
 
 @Throws(IllegalIntArrayException::class)
-fun excludeKotsu(tehai: IntArray): IntArray {
+fun excludeKotsu(tehai: IntArray, confirm: ((@ID Int, @Index IntArray) -> Boolean)? = null): IntArray {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
@@ -182,7 +192,7 @@ fun excludeKotsu(tehai: IntArray): IntArray {
     loop@
     for (i in 0..tehai.size - 1) {
         if (result[i] > 2) {
-            result[i] -= 3
+            if (confirm?.invoke(i + 1, result)?:true) result[i] -= 3
         } else {
             continue@loop
         }
@@ -191,7 +201,7 @@ fun excludeKotsu(tehai: IntArray): IntArray {
 }
 
 @Throws(IllegalIntArrayException::class)
-fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
+fun exclude2Correlation(tehai: IntArray, confirm: ((@ID Int, @ID Int, @Index IntArray) -> Boolean)? = null): Useless2Key2KeyMap {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
@@ -245,7 +255,7 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
             var key: Distance2Key
             if (i < useless.size - 2 && useless[i + 1] > 0) {
                 key = distance(i + 1, i + 2)
-                if (key.distance != -1) {
+                if (key.distance != -1 && confirm?.invoke(i + 1, i + 2, useless)?: true) {
                     useless[i] -= 1
                     useless[i + 1] -= 1
                     found = true
@@ -255,7 +265,7 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
             if (found) continue
             if (i < useless.size - 2 && useless[i + 2] > 0) {
                 key = distance(i + 1, i + 3)
-                if (key.distance != -1) {
+                if (key.distance != -1 && confirm?.invoke(i + 1, i + 3, useless)?: true) {
                     useless[i] -= 1
                     useless[i + 2] -= 1
                     found = true
@@ -263,7 +273,7 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
                 }
             }
             if (found) continue
-            if (useless[i] > 1) {
+            if (useless[i] > 1 && confirm?.invoke(i + 1, i + 1, useless)?: true) {
                 useless[i] -= 2
                 key = Distance2Key(0, i + 1, -1)
                 found = true
@@ -277,27 +287,33 @@ fun exclude2Correlation(tehai: IntArray): Useless2Key2KeyMap {
 
 @Throws(IllegalIntArrayException::class)
 fun getUselessGeneralized(tehai: IntArray): Useless2Key2KeyMap {
-    if (tehai.size != 34) {
-        throw IllegalIntArrayException(tehai.size)
+    return getUselessByMerged(tehai) { list1, list2 ->
+        IntArray(34) { i ->
+            val value = list1[i]
+            if (value == list2[i]) value else 0
+        }
     }
-    val list1 = excludeKotsu(excludeShuntsu(tehai))
-    val list2 = excludeKotsu(excludeShuntsu(tehai, true))
-    val merge = IntArray(34) { i -> 0 }
-    for (i in 0..list1.size - 1) {
-        val value = list1[i]
-        if (list2[i] == value) merge[i] = value
-    }
-    return exclude2Correlation(merge)
 }
 
+// todo: 何かの違いがあるかも
 @Throws(IllegalIntArrayException::class)
-fun getUselessSpecialized(tehai: IntArray): Useless2Key2KeyMap {
+fun getUselessSpecialized(tehai: IntArray): Useless2Key2KeyMap = getUselessByMerged(tehai) {
+    list1, list2 -> list1 or list2
+}
+
+/**
+ * @param mergeFunc フォワードで順子を除く結果とリバースの結果を併合する
+ * @return 計算した結果
+ */
+@Throws(IllegalIntArrayException::class)
+fun getUselessByMerged(tehai: IntArray,
+                       mergeFunc: (IntArray, IntArray) -> IntArray): Useless2Key2KeyMap {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
     val list1 = excludeKotsu(excludeShuntsu(tehai))
     val list2 = excludeKotsu(excludeShuntsu(tehai, true))
-    val merge = list1 or list2
+    val merge = mergeFunc(list1, list2)
     return exclude2Correlation(merge)
 }
 

@@ -1,5 +1,13 @@
-package dev.yuriel.kotmahjan.ctrl.analysis
+/*
+ * Copyright (C) 2016. Yuriel - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
 
+package dev.yuriel.kotmahjan.ai
+
+import dev.yuriel.kotmahjan.ai.AI
+import dev.yuriel.kotmahjan.ctrl.analysis.*
 import dev.yuriel.kotmahjan.models.*
 import dev.yuriel.kotmahjan.models.toTypedArray
 

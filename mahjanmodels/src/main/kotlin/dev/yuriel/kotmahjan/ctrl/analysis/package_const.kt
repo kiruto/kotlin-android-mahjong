@@ -4,13 +4,11 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.kotmahjan.models
+package dev.yuriel.kotmahjan.ctrl.analysis
 
 /**
- * Created by yuriel on 7/17/16.
+ * Created by yuriel on 7/31/16.
  */
 
-class RoundModel (val players: List<Player>, val roles: Map<String, Any>) {
-
-
-}
+val NUM_HAI_ID = 34
+val NUM_MENTSU_ID = 55

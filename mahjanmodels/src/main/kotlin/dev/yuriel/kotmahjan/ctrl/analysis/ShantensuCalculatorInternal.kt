@@ -1,14 +1,18 @@
+/*
+ * Copyright (C) 2016. Yuriel - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 package dev.yuriel.kotmahjan.ctrl.analysis
 
 /**
  * Created by yuriel on 7/25/16.
  * <a href="http://ara.moo.jp/mjhmr/shanten.htm" />
  */
-private val MAX_SHANTENSU = 8
-val NUM_HAI_ID = 34
-val NUM_MENTSU_ID = 55
 
 class ShantensuCalculatorInternal constructor(private val currentVector: IntArray, private val numFuros: Int) {
+    private val MAX_SHANTENSU = 8
     private var minShantensu: Int = 0
 
     init {

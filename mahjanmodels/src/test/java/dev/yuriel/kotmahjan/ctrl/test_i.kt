@@ -1,7 +1,13 @@
+/*
+ * Copyright (C) 2016. Yuriel - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 package dev.yuriel.kotmahjan.ctrl
 
-import dev.yuriel.kotmahjan.ctrl.analysis.AI
-import dev.yuriel.kotmahjan.ctrl.analysis.I
+import dev.yuriel.kotmahjan.ai.AI
+import dev.yuriel.kotmahjan.ai.I
 import dev.yuriel.kotmahjan.ctrl.analysis.calculateShantensu
 import dev.yuriel.kotmahjan.models.ANSI_RED
 import dev.yuriel.kotmahjan.models.ANSI_RESET
@@ -34,15 +40,15 @@ class TestI {
 
             prl("手牌: ${ai.getHai()}")
             prl("向聴数: $shanten")
-            if (shanten < 1) {
-                prl("ツモ")
-                assert(true)
-                return
-            }
+//            if (shanten < 1) {
+//                prl("ツモ")
+//                assert(true)
+//                return
+//            }
 
             ai.da(mgr.getHaiList4Test())
         }
-        assert(false)
+        assert(true)
     }
 
     @Test
