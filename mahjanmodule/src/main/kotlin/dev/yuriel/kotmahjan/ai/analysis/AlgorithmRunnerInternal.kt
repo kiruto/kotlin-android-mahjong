@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.kotmahjan.ctrl.analysis
+package dev.yuriel.kotmahjan.ai.analysis
 
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.Mentsu

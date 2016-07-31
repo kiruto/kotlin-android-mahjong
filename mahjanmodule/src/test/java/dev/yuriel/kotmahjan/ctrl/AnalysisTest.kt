@@ -6,7 +6,7 @@
 
 package dev.yuriel.kotmahjan.ctrl
 
-import dev.yuriel.kotmahjan.ctrl.analysis.*
+import dev.yuriel.kotmahjan.ai.analysis.*
 import dev.yuriel.kotmahjan.models.*
 import org.junit.Test
 

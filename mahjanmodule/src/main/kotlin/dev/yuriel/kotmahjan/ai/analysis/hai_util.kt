@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.kotmahjan.ctrl.analysis
+package dev.yuriel.kotmahjan.ai.analysis
 
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.Mentsu
@@ -42,7 +42,9 @@ fun getDistance(currentVector: IntArray, targetVector: IntArray): Int {
     return count
 }
 
-fun calculateShantensu(tehais: List<Hai>, furos: List<Mentsu> = listOf()): Int {
+fun calculateShantensu(tehais: List<Hai>, furoCount: Int = 0): Int {
     val currentVector = haiListToCountVector(tehais)
-    return ShantensuCalculatorInternal(currentVector, furos.size).calculateShantensu()
+    return ShantensuCalculatorInternal(currentVector, furoCount).calculateShantensu()
 }
+
+fun calculateShantensu(tehais: List<Hai>, furos: List<Mentsu> = listOf()): Int = calculateShantensu(tehais, furos.size)

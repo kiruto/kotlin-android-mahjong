@@ -9,7 +9,7 @@ package dev.yuriel.kotmahjan.ctrl
 import dev.yuriel.kotmahjan.ai.AI
 import dev.yuriel.kotmahjan.ai.Console
 import dev.yuriel.kotmahjan.ai.I
-import dev.yuriel.kotmahjan.ctrl.analysis.calculateShantensu
+import dev.yuriel.kotmahjan.ai.analysis.calculateShantensu
 import dev.yuriel.kotmahjan.models.ANSI_RED
 import dev.yuriel.kotmahjan.models.ANSI_RESET
 import org.junit.Test

@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.kotmahjan.ctrl.analysis
+package dev.yuriel.kotmahjan.ai.analysis
 
 /**
  * Created by yuriel on 7/31/16.

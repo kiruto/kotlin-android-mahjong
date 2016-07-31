@@ -1,1 +1,1 @@
-include ':app', ':core', ':mahjanmodels'
+include ':app', ':core', ':mahjanmodule'

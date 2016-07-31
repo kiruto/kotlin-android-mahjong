@@ -6,7 +6,7 @@
 
 package dev.yuriel.kotmahjan.ctrl
 
-import dev.yuriel.kotmahjan.ctrl.analysis.NUM_HAI_ID
+import dev.yuriel.kotmahjan.ai.analysis.NUM_HAI_ID
 import dev.yuriel.kotmahjan.models.Hai
 import java.util.*
 

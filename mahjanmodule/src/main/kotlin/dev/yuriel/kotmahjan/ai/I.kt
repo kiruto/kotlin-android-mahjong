@@ -7,16 +7,16 @@
 package dev.yuriel.kotmahjan.ai
 
 import dev.yuriel.kotmahjan.ai.AI
-import dev.yuriel.kotmahjan.ctrl.analysis.*
+import dev.yuriel.kotmahjan.ai.analysis.*
 import dev.yuriel.kotmahjan.models.*
 import dev.yuriel.kotmahjan.models.toTypedArray
 
 /**
  * Created by yuriel on 7/30/16.
- * 第二号ロボット：呂
- * 伊野ライバルとして存在しています
+ * 第一号ロボット：伊
+ * 鳴かないながらツモだけ麻雀プレイします
  */
-class Ro: AI() {
+class I: AI() {
     private var tehai: Tehai = Tehai()
 
     override fun receive(hai: Hai) {
@@ -27,20 +27,21 @@ class Ro: AI() {
     override fun da(haiList: List<Hai>, basis: List<Hai>): Hai {
         var resultHai: Hai
         var u = getUselessGeneralized(tehai.toTypedArray(false))
-        var result = printResultByGen(u, tehai, false)
+        val array = toTypedArray(basis)
+        var result = printResultByGen(u, tehai, array, false)
         if (result.first != 0) {
             resultHai = Hai.newInstance(result.first)
             outln("da: $resultHai")
         } else {
             u = getUselessSpecialized(tehai.toTypedArray(false))
-            result = printResultByGen(u, tehai, true)
+            result = printResultByGen(u, tehai, array, true)
         }
 
         if (result.first != 0) {
             resultHai = Hai.newInstance(result.first)
             outln("da: $resultHai")
         } else {
-            val array = toTypedArray(basis)
+
             val b = sortEffectInRange(u, tehai.toTypedArray(), array)
             resultHai = Hai.newInstance(b.g2kList[0].group[0])
             outln("extreme da: $resultHai")
@@ -48,10 +49,12 @@ class Ro: AI() {
         }
 
         for ((e, id) in result.second) {
-            outln("hai: ${Hai.newInstance(id)}, efficiencyByHand: ${e.efficiency}")
+            outln("hai: ${Hai.newInstance(id)}, efficiencyByProbability: $e")
+            /*
             for (h in e.keys) {
                 outln("   >${Hai.newInstance(h)}, ")
             }
+            */
         }
         println()
         return resultHai
@@ -73,8 +76,10 @@ class Ro: AI() {
 
     override fun getHaiRaw(): String = tehai.toString()
 
-    private fun printResultByGen(u: Useless2Key2KeyMap, tehai: Tehai, hl: Boolean = false):
-            Pair<Int, List<Pair<Efficiency2Key, Int>>> {
+    private fun printResultByGen(u: Useless2Key2KeyMap,
+                                 tehai: Tehai,
+                                 basis: IntArray,
+                                 hl: Boolean = false): Pair<Int, List<Pair<Float, Int>>> {
         out("${if (hl) ANSI_YELLOW else ANSI_CYAN}")
         out("sute: ")
         for (i in 0..u.useless.size - 1) {
@@ -96,13 +101,16 @@ class Ro: AI() {
         println()
 
         var resultId = 0
-        var efficiency = Efficiency2Key()
-        val list = mutableListOf<Pair<Efficiency2Key, Int>>()
+        //var efficiency = Efficiency2Key()
+        var efficiency = 1F
+        //val list = mutableListOf<Pair<Efficiency2Key, Int>>()
+        val list = mutableListOf<Pair<Float, Int>>()
         for (i in 0..u.useless.size - 1) {
             if (u.useless[i] < 1) continue
-            val e = efficiencyByHand(tehai.toTypedArray(false), i + 1)
+            //val e = efficiencyByHand(tehai.toTypedArray(false), i + 1)
+            val e = efficiencyByProbability(basis, i + 1)
             list.add(Pair(e, i + 1))
-            if (e.efficiency > efficiency.efficiency) {
+            if (e < efficiency) {
                 efficiency = e
                 resultId = i + 1
             }
