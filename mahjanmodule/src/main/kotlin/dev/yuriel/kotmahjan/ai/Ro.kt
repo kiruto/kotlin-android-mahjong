@@ -9,7 +9,7 @@ package dev.yuriel.kotmahjan.ai
 import dev.yuriel.kotmahjan.ai.AI
 import dev.yuriel.kotmahjan.ai.analysis.*
 import dev.yuriel.kotmahjan.models.*
-import dev.yuriel.kotmahjan.models.toTypedArray
+import dev.yuriel.kotmahjan.models.toTypedHaiArray
 
 /**
  * Created by yuriel on 7/30/16.
@@ -40,7 +40,7 @@ class Ro: AI() {
             resultHai = Hai.newInstance(result.first)
             outln("da: $resultHai")
         } else {
-            val array = toTypedArray(basis)
+            val array = toTypedHaiArray(basis)
             val b = sortEffectInRange(u, tehai.toTypedArray(), array)
             resultHai = Hai.newInstance(b.g2kList[0].group[0])
             outln("extreme da: $resultHai")

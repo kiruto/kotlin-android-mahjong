@@ -38,7 +38,7 @@ class TestI {
             println()
             prl("配牌: $hai")
             ai.receive(hai)
-            val shanten = calculateShantensu(ai.getHai())
+            val shanten = calculateShantensu(ai.getHai(), 0)
 
             prl("手牌: ${ai.getHai()}")
             prl("向聴数: $shanten")

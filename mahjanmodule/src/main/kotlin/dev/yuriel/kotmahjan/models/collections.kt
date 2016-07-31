@@ -32,7 +32,7 @@ abstract class TileCollection {
      *  0,0,0,0,0,0,0,0,0,  SZ
      *  0,0,0,0,0,0,0]      TSUHAI
      */
-    fun toTypedArray(removeFuro:Boolean = true): IntArray = toTypedArray(haiList, removeFuro)
+    fun toTypedArray(removeFuro:Boolean = true): IntArray = toTypedHaiArray(haiList, removeFuro)
 }
 
 class Yama(override val haiList: MutableList<Hai>): TileCollection() {
@@ -50,7 +50,7 @@ class Kawa: TileCollection() {
         return hai
     }
 
-    fun get(): MutableList<Hai> = haiList
+    fun get(): List<Hai> = haiList
 
     fun clear() {
         haiList.clear()
@@ -523,11 +523,22 @@ class Toitsu(override var identifierTile: Hai?) : Mentsu() {
  *  0,0,0,0,0,0,0,0,0,  SZ
  *  0,0,0,0,0,0,0]      TSUHAI
  */
-fun toTypedArray(haiList: List<Hai>, removeFuro:Boolean = true): IntArray {
+fun toTypedHaiArray(haiList: List<Hai>, removeFuro:Boolean = true): IntArray {
     val result = IntArray(34) { i -> 0 }
     for (hai in haiList) {
         if (removeFuro && hai.hasStatus(STATUS_FURO)) continue
         result[hai.id - 1]++
+    }
+    return result
+}
+
+fun fromTypedHaiArray(array: IntArray): List<Hai> {
+    val result = mutableListOf<Hai>()
+    for (index in 0..array.size - 1) {
+        if (array[index] == 0) continue
+        for (h in 0..array[index]) {
+            result.add(Hai.newInstance(index + 1))
+        }
     }
     return result
 }

@@ -103,10 +103,14 @@ interface LoopContext {
 
 interface RoundContextV2: RoundContext {
     fun getPlayerContext(player: PlayerModel): PlayerContext
+    fun getAllVisibleHai(): List<Hai>
 }
 
 interface PlayerContext: Comparable<PlayerContext> {
     fun onStart()
+    /**
+     * 配牌の階段に最後の牌を受ける
+     */
     fun onReceiveHai(hai: Hai)
     fun onHaiPai(haiList: List<Hai>)
     fun onEnd()

@@ -401,7 +401,7 @@ private fun getTileGroupRangeWith(id: @ID Int): List<Int> {
 }
 
 @Throws(RuntimeException::class)
-private operator fun IntArray.minus(other: IntArray): IntArray {
+operator fun IntArray.minus(other: IntArray): IntArray {
     if (size != other.size) {
         throw RuntimeException()
     }
@@ -413,7 +413,7 @@ private operator fun IntArray.minus(other: IntArray): IntArray {
 }
 
 @Throws(RuntimeException::class)
-private operator fun IntArray.plus(other: IntArray): IntArray {
+operator fun IntArray.plus(other: IntArray): IntArray {
     if (size != other.size) {
         throw RuntimeException()
     }

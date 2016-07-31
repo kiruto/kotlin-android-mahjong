@@ -178,8 +178,7 @@ class RoundController(val rounder: RoundContextV2) {
             } else if (event.action == ACTION_KAN) {
                 val haiKan = getHaiAfterKan()
                 roundEvent = event
-                event = pContext.onReceive(RoundEvent(to = player,
-                        action = EVENT_LOOP_TSUMO, hai = haiKan))
+                event = pContext.onReceive(RoundEvent(to = player, action = EVENT_LOOP_TSUMO, hai = haiKan))
                 rinshan = FROM_RINSHAN
             } else break
         }

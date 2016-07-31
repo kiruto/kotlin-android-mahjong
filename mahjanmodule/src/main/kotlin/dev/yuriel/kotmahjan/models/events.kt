@@ -10,7 +10,7 @@ package dev.yuriel.kotmahjan.models
  * Created by yuriel on 7/20/16.
  */
 
-open class RoundEvent(val action: Int = EVENT_INIT, val hai: Hai? = null, val extra: String = "",
+open class RoundEvent(var action: Int = EVENT_INIT, var hai: Hai? = null, var extra: String = "",
                       var from: PlayerModel = GameMaster(), var to: PlayerModel = GameMaster()) {
 
     companion object {

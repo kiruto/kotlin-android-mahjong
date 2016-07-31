@@ -9,15 +9,40 @@ package dev.yuriel.kotmahjan.ai
 import dev.yuriel.kotmahjan.ai.AI
 import dev.yuriel.kotmahjan.ai.analysis.*
 import dev.yuriel.kotmahjan.models.*
-import dev.yuriel.kotmahjan.models.toTypedArray
+import dev.yuriel.kotmahjan.models.toTypedHaiArray
+import rx.Observable
+import java.util.*
 
 /**
  * Created by yuriel on 7/30/16.
  * 第一号ロボット：伊
  * 鳴かないながらツモだけ麻雀プレイします
  */
-class I: AI() {
-    private var tehai: Tehai = Tehai()
+class I: AI(), PlayerModel {
+    override var tehai: Tehai = Tehai()
+    override val kawa: Kawa = Kawa()
+    override val mentsu: MutableList<Mentsu> = mutableListOf()
+    override var tsumo: Hai? = null
+    override var point: Int = 0
+
+    override fun getObservable(event: RoundEvent, duration: Long): Observable<RoundEvent> {
+        return Observable.create<RoundEvent> { t ->
+            val e = RoundEvent()
+            e.from = this@I
+            when(event.action) {
+                ACTION_SUTE -> {
+                    val temp = ArrayList(tehai.haiList)
+                    temp.add(event.hai)
+                    if (calculateShantensu(temp, 0) == -1) {
+                        e.action = ACTION_RON
+                    }
+                }
+                else -> e.action = ACTION_NONE
+            }
+            t.onNext(e)
+            t.onCompleted()
+        }
+    }
 
     override fun receive(hai: Hai) {
         tehai.put(hai)
@@ -27,7 +52,7 @@ class I: AI() {
     override fun da(haiList: List<Hai>, basis: List<Hai>): Hai {
         var resultHai: Hai
         var u = getUselessGeneralized(tehai.toTypedArray(false))
-        val array = toTypedArray(basis)
+        val array = toTypedHaiArray(basis)
         var result = printResultByGen(u, tehai, array, false)
         if (result.first != 0) {
             resultHai = Hai.newInstance(result.first)
@@ -59,6 +84,14 @@ class I: AI() {
         println()
         return resultHai
     }
+
+    override fun kan(haiList: List<Hai>): Boolean = false
+
+    override fun pon(haiList: List<Hai>): Boolean = false
+
+    override fun chi(haiList: List<Hai>): Boolean = false
+
+    override fun ron(haiList: List<Hai>): Boolean = calculateShantensu(tehai.haiList, 0) < 0
 
     override fun remove(hai: Hai) {
         tehai.remove(hai)
@@ -107,7 +140,7 @@ class I: AI() {
         val list = mutableListOf<Pair<Float, Int>>()
         for (i in 0..u.useless.size - 1) {
             if (u.useless[i] < 1) continue
-            //val e = efficiencyByHand(tehai.toTypedArray(false), i + 1)
+            //val e = efficiencyByHand(tehai.toTypedHaiArray(false), i + 1)
             val e = efficiencyByProbability(basis, i + 1)
             list.add(Pair(e, i + 1))
             if (e < efficiency) {
