@@ -22,6 +22,7 @@ open class Round: RoundContextV2 {
     private val playerMap: MutableMap<PlayerModel, Int>
     private var haiMgr: HaiMgr
     private var roundNo: Int
+    private var nextRound: Boolean = true
 
 
     override var isFirstLoop: Boolean = false
@@ -59,17 +60,19 @@ open class Round: RoundContextV2 {
     }
 
     override fun onStop() {
-
+        nextRound = false
     }
 
-    override fun hasNextRound(): Boolean = true
+    override fun hasNextRound(): Boolean {
+        return nextRound
+    }
 
     override fun onEnd() {
 
     }
 
     override fun onReceiveEvent(event: RoundEvent) {
-
+        println("event: from:${event.from}, to: ${event.to}, hai: ${event.hai}, action: ${event.action}")
     }
 
     override fun getPlayerList(): List<PlayerModel> {
@@ -95,15 +98,16 @@ open class Round: RoundContextV2 {
     fun addPlayer(p: PlayerModel, jikaze: Kaze, c: PlayerCommander): Round {
         val context = Player(p, jikaze, c, this)
         players[jikaze.index] = context
+        playerModels[jikaze.index] = p
         playerMap.put(p, jikaze.index)
         return this
     }
 
     @Throws(IllegalIntKazeException::class)
-    fun addPlayer(p: PlayerModel, jikaze: Int, c: PlayerCommander) {
+    fun addPlayer(p: PlayerModel, jikaze: Int, c: PlayerCommander): Round {
         if (jikaze < 0 || jikaze > 3) {
             throw IllegalIntKazeException(jikaze)
         }
-        addPlayer(p, Kaze.values()[jikaze], c)
+        return addPlayer(p, Kaze.values()[jikaze], c)
     }
 }

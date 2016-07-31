@@ -47,6 +47,10 @@ class I: AI(), PlayerModel {
     override fun receive(hai: Hai) {
         tehai.put(hai)
         tehai.sort()
+        val shanten = calculateShantensu(getHai(), 0)
+
+        outln("手牌: ${getHai()}")
+        outln("向聴数: $shanten")
     }
 
     override fun da(haiList: List<Hai>, basis: List<Hai>): Hai {

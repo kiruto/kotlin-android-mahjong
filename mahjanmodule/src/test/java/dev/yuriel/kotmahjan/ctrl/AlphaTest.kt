@@ -15,6 +15,7 @@ import java.util.*
 /**
  * Created by yuriel on 7/26/16.
  */
+@Deprecated("")
 class AlphaTest {
     private fun selectDahai(tehaisString: String, furos: List<Mentsu>, tsumohaiString: String): Int {
         println(true, "selectDahai", tehaisString, tsumohaiString)

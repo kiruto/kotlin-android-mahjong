@@ -82,8 +82,13 @@ class RoundController(val rounder: RoundContextV2) {
             }
             rounder.isFirstLoop = true
 
+            var loop = 0
+
             // 第一巡开始
             while (!rounder.isHoutei()) {
+                loop ++
+                if (loop > 34) return
+                prl("巡: $loop")
                 var targetPlayer = rounder.getPlayerList()[0]
                 var tsumoType: String = SHOULD_TSUMO
                 for (player in rounder.getPlayerList()) {
@@ -95,6 +100,7 @@ class RoundController(val rounder: RoundContextV2) {
                         rounder.onStop()
                         return
                     }
+                    if (events.isEmpty()) continue
                     val event = events[0]
 
                     if (event.action == ACTION_RON) {
@@ -159,6 +165,7 @@ class RoundController(val rounder: RoundContextV2) {
         val hai: Hai?
         if (tsumoType == SHOULD_TSUMO) {
             hai = getHai()
+            prl("配牌: $hai")
         } else if (tsumoType == SHOULD_TSUMO_AFTER_KAN) {
             hai = getHaiAfterKan()
         } else {
@@ -312,5 +319,13 @@ class RoundController(val rounder: RoundContextV2) {
                 result.add(this[i - startAt])
         }
         return result
+    }
+
+    private fun pr(str: String) {
+        print(ANSI_RED + str + ANSI_RESET)
+    }
+
+    private fun prl(str: String) {
+        println(ANSI_RED + str + ANSI_RESET)
     }
 }
