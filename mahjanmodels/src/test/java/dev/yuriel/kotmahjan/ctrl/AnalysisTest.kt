@@ -159,7 +159,7 @@ class AnalysisTest {
             }
 
             for ((e, id) in result.second) {
-                println("hai: ${Hai.newInstance(id)}, efficiency: ${e.efficiency}")
+                println("hai: ${Hai.newInstance(id)}, efficiencyByHand: ${e.efficiency}")
                 for (h in e.keys) {
                     println("   >${Hai.newInstance(h)}, ")
                 }
@@ -196,7 +196,7 @@ class AnalysisTest {
         val list = mutableListOf<Pair<Efficiency2Key, Int>>()
         for (i in 0..u.useless.size - 1) {
             if (u.useless[i] < 1) continue
-            val e = efficiency(tehai.toTypedArray(false), i + 1)
+            val e = efficiencyByHand(tehai.toTypedArray(false), i + 1)
             list.add(Pair(e, i + 1))
             if (e.efficiency > efficiency.efficiency) {
                 efficiency = e

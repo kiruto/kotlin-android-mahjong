@@ -83,7 +83,7 @@ data class Useless2Key2KeyMap(val useless: IntArray = IntArray(34),
  * 牌の効率
  */
 @Throws(IllegalIntArrayException::class, NoSuchTileException::class)
-fun efficiency(tehai: IntArray, id: @ID Int): Efficiency2Key {
+fun efficiencyByHand(tehai: IntArray, id: @ID Int): Efficiency2Key {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
@@ -107,6 +107,23 @@ fun efficiency(tehai: IntArray, id: @ID Int): Efficiency2Key {
         }
     }
     return Efficiency2Key(result, keys)
+}
+
+@Throws(IllegalIntArrayException::class, NoSuchTileException::class)
+fun efficiencyByProbability(range: IntArray, id: @ID Int): Float {
+    if (range.size != 34) {
+        throw IllegalIntArrayException(range.size)
+    }
+    if (id < 1 || id > 34) {
+        throw NoSuchTileException(id)
+    }
+    val keys = mutableSetOf<Int>()
+    var result = 0F
+    keys.addAll(getTileGroupRangeWith(id))
+    for (k in keys) {
+        result += range[k - 1].toFloat() / range.sum().toFloat()
+    }
+    return result
 }
 
 /**
@@ -155,7 +172,7 @@ fun distance(fromId: @ID Int, toId: @ID Int): Distance2Key {
 @Throws(IllegalIntArrayException::class)
 fun excludeShuntsu(tehai: IntArray,
                    antiOriented: Boolean = false,
-                   confirm: ((@ID Int, @ID Int, @ID Int, @Index IntArray) -> Boolean)? = null): IntArray {
+                   confirm: ((@ID Int, @ID Int, @ID Int, last: @Index IntArray) -> Boolean)? = null): IntArray {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
@@ -201,13 +218,15 @@ fun excludeKotsu(tehai: IntArray, confirm: ((@ID Int, @Index IntArray) -> Boolea
 }
 
 @Throws(IllegalIntArrayException::class)
-fun exclude2Correlation(tehai: IntArray, confirm: ((@ID Int, @ID Int, @Index IntArray) -> Boolean)? = null): Useless2Key2KeyMap {
+fun exclude2Correlation(tehai: IntArray,
+                        confirm: ((@ID Int, @ID Int, useless: @Index IntArray) -> Boolean)? = null): Useless2Key2KeyMap {
     if (tehai.size != 34) {
         throw IllegalIntArrayException(tehai.size)
     }
     //val map = SparseArray<MutableList<Int>>()
     val k2gMap = HashMap<Int, MutableList<Int>>()
     val g2kList = mutableListOf<Group2KeyList>()
+    var hasJanto = false;
     /*
     fun SparseArray<MutableList<Int>>.addTo(id: Int, addId: Int) {
         if (this[id] == null) {
@@ -253,6 +272,14 @@ fun exclude2Correlation(tehai: IntArray, confirm: ((@ID Int, @ID Int, @Index Int
             //print(i)
             var found = false
             var key: Distance2Key
+            if (!hasJanto && useless[i] > 1 && confirm?.invoke(i + 1, i + 1, useless)?: true) {
+                useless[i] -= 2
+                key = Distance2Key(0, i + 1, -1)
+                found = true
+                keyList.addKey(key.key1, key.key2, i + 1)
+                hasJanto = true
+            }
+            if (found) continue
             if (i < useless.size - 2 && useless[i + 1] > 0) {
                 key = distance(i + 1, i + 2)
                 if (key.distance != -1 && confirm?.invoke(i + 1, i + 2, useless)?: true) {
@@ -279,6 +306,7 @@ fun exclude2Correlation(tehai: IntArray, confirm: ((@ID Int, @ID Int, @Index Int
                 found = true
                 keyList.addKey(key.key1, key.key2, i + 1)
             }
+
             if (!found) break
         }
     }
@@ -296,6 +324,7 @@ fun getUselessGeneralized(tehai: IntArray): Useless2Key2KeyMap {
 }
 
 // todo: 何かの違いがあるかも
+@Deprecated("この方法は通用しないので、別の方法を考えてみて")
 @Throws(IllegalIntArrayException::class)
 fun getUselessSpecialized(tehai: IntArray): Useless2Key2KeyMap = getUselessByMerged(tehai) {
     list1, list2 -> list1 or list2
@@ -317,6 +346,9 @@ fun getUselessByMerged(tehai: IntArray,
     return exclude2Correlation(merge)
 }
 
+/**
+ * どの牌の組みを分けるかを決めるメソード
+ */
 @Throws(IllegalIntArrayException::class)
 fun sortEffectInRange(data: Useless2Key2KeyMap,
                       tehai: IntArray,

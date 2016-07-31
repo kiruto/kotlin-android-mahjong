@@ -7,6 +7,7 @@
 package dev.yuriel.kotmahjan.ctrl
 
 import dev.yuriel.kotmahjan.ai.AI
+import dev.yuriel.kotmahjan.ai.Console
 import dev.yuriel.kotmahjan.ai.I
 import dev.yuriel.kotmahjan.ctrl.analysis.calculateShantensu
 import dev.yuriel.kotmahjan.models.ANSI_RED
@@ -27,6 +28,7 @@ class TestI {
         ai.receive(mgr.getHai())
 
         var loop = 0
+        var rich = false
         while (mgr.hasHai()) {
             //　スタート
 
@@ -40,20 +42,26 @@ class TestI {
 
             prl("手牌: ${ai.getHai()}")
             prl("向聴数: $shanten")
-//            if (shanten < 1) {
-//                prl("ツモ")
-//                assert(true)
-//                return
-//            }
+            if (!rich && shanten == 0) {
+                prl("リーチ")
+                rich = true
+            }
+            if (shanten == -1) {
+                prl("ツモ")
+                assert(true)
+                return
+            }
 
             ai.da(mgr.getHaiList4Test())
         }
-        assert(true)
+        assert(false)
     }
 
     @Test
     fun testI() {
-        testAI(I())
+        val ai = I()
+        ai.setListener(Console)
+        testAI(ai)
     }
 
     private fun pr(str: String) {
