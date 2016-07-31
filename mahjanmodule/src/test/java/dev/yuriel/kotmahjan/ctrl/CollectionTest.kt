@@ -27,7 +27,7 @@ class CollectionTest {
 
     @Test
     fun testAllHai() {
-        val all = HaiUtil.getAllHai()
+        val all = HaiUtil().getAllHai()
 //        for (hai in all) {
 //            println(hai.toString())
 //        }
@@ -45,7 +45,7 @@ class CollectionTest {
 
     @Test
     fun testRandAllHai() {
-        val all = HaiUtil.getAllHaiRand()
+        val all = HaiUtil().getAllHaiRand()
 //        for (hai in all) {
 //            println(hai.toString())
 //        }

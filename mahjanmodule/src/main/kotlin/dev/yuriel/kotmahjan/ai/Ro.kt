@@ -16,7 +16,7 @@ import dev.yuriel.kotmahjan.models.toTypedHaiArray
  * 第二号ロボット：呂
  * 伊野ライバルとして存在しています
  */
-class Ro: AI() {
+abstract class Ro: AI() {
     private var tehai: Tehai = Tehai()
 
     override fun receive(hai: Hai) {

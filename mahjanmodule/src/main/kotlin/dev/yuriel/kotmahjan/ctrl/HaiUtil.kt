@@ -16,7 +16,7 @@ class HaiUtil {
         }
     }
 
-    private fun getAllHai(): MutableList<Hai> {
+    fun getAllHai(): MutableList<Hai> {
         val result = mutableListOf<Hai>()
 //        var i = 0
         for (type in HaiType.values()) {
