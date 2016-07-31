@@ -13,4 +13,4 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 /**
  * Created by yuriel on 7/24/16.
  */
-fun 地和Impl(r: RoundContext?, p: PlayerContext?, s: MentsuSupport): Boolean = r != null && p != null && r.isFirstLoop() && p.isTsumo() && !p.isParent()
+fun 地和Impl(r: RoundContext?, p: PlayerContext?, s: MentsuSupport): Boolean = r != null && p != null && r.isFirstLoop && p.isTsumo() && !p.isParent()

@@ -67,3 +67,11 @@ class DoraCannotFoundException(private val hai: Hai): MahjanException("ドラが
 class IllegalIntArrayException(private val size: Int): MahjanException("手牌の形が違います") {
     override val advice: String = "(size = $size)"
 }
+
+class IllegalIntKazeException(private val index: Int): MahjanException("風のインデックスは違います。") {
+    override val advice: String = "(index = $index)"
+}
+
+class PlayerNotReadyException: MahjanException("PlayerContext not ready")
+
+class UnbelievableException: MahjanException("バカなっ！！")

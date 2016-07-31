@@ -17,6 +17,7 @@ import kotlin.properties.Delegates
  * Created by yuriel on 7/17/16.
  */
 
+@Deprecated("")
 class RoundLooper(val rounder: RoundContextV1) {
     private var log: RoundEvent by Delegates.observable(RoundEvent()) {
         prop, old, new -> rounder.onReceiveEvent(new)
@@ -30,7 +31,7 @@ class RoundLooper(val rounder: RoundContextV1) {
             rounder.onStart()
             rounder.onHaiPai()
             var isFirstLoop = true
-            looper@while (!rounder.isEndOfRound()) {
+            looper@while (/*!rounder.isEndOfRound()*/false) {
                 for (player in rounder.getPlayerList()) {
                     val looper = rounder.getLoopContext(player)
                     rounder.onLoop(player, looper)
@@ -57,7 +58,7 @@ class RoundLooper(val rounder: RoundContextV1) {
                         }
                     }
                     if (processAction(listeners)) break@looper
-                    if (rounder.isEndOfRound()) break@looper
+                    if (/*rounder.isEndOfRound()*/false) break@looper
                 }
                 isFirstLoop = false
             }

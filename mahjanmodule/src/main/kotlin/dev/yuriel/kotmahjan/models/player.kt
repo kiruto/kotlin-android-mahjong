@@ -18,15 +18,14 @@ const val ROLE_S = 1 shl 4
 const val ROLE_W = 1 shl 5
 const val ROLE_N = 1 shl 6
 
-open class Player(args: Map<String, Any>) {
-    val tehai: Tehai by lazy { Tehai() }
-    val kawa: Kawa by lazy { Kawa() }
-    val mentsu: MutableList<Mentsu> by lazy { mutableListOf<Mentsu>() }
+interface PlayerModel {
+    val tehai: Tehai
+    val kawa: Kawa
+    val mentsu: MutableList<Mentsu>
 
-    var tsumo: Hai? = null
+    var tsumo: Hai?
 
-    val point: Int by args
-    val role: Int by args
+    var point: Int
 
     fun resetHai() {
         tehai.clear()
@@ -42,10 +41,10 @@ open class Player(args: Map<String, Any>) {
     */
 }
 
-val masterArgs: Map<String, Any> = mutableMapOf(
-        Pair("role", ROLE_MASTER),
-        Pair("point", -1)
-)
-class GameMaster : Player(masterArgs) {
-
+class GameMaster : PlayerModel {
+    override val tehai: Tehai = Tehai()
+    override val kawa: Kawa = Kawa()
+    override val mentsu: MutableList<Mentsu> = mutableListOf()
+    override var tsumo: Hai? = null
+    override var point: Int = -1
 }

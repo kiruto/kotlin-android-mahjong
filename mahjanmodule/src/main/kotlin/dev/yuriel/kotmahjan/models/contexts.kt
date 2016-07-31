@@ -12,6 +12,8 @@ import rx.Observable
  * Created by yuriel on 7/23/16.
  */
 interface RoundContext {
+    var isFirstLoop: Boolean
+    var isRich: Boolean
     /**
      * 対局開始
      */
@@ -21,8 +23,6 @@ interface RoundContext {
      * 配牌
      */
     fun onHaiPai()
-
-    fun isEndOfRound(): Boolean
 
     /**
      * 対局終了
@@ -41,18 +41,11 @@ interface RoundContext {
     /**
      * 親から東南西北順
      */
-    fun getPlayerList(): List<Player>
+    fun getPlayerList(): List<PlayerModel>
 
     fun getBakaze(): Hai
-
-    fun isRich(): Boolean
-
     fun isHoutei(): Boolean
-
-    fun isFirstLoop(): Boolean
-
     fun getDora(): List<Hai>
-
     fun getUradora(): List<Hai>
 
 }
@@ -61,8 +54,8 @@ interface RoundContextV1: RoundContext {
     /**
      * 巡
      */
-    fun onLoop(player: Player, loopContext: LoopContext)
-    fun getLoopContext(player: Player): LoopContext
+    fun onLoop(player: PlayerModel, loopContext: LoopContext)
+    fun getLoopContext(player: PlayerModel): LoopContext
 }
 
 interface LoopContext {
@@ -109,10 +102,10 @@ interface LoopContext {
 }
 
 interface RoundContextV2: RoundContext {
-    fun getPlayerContext(player: Player): PlayerContext
+    fun getPlayerContext(player: PlayerModel): PlayerContext
 }
 
-interface PlayerContext {
+interface PlayerContext: Comparable<PlayerContext> {
     fun onStart()
     fun onReceiveHai(hai: Hai)
     fun onHaiPai(haiList: List<Hai>)
@@ -124,26 +117,18 @@ interface PlayerContext {
     fun onKan()
     fun onRon()
 
-    //fun could(): Flags
     fun onReceive(event: RoundEvent): RoundEventResponse
-    //fun getSubscriber(): Subscriber<RoundEvent>
     fun getObservable(event: RoundEvent, duration: Long): Observable<RoundEvent>?
-    //fun getPlayer(): Player
+
     fun isChankan(): Boolean
-
     fun isRich(): Boolean
-
     fun isDoubleRich(): Boolean
-
     fun isTsumo(): Boolean
-
     fun getJikaze(): Hai
-
     fun isRinshankaihoh(): Boolean
-
     fun isIppatsu(): Boolean
-
     fun isParent(): Boolean
 
+    override fun compareTo(other: PlayerContext): Int = getJikaze().id - other.getJikaze().id
 }
 

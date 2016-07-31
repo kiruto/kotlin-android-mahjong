@@ -7,7 +7,7 @@
 package dev.yuriel.kotmahjan.ctrl
 
 import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmahjan.models.Player
+import dev.yuriel.kotmahjan.models.PlayerModel
 
 /**
  * Created by yuriel on 7/17/16.
@@ -22,6 +22,6 @@ fun MutableList<Hai>.pop4(): List<Hai>{
     return result
 }
 
-fun Player.getHaiOnStartRound() {
+fun PlayerModel.getHaiOnStartRound() {
 
 }

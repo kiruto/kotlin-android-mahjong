@@ -11,7 +11,7 @@ package dev.yuriel.kotmahjan.models
  */
 
 open class RoundEvent(val action: Int = EVENT_INIT, val hai: Hai? = null, val extra: String = "",
-                      var from: Player = GameMaster(), var to: Player = GameMaster()) {
+                      var from: PlayerModel = GameMaster(), var to: PlayerModel = GameMaster()) {
 
     companion object {
         /* todo

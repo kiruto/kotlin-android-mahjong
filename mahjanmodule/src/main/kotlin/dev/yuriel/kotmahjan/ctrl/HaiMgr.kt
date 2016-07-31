@@ -13,48 +13,7 @@ import dev.yuriel.kotmahjan.models.MahjanException
 /**
  * Created by yuriel on 7/17/16.
  */
-
-object HaiUtil {
-
-    fun getAllHai(): MutableList<Hai> {
-        val result = mutableListOf<Hai>()
-//        var i = 0
-        for (type in HaiType.values()) {
-//            println("${type.id}, ${type.name}, ${type.ordinal}, ${i++}")
-            result.addAll(getAllHaiByType(type))
-        }
-        return result
-    }
-
-    fun getAllHaiRand(): MutableList<Hai> {
-        val ordered: MutableList<Hai> = getAllHai()
-
-        fun rand(): Hai {
-            val randomIndex: Int = (Math.random() * ordered.size).toInt()
-            val result = ordered[randomIndex]
-            ordered.removeAt(randomIndex)
-            return result
-        }
-
-        val result = mutableListOf<Hai>()
-        while (!ordered.isEmpty()) {
-            result.add(rand())
-        }
-
-        return result
-    }
-
-    private fun getAllHaiByType(type: HaiType): List<Hai> {
-//        println(type.ordinal)
-        return if (type.ordinal < 3) {
-            Array(4 * 9, { i -> Hai(type, i / 4 + 1) }).toList()
-        } else {
-            Array(4, { i -> Hai(type, -1)}).toList()
-        }
-    }
-}
-
-class HaiMgr(u: HaiUtil = HaiUtil) {
+class HaiMgr(u: HaiUtil = HaiUtil()) {
 
     private val haiList: MutableList<Hai> = u.getAllHaiRand()
     private val haiSan: MutableList<Hai> = mutableListOf()

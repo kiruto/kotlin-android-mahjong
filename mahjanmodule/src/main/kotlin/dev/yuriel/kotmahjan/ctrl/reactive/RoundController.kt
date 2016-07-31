@@ -58,7 +58,10 @@ class RoundController(val rounder: RoundContextV2) {
             ACTION_PON -> rounder.getPlayerContext(new.to).onPon()
             ACTION_KAN -> rounder.getPlayerContext(new.to).onKan()
             ACTION_CHI -> rounder.getPlayerContext(new.to).onChi()
-            ACTION_RICHI -> rounder.getPlayerContext(new.to).onRichi()
+            ACTION_RICHI -> {
+                rounder.isRich = true
+                rounder.getPlayerContext(new.to).onRichi()
+            }
         }
     }
 
@@ -67,26 +70,26 @@ class RoundController(val rounder: RoundContextV2) {
         while (rounder.hasNextRound()) {
             rounder.onStart()
             rounder.onHaiPai()
-            // 陪牌
+            // 配牌
             for (i in 0..2)
                 for (p in rounder.getPlayerList()) {
                     rounder.getPlayerContext(p).onHaiPai(getHaiPai())
                 }
 
-            // 陪牌最后一张
+            // 配牌最后一张
             for (p in rounder.getPlayerList()) {
                 rounder.getPlayerContext(p).onReceiveHai(getHai())
             }
-            var isFirstLoop = true
+            rounder.isFirstLoop = true
 
             // 第一巡开始
-            while (!rounder.isEndOfRound()) {
+            while (!rounder.isHoutei()) {
                 var targetPlayer = rounder.getPlayerList()[0]
                 var tsumoType: String = SHOULD_TSUMO
                 for (player in rounder.getPlayerList()) {
                     // todo 四风连打
                     if (targetPlayer != player) continue
-                    val events = looper(rounder, player, isFirstLoop, tsumoType)
+                    val events = looper(rounder, player, rounder.isFirstLoop, tsumoType)
                     if (events.size > 1) {
                         // 一炮多响
                         rounder.onStop()
@@ -98,19 +101,19 @@ class RoundController(val rounder: RoundContextV2) {
                         rounder.onStop()
                         return
                     } else if (event.action == ACTION_KAN) {
-                        isFirstLoop = false
+                        rounder.isFirstLoop = false
                         targetPlayer = event.from
                         tsumoType = SHOULD_TSUMO_AFTER_KAN
                     } else if (event.action == ACTION_PON) {
-                        isFirstLoop = false
+                        rounder.isFirstLoop = false
                         targetPlayer = event.from
                         tsumoType = SHOULD_NOT_TSUMO
                     } else if (event.action == ACTION_CHI) {
-                        isFirstLoop = false
+                        rounder.isFirstLoop = false
                         targetPlayer = event.from
                         tsumoType = SHOULD_NOT_TSUMO
                     } else if (event.action != ACTION_NONE) {
-                        isFirstLoop = false
+                        rounder.isFirstLoop = false
                         targetPlayer = event.from
                         // todo
                     } else {
@@ -118,7 +121,7 @@ class RoundController(val rounder: RoundContextV2) {
                     }
 
                 }
-                isFirstLoop = false
+                rounder.isFirstLoop = false
             }
             rounder.onStop()
         }
@@ -144,7 +147,7 @@ class RoundController(val rounder: RoundContextV2) {
      *
      * 第一巡：四风连打？
      */
-    private fun looper(context: RoundContextV2, player: Player,
+    private fun looper(context: RoundContextV2, player: PlayerModel,
                        isFirstLoop: Boolean, tsumoType: String): List<RoundEvent> {
         val pContext = context.getPlayerContext(player)
         val result: MutableList<RoundEvent> = mutableListOf()
@@ -193,23 +196,23 @@ class RoundController(val rounder: RoundContextV2) {
     }
 
     private fun askOtherPlayersFor(event: RoundEvent, context: RoundContextV2,
-                                   player: Player, duration: Long = 5000): List<RoundEvent> {
+                                   player: PlayerModel, duration: Long = 5000): List<RoundEvent> {
         val resultEvent: MutableList<RoundEvent> = mutableListOf()
         val litch = CountDownLatch(1)
-        val players: List<Player> = context.getPlayerList().startOf(player)
+        val players: List<PlayerModel> = context.getPlayerList().startOf(player)
         val actions = object {
             private val size = players.size - 1
-            val value = mutableMapOf<Player, RoundEvent>()
+            val value = mutableMapOf<PlayerModel, RoundEvent>()
 
             fun add(event: RoundEvent) {
                 value.put(event.from, event)
             }
 
-            fun remove(player: Player) {
+            fun remove(player: PlayerModel) {
                 value.remove(player)
             }
 
-            operator fun get(player: Player): RoundEvent? {
+            operator fun get(player: PlayerModel): RoundEvent? {
                 return value[player]
             }
 
@@ -298,17 +301,17 @@ class RoundController(val rounder: RoundContextV2) {
     private fun reset() {
         haiMgr = HaiMgr()
     }
-}
 
-fun <T> List<T>.startOf(t: T): List<T> {
-    if (t !in this) return listOf()
-    val result: MutableList<T> = mutableListOf()
-    val startAt = indexOf(t)
-    for (i in 0..size - 1) {
-        if (i + startAt < size)
-            result.add(this[i + startAt])
-        else
-            result.add(this[i - startAt])
+    fun <T> List<T>.startOf(t: T): List<T> {
+        if (t !in this) return listOf()
+        val result: MutableList<T> = mutableListOf()
+        val startAt = indexOf(t)
+        for (i in 0..size - 1) {
+            if (i + startAt < size)
+                result.add(this[i + startAt])
+            else
+                result.add(this[i - startAt])
+        }
+        return result
     }
-    return result
 }

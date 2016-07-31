@@ -13,4 +13,4 @@ import dev.yuriel.kotmahjan.rules.MentsuSupport
 /**
  * Created by yuriel on 7/24/16.
  */
-fun ダブルリーチImpl(r: RoundContext?, p: PlayerContext?, s: MentsuSupport): Boolean = r != null && p != null && p.isDoubleRich() && r.isRich()
+fun ダブルリーチImpl(r: RoundContext?, p: PlayerContext?, s: MentsuSupport): Boolean = r != null && p != null && p.isDoubleRich() && r.isRich
