@@ -89,6 +89,8 @@ class RoundController(val rounder: RoundContextV2) {
                 loop ++
                 if (loop > 34) return
                 prl("巡: $loop")
+                
+                // todo ここが問題です。いつも同じプレイヤーを動作しでいます。
                 var targetPlayer = rounder.getPlayerList()[0]
                 var tsumoType: String = SHOULD_TSUMO
                 for (player in rounder.getPlayerList()) {
