@@ -131,7 +131,7 @@ fun efficiencyByProbability(range: IntArray, id: @ID Int): Float {
  *  -1: 無関係
  *  0: 同じ牌
  *  1: 隣の牌
- *  2: 離れる
+ *  2: 離れてる牌
  */
 @Throws(NoSuchTileException::class)
 fun distance(fromId: @ID Int, toId: @ID Int): Distance2Key {
