@@ -65,10 +65,13 @@ class RoundController(val rounder: RoundContextV2) {
         }
     }
 
+    @Throws(UnexpectedActionExcept::class)
     fun mainLoop() {
         reset()
         while (rounder.hasNextRound()) {
-            rounder.onStart()
+            rounder.onStart(haiMgr!!)
+            rounder.dora = haiMgr?.doraOmote()?: listOf()
+            rounder.uradora = haiMgr?.doraUra()?: listOf()
             rounder.onHaiPai()
             // 配牌
             for (i in 0..2)
@@ -83,17 +86,18 @@ class RoundController(val rounder: RoundContextV2) {
             rounder.isFirstLoop = true
 
             var loop = 0
+            var targetPlayer = rounder.getPlayerList()[0]
+            var tsumoType: String = SHOULD_TSUMO
 
             // 第一巡开始
-            while (!rounder.isHoutei()) {
+            round@while (hasHai()) {
+                rounder.isHoutei = !hasHai()
                 loop ++
                 if (loop > 34) return
                 prl("巡: $loop")
                 
-                // todo ここが問題です。いつも同じプレイヤーを動作しでいます。
-                var targetPlayer = rounder.getPlayerList()[0]
-                var tsumoType: String = SHOULD_TSUMO
-                for (player in rounder.getPlayerList()) {
+
+                loop@for (player in rounder.getPlayerList()) {
                     // todo 四风连打
                     if (targetPlayer != player) continue
                     val events = looper(rounder, player, rounder.isFirstLoop, tsumoType)
@@ -102,30 +106,36 @@ class RoundController(val rounder: RoundContextV2) {
                         rounder.onStop()
                         return
                     }
-                    if (events.isEmpty()) continue
+                    if (events.isEmpty()) {
+                        targetPlayer = rounder.getPlayerList().startOf(targetPlayer)[1]
+                        continue
+                    }
                     val event = events[0]
 
                     if (event.action == ACTION_RON) {
                         rounder.onStop()
-                        return
+                        break@round
                     } else if (event.action == ACTION_KAN) {
                         rounder.isFirstLoop = false
                         targetPlayer = event.from
                         tsumoType = SHOULD_TSUMO_AFTER_KAN
+                        break@loop
                     } else if (event.action == ACTION_PON) {
                         rounder.isFirstLoop = false
                         targetPlayer = event.from
                         tsumoType = SHOULD_NOT_TSUMO
+                        break@loop
                     } else if (event.action == ACTION_CHI) {
                         rounder.isFirstLoop = false
                         targetPlayer = event.from
                         tsumoType = SHOULD_NOT_TSUMO
+                        break@loop
                     } else if (event.action != ACTION_NONE) {
                         rounder.isFirstLoop = false
-                        targetPlayer = event.from
+                        targetPlayer = rounder.getPlayerList().startOf(targetPlayer)[1]
                         // todo
                     } else {
-
+                        throw UnexpectedActionExcept(event.action)
                     }
 
                 }
@@ -298,13 +308,18 @@ class RoundController(val rounder: RoundContextV2) {
 
     private fun getHaiPai(): List<Hai> = haiMgr!!.haiPai()
 
-    private fun hasHai(): Boolean = haiMgr!!.hasHai()
+    private fun hasHai(): Boolean = haiMgr?.hasHai()?:false
 
     private fun getHai(): Hai = haiMgr!!.getHai()
 
     private fun couldKan(): Boolean = haiMgr!!.couldKan()
 
-    private fun getHaiAfterKan(): Hai = haiMgr!!.kan()
+    private fun getHaiAfterKan(): Hai {
+        val hai = haiMgr!!.kan()
+        rounder.dora = haiMgr?.doraOmote()?: listOf()
+        rounder.uradora = haiMgr?.doraUra()?: listOf()
+        return hai
+    }
 
     private fun reset() {
         haiMgr = HaiMgr()
@@ -313,14 +328,25 @@ class RoundController(val rounder: RoundContextV2) {
     fun <T> List<T>.startOf(t: T): List<T> {
         if (t !in this) return listOf()
         val result: MutableList<T> = mutableListOf()
+        result.addAll(this)
         val startAt = indexOf(t)
+        if (startAt == 0) return result
+        for (i in 0..startAt - 1) {
+            val obj = result[0]
+            result.removeAt(0)
+            result.add(obj)
+        }
+        return result
+        /*
         for (i in 0..size - 1) {
             if (i + startAt < size)
                 result.add(this[i + startAt])
             else
                 result.add(this[i - startAt])
         }
+
         return result
+        */
     }
 
     private fun pr(str: String) {

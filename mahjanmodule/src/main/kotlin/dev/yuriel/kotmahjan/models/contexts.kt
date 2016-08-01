@@ -6,6 +6,7 @@
 
 package dev.yuriel.kotmahjan.models
 
+import dev.yuriel.kotmahjan.ctrl.HaiMgr
 import rx.Observable
 
 /**
@@ -17,7 +18,7 @@ interface RoundContext {
     /**
      * 対局開始
      */
-    fun onStart()
+    fun onStart(haiMgr: HaiMgr)
 
     /**
      * 配牌
@@ -44,9 +45,9 @@ interface RoundContext {
     fun getPlayerList(): List<PlayerModel>
 
     fun getBakaze(): Hai
-    fun isHoutei(): Boolean
-    fun getDora(): List<Hai>
-    fun getUradora(): List<Hai>
+    var isHoutei: Boolean
+    var dora: List<Hai>
+    var uradora: List<Hai>
 
 }
 

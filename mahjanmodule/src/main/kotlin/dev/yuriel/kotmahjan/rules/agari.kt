@@ -225,7 +225,7 @@ class Agari(private var hands: Hands? = null,
             return
         }
         var dora = 0
-        for (tile in generalSituation.getDora()) {
+        for (tile in generalSituation.dora) {
             dora += handsComp[tile.getCode()]
         }
         for (i in 0..dora - 1) {
@@ -235,7 +235,7 @@ class Agari(private var hands: Hands? = null,
 
         if (isReach) {
             var uradora = 0
-            for (tile in generalSituation.getUradora()) {
+            for (tile in generalSituation.uradora) {
                 uradora += handsComp[tile.getCode()]
             }
             for (i in 0..uradora - 1) {

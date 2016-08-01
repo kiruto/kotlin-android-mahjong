@@ -18,7 +18,7 @@ import java.util.*
  * 第一号ロボット：伊
  * 鳴かないながらツモだけ麻雀プレイします
  */
-class I: AI(), PlayerModel {
+class I(val name: String = "名無し"): AI(), PlayerModel {
     override var tehai: Tehai = Tehai()
     override val kawa: Kawa = Kawa()
     override val mentsu: MutableList<Mentsu> = mutableListOf()
@@ -161,7 +161,7 @@ class I: AI(), PlayerModel {
     }
 
     private fun outln(str: String) {
-        msg = str + "\n"
+        msg = "$str @$name:I\n"
     }
 
     @Throws(IllegalIntArrayException::class)

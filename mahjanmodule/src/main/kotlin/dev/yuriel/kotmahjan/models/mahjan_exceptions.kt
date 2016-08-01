@@ -75,3 +75,7 @@ class IllegalIntKazeException(private val index: Int): MahjanException("風の�
 class PlayerNotReadyException: MahjanException("PlayerContext not ready")
 
 class UnbelievableException: MahjanException("バカなっ！！")
+
+class UnexpectedActionExcept(val action: Int): MahjanException("動作を認識できません") {
+    override val advice: String = "(action = $action)"
+}

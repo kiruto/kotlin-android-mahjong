@@ -20,19 +20,22 @@ open class Round: RoundContextV2 {
     private val players: Array<PlayerContext?>
     private val playerModels: Array<PlayerModel?>
     private val playerMap: MutableMap<PlayerModel, Int>
-    private var haiMgr: HaiMgr
+    //private var haiMgr: HaiMgr
     private var roundNo: Int
     private var nextRound: Boolean = true
 
 
     override var isFirstLoop: Boolean = false
     override var isRich: Boolean = false
+    override var isHoutei: Boolean = false
+    override var dora: List<Hai> = listOf()
+    override var uradora: List<Hai> = listOf()
 
     init {
         players = Array<PlayerContext?>(4) { it -> null }
         playerModels = Array<PlayerModel?>(4) { it -> null }
         playerMap = mutableMapOf<PlayerModel, Int>()
-        haiMgr = HaiMgr()
+        //haiMgr = HaiMgr()
         roundNo = 0
     }
 
@@ -40,16 +43,16 @@ open class Round: RoundContextV2 {
 
     override fun getAllVisibleHai(): List<Hai> {
         val result = mutableListOf<Hai>()
-        result.addAll(haiMgr.doraOmote())
+        result.addAll(dora)
         for (m in playerModels) {
             result.addAll(m?.kawa?.get()?: continue)
         }
         return result
     }
 
-    override fun onStart() {
+    override fun onStart(haiMgr: HaiMgr) {
         for (p in players) if (null == p) throw PlayerNotReadyException()
-        haiMgr = HaiMgr()
+        //this.haiMgr = HaiMgr()
         isFirstLoop = false
         isRich = false
         roundNo ++
@@ -88,12 +91,6 @@ open class Round: RoundContextV2 {
             else -> throw UnbelievableException()
         }
     }
-
-    override fun isHoutei(): Boolean = !haiMgr.hasHai()
-
-    override fun getDora(): List<Hai> = haiMgr.doraOmote()
-
-    override fun getUradora(): List<Hai> = haiMgr.doraUra()
 
     fun addPlayer(p: PlayerModel, jikaze: Kaze, c: PlayerCommander): Round {
         val context = Player(p, jikaze, c, this)

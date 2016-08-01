@@ -28,7 +28,7 @@ class RoundLooper(val rounder: RoundContextV1) {
      */
     fun loop() {
         while (rounder.hasNextRound()) {
-            rounder.onStart()
+            //rounder.onStart()
             rounder.onHaiPai()
             var isFirstLoop = true
             looper@while (/*!rounder.isEndOfRound()*/false) {
