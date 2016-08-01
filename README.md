@@ -15,3 +15,5 @@ Feature:
 designed with MVP
 
 一人でどこまで出来るかを確かめます。
+
+AUG, 1, 2016: GDXLIBを利用することを決めました。ということは、Android Nの新しいSDKの機能を諦めるしかありません。

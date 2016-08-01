@@ -17,9 +17,6 @@ import kotlin.reflect.KProperty
 
 /**
  * Created by yuriel on 7/20/16.
- */
-
-/**
  * 开始
  * 发牌
  * 循环（没拍可摸？）
@@ -207,7 +204,7 @@ class RoundController(val rounder: RoundContextV2) {
             result.addAll(askOtherPlayersFor(event, context, player))
             roundEvent = event.change()
         } else {
-            throw RuntimeException("can not newInstance Hai for event: ${event.toString()}")
+            throw MahjanException("can not newInstance Hai for event: ${event.toString()}")
         }
         pContext.onEnd()
         return result
@@ -337,16 +334,6 @@ class RoundController(val rounder: RoundContextV2) {
             result.add(obj)
         }
         return result
-        /*
-        for (i in 0..size - 1) {
-            if (i + startAt < size)
-                result.add(this[i + startAt])
-            else
-                result.add(this[i - startAt])
-        }
-
-        return result
-        */
     }
 
     private fun pr(str: String) {
