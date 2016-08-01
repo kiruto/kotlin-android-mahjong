@@ -25,6 +25,7 @@ android {
             java.srcDirs += 'src/main/kotlin'
             assets.srcDirs = ['assets']
         }
+        instrumentTest.setRoot('tests')
     }
 }
 
