@@ -1,5 +1,7 @@
 package dev.yuriel.kotmvp;
 
+import android.app.Activity;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
