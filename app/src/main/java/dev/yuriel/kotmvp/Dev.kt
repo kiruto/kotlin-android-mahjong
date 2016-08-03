@@ -13,7 +13,7 @@ object Dev {
     private val width: Int by lazy { Gdx.graphics.width }
 
     val UX: Float by lazy {
-        val width = if (width < height) width else height
+        val width = if (width > height) width else height
         width.toFloat() / 640
     }
 

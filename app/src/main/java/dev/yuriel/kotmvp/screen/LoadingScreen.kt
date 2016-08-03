@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import dev.yuriel.kotmvp.App
 import dev.yuriel.kotmvp.Dev
+import dev.yuriel.kotmvp.interfaces.BaseScreen
 import rx.Observable
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
@@ -15,8 +16,11 @@ import kotlin.reflect.KClass
 
 /**
  * Created by yuriel on 8/2/16.
+ * @param next 次のスクリーン
+ * @param obj 次を読み込むから必要なパラメータ
+ * @param run ロードメソード
  */
-class LoadingScreen<T, K>(val next: KClass<out Screen>, val obj: K, val run: (K) -> T): Screen {
+class LoadingScreen<T, K>(val next: KClass<out Screen>, val obj: K, val run: (K) -> T): BaseScreen() {
 
     private val batch: SpriteBatch by lazy { SpriteBatch() }
     private val font: BitmapFont by lazy { BitmapFont() }
@@ -72,6 +76,7 @@ class LoadingScreen<T, K>(val next: KClass<out Screen>, val obj: K, val run: (K)
     override fun render(delta: Float) {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
         gl.glClearColor(0F, 0F, 0F, 0F)
+        drawGrid()
         batch.begin()
         font.draw(batch, "now loading", 600 * Dev.UX + i ++, 30 * Dev.UY)
         batch.end()
