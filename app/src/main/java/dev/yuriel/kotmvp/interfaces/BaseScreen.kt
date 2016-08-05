@@ -1,7 +1,7 @@
 package dev.yuriel.kotmvp.interfaces
 
 import com.badlogic.gdx.Screen
-import dev.yuriel.kotmvp.Views.GridLayerViews
+import dev.yuriel.kotmvp.views.GridLayerViews
 
 /**
  * Created by yuriel on 8/3/16.
