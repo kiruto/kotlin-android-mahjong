@@ -1,8 +1,8 @@
-package dev.yuriel.kotmvp.model
+package dev.yuriel.mahjan.model
 
 import com.badlogic.gdx.graphics.Texture
 import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmvp.texture.TileMgr
+import dev.yuriel.mahjan.texture.TileMgr
 
 /**
  * Created by yuriel on 8/5/16.
@@ -30,6 +30,10 @@ class TileWrapper() {
             texture = initTexture(status = value)
         }
     var selected: Boolean = false
+
+    fun destroy() {
+        hai = null
+    }
 
     private fun initTexture(hai: Hai? = this.hai, status: Int = this.status): Texture? {
         if (null == hai) return null

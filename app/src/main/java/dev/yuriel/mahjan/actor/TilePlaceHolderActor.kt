@@ -1,9 +1,9 @@
-package dev.yuriel.kotmvp.actor
+package dev.yuriel.mahjan.actor
 
 import com.badlogic.gdx.graphics.Texture
 import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmvp.interfaces.BaseActor
-import dev.yuriel.kotmvp.model.TileWrapper
+import dev.yuriel.kotmvp.bases.BaseActor
+import dev.yuriel.mahjan.model.TileWrapper
 
 /**
  * Created by yuriel on 8/5/16.
@@ -29,6 +29,11 @@ class TilePlaceHolderActor: BaseActor(), Comparable<TilePlaceHolderActor>{
 
     fun update(hai: Hai?) {
         tile?.hai = hai
+    }
+
+    fun destroy() {
+        tile?.destroy()
+        tile = null
     }
 
     override fun compareTo(other: TilePlaceHolderActor): Int = position - other.position

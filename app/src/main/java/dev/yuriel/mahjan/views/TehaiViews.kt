@@ -1,4 +1,4 @@
-package dev.yuriel.kotmvp.views
+package dev.yuriel.mahjan.views
 
 import dev.yuriel.kotmahjan.models.Hai
 

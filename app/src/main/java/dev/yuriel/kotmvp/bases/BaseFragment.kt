@@ -1,4 +1,4 @@
-package dev.yuriel.kotmvp.interfaces
+package dev.yuriel.kotmvp.bases
 
 import android.os.Bundle
 import com.badlogic.gdx.Gdx

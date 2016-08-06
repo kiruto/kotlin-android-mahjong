@@ -1,20 +1,23 @@
 package dev.yuriel.kotmvp.screen
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.scenes.scene2d.Stage
 import dev.yuriel.kotmvp.Dev
+import dev.yuriel.kotmvp.bases.BaseScreen
+import dev.yuriel.mahjan.texture.TextureMgr
 import javax.microedition.khronos.opengles.GL10
 
 /**
  * Created by yuriel on 8/2/16.
  */
-class TitleScreen: Screen {
+class TitleScreen: BaseScreen() {
 
     private val batch = SpriteBatch()
     private val bf = BitmapFont()
+
+    override fun preload() = null
+
     override fun show() {
 
     }

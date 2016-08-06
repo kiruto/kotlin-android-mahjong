@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import dev.yuriel.kotmvp.App
 import dev.yuriel.kotmvp.Dev
-import dev.yuriel.kotmvp.interfaces.BaseScreen
+import dev.yuriel.kotmvp.bases.BaseScreen
+import dev.yuriel.mahjan.texture.TextureMgr
 import rx.Observable
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
@@ -20,28 +21,41 @@ import kotlin.reflect.KClass
  * @param obj 次を読み込むから必要なパラメータ
  * @param run ロードメソード
  */
-class LoadingScreen<T, K>(val next: KClass<out Screen>, val obj: K, val run: (K) -> T): BaseScreen() {
+class LoadingScreen<T, K>(val next: KClass<out BaseScreen>, val obj: K, val run: (K) -> T): BaseScreen() {
 
     private val batch: SpriteBatch by lazy { SpriteBatch() }
     private val font: BitmapFont by lazy { BitmapFont() }
     private val observable by lazy {
         Observable.just(obj)
                 .observeOn(Schedulers.newThread())
-                .map { run(obj) }
+                .map {
+                    val param: T
+                    var screen: BaseScreen? = null
+                    try {
+                        param = run(obj)
+                        screen = next.java.getConstructor(next.java).newInstance(param)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    if (null == screen) {
+                        try {
+                            screen = next.java.newInstance()
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    for (l in screen?.preload()?: listOf()) {
+                        l.load()
+                    }
+                    screen
+                }
                 .subscribeOn(AndroidSchedulers.mainThread())
     }
 
     private val subscriber by lazy {
-        object: Subscriber<T>() {
-            override fun onNext(t: T) {
+        object: Subscriber<BaseScreen>() {
+            override fun onNext(screen: BaseScreen) {
                 app.postRunnable {
-                    val screen: Screen
-                    try {
-                        screen = next.java.getConstructor(next.java).newInstance(i)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        screen = next.java.newInstance()
-                    }
                     Dev.game?.screen = screen
                 }
             }
@@ -81,6 +95,8 @@ class LoadingScreen<T, K>(val next: KClass<out Screen>, val obj: K, val run: (K)
         font.draw(batch, "now loading", 600 * Dev.UX + i ++, 30 * Dev.UY)
         batch.end()
     }
+
+    override fun preload(): List<TextureMgr>? = null
 
     override fun resume() {
         

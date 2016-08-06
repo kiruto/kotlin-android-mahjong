@@ -1,6 +1,7 @@
-package dev.yuriel.kotmvp.interfaces
+package dev.yuriel.kotmvp.bases
 
 import com.badlogic.gdx.Screen
+import dev.yuriel.mahjan.texture.TextureMgr
 import dev.yuriel.kotmvp.views.GridLayerViews
 
 /**
@@ -12,4 +13,12 @@ abstract class BaseScreen: Screen {
     protected fun drawGrid() {
         grid.draw()
     }
+
+    override fun dispose() {
+        for (l in preload()?: return) {
+            l.destroy()
+        }
+    }
+
+    abstract fun preload(): List<TextureMgr>?
 }

@@ -1,4 +1,4 @@
-package dev.yuriel.kotmvp.interfaces
+package dev.yuriel.kotmvp.bases
 
 import com.badlogic.gdx.Game
 import dev.yuriel.kotmvp.Dev

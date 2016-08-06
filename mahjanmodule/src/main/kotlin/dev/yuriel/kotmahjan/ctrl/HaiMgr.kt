@@ -35,6 +35,15 @@ class HaiMgr(u: HaiUtil = HaiUtil()) {
 
     fun getHaiList4Test() = haiSan
 
+    fun getTehai4Test(): List<Hai> {
+        val result = mutableListOf<Hai>()
+        for (i in 0..2) {
+            result.addAll(haiPai())
+        }
+        result.add(getHai())
+        return result
+    }
+
     fun num(): Int = haiSan.size
 
     fun haiPai(): List<Hai> {

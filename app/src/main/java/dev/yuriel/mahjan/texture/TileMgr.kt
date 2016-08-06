@@ -1,39 +1,43 @@
-package dev.yuriel.kotmvp.texture
+package dev.yuriel.mahjan.texture
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.HaiType
 import dev.yuriel.kotmahjan.models.UnbelievableException
-import dev.yuriel.kotmvp.AlreadyDestroyedException
 
 /**
  * Created by yuriel on 8/5/16.
  */
-object TileMgr {
-    private val map: MutableMap<String, Texture> = mutableMapOf()
+object TileMgr: TextureMgr {
+//    private val map: MutableMap<String, Texture> = mutableMapOf()
+    private var atlas: TextureAtlas? = null
     private var loaded: Boolean = false
 
-    fun load(): Boolean {
+    override fun load(): Boolean {
         try {
             if (loaded)
                 return true
-            for (n in listOf("m", "p", "s")) {
-                for (t in 1..9) {
-                    val fileName = "$n$t.png"
-                    val texture = Texture(fileName)
-                    map.put(fileName, texture)
-                }
-            }
-            for (t in 1..7) {
-                val fileName = "ji$t.png"
-                val texture = Texture(fileName)
-                map.put(fileName, texture)
-            }
-            for (t in 1..3) {
-                val fileName = "aka$t.png"
-                val texture = Texture(fileName)
-                map.put(fileName, texture)
-            }
+//            for (n in listOf("m", "p", "s")) {
+//                for (t in 1..9) {
+//                    val fileName = "$n$t.png"
+//                    val texture = Texture(fileName)
+//                    map.put(fileName, texture)
+//                }
+//            }
+//            for (t in 1..7) {
+//                val fileName = "ji$t.png"
+//                val texture = Texture(fileName)
+//                map.put(fileName, texture)
+//            }
+//            for (t in 1..3) {
+//                val fileName = "aka$t.png"
+//                val texture = Texture(fileName)
+//                map.put(fileName, texture)
+//            }
+            atlas = TextureAtlas(Gdx.files.internal("tiles.txt"))
+
             loaded = true
             return true
         } catch (e: Exception) {
@@ -43,20 +47,23 @@ object TileMgr {
     }
 
     operator fun get(name: String): Texture? {
-        return map["$name.png"]
+        //return map["$name.png"]
+        return atlas?.findRegion(name)?.texture
     }
 
     operator fun get(hai: Hai): Texture? {
-        val name = findTextureFileNameByHai(hai)
+        val name = findTextureNameByHai(hai)
         return this[name]
     }
 
-    fun destroy() {
-        map.clear()
+    override fun destroy() {
+        //map.clear()
+        atlas?.regions?.clear()
+        atlas = null
         loaded = false
     }
 
-    private fun findTextureFileNameByHai(hai: Hai): String {
+    private fun findTextureNameByHai(hai: Hai): String {
         fun normal(hai: Hai): String {
             val fileName: String
             val haiName = hai.toString()

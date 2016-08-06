@@ -1,4 +1,4 @@
-package dev.yuriel.kotmvp.model
+package dev.yuriel.mahjan.model
 
 import dev.yuriel.kotmahjan.models.Tehai
 

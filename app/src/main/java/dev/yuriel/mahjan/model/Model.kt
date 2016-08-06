@@ -1,4 +1,4 @@
-package dev.yuriel.kotmvp.model
+package dev.yuriel.mahjan.model
 
 /**
  * Created by yuriel on 8/2/16.

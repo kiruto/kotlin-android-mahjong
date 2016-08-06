@@ -1,8 +1,9 @@
-package dev.yuriel.kotmvp.stage
+package dev.yuriel.mahjan.stage
 
+import com.badlogic.gdx.Gdx
 import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmvp.actor.TilePlaceHolderActor
-import dev.yuriel.kotmvp.interfaces.BaseStage
+import dev.yuriel.mahjan.actor.TilePlaceHolderActor
+import dev.yuriel.kotmvp.bases.BaseStage
 import java.util.*
 
 /**
@@ -34,5 +35,11 @@ class HandsStage: BaseStage() {
 
     fun sort() {
         tileList.sort()
+    }
+
+    override fun destroy() {
+        for (i in tileList) {
+            i.destroy()
+        }
     }
 }

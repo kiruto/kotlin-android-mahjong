@@ -1,4 +1,4 @@
-package dev.yuriel.kotmvp.interfaces
+package dev.yuriel.kotmvp.bases
 
 import android.support.v7.app.AppCompatActivity
 import dev.yuriel.kotmvp.Dev
