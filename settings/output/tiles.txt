@@ -1,5 +1,5 @@
 tiles.png
-size: 952, 252
+size: 204, 1196
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -12,252 +12,252 @@ aka1
   index: -1
 aka2
   rotate: false
-  xy: 1, 93
+  xy: 69, 1
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 aka3
   rotate: false
-  xy: 69, 1
+  xy: 137, 1
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 ji1
   rotate: false
-  xy: 69, 93
+  xy: 1, 93
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 ji2
-  rotate: true
-  xy: 1, 185
+  rotate: false
+  xy: 69, 93
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 ji3
   rotate: false
-  xy: 137, 1
+  xy: 137, 93
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 ji4
   rotate: false
-  xy: 137, 93
+  xy: 1, 185
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 ji5
-  rotate: true
-  xy: 93, 185
+  rotate: false
+  xy: 69, 185
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 ji6
   rotate: false
-  xy: 205, 1
+  xy: 137, 185
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 ji7
   rotate: false
-  xy: 205, 93
+  xy: 1, 277
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 m1
   rotate: false
-  xy: 273, 1
+  xy: 69, 277
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 m2
   rotate: false
-  xy: 273, 93
+  xy: 137, 277
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 m3
-  rotate: true
-  xy: 185, 185
+  rotate: false
+  xy: 1, 369
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 m4
   rotate: false
-  xy: 341, 1
+  xy: 69, 369
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 m5
   rotate: false
-  xy: 341, 93
+  xy: 137, 369
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 m6
-  rotate: true
-  xy: 277, 185
+  rotate: false
+  xy: 1, 461
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 m7
   rotate: false
-  xy: 409, 1
+  xy: 69, 461
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 m8
   rotate: false
-  xy: 409, 93
+  xy: 137, 461
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 m9
-  rotate: true
-  xy: 369, 185
+  rotate: false
+  xy: 1, 553
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 p1
   rotate: false
-  xy: 477, 1
+  xy: 69, 553
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 p2
   rotate: false
-  xy: 477, 93
+  xy: 137, 553
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 p3
   rotate: false
-  xy: 545, 1
+  xy: 1, 645
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 p4
   rotate: false
-  xy: 545, 93
+  xy: 69, 645
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 p5
-  rotate: true
-  xy: 461, 185
+  rotate: false
+  xy: 137, 645
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 p6
   rotate: false
-  xy: 613, 1
+  xy: 1, 737
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 p7
   rotate: false
-  xy: 613, 93
+  xy: 69, 737
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 p8
-  rotate: true
-  xy: 553, 185
+  rotate: false
+  xy: 137, 737
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 p9
   rotate: false
-  xy: 681, 1
+  xy: 1, 829
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 s1
   rotate: false
-  xy: 681, 93
+  xy: 69, 829
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 s2
-  rotate: true
-  xy: 645, 185
+  rotate: false
+  xy: 137, 829
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 s3
   rotate: false
-  xy: 749, 1
+  xy: 1, 921
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 s4
   rotate: false
-  xy: 749, 93
+  xy: 69, 921
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 s5
   rotate: false
-  xy: 817, 1
+  xy: 137, 921
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 s6
   rotate: false
-  xy: 817, 93
+  xy: 1, 1013
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 s7
-  rotate: true
-  xy: 737, 185
+  rotate: false
+  xy: 69, 1013
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 s8
   rotate: false
-  xy: 885, 1
+  xy: 137, 1013
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
 s9
   rotate: false
-  xy: 885, 93
+  xy: 1, 1105
   size: 66, 90
   orig: 66, 90
   offset: 0, 0

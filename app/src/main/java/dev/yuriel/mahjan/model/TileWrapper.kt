@@ -1,6 +1,7 @@
 package dev.yuriel.mahjan.model
 
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.mahjan.texture.TileMgr
 
@@ -13,7 +14,7 @@ class TileWrapper() {
         this.hai = hai
     }
 
-    var texture: Texture? = null
+    var texture: TextureRegion? = null
         private set
     var display: Int = 0
         set(value) {
@@ -35,7 +36,7 @@ class TileWrapper() {
         hai = null
     }
 
-    private fun initTexture(hai: Hai? = this.hai, status: Int = this.status): Texture? {
+    private fun initTexture(hai: Hai? = this.hai, status: Int = this.status): TextureRegion? {
         if (null == hai) return null
         TileMgr.load()
         return TileMgr[hai]

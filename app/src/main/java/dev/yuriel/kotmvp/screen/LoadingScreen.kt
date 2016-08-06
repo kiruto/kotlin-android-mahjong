@@ -12,39 +12,24 @@ import rx.Observable
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import java.util.concurrent.CountDownLatch
 import javax.microedition.khronos.opengles.GL10
 import kotlin.reflect.KClass
 
 /**
  * Created by yuriel on 8/2/16.
  * @param next 次のスクリーン
- * @param obj 次を読み込むから必要なパラメータ
- * @param run ロードメソード
  */
-class LoadingScreen<T, K>(val next: KClass<out BaseScreen>, val obj: K, val run: (K) -> T): BaseScreen() {
+class LoadingScreen(val next: KClass<out BaseScreen>): BaseScreen() {
 
     private val batch: SpriteBatch by lazy { SpriteBatch() }
     private val font: BitmapFont by lazy { BitmapFont() }
     private val observable by lazy {
-        Observable.just(obj)
+        val screen: BaseScreen = next.java.newInstance()
+        Observable.just(screen)
                 .observeOn(Schedulers.newThread())
-                .map {
-                    val param: T
-                    var screen: BaseScreen? = null
-                    try {
-                        param = run(obj)
-                        screen = next.java.getConstructor(next.java).newInstance(param)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                    if (null == screen) {
-                        try {
-                            screen = next.java.newInstance()
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    }
-                    for (l in screen?.preload()?: listOf()) {
+                .map { screen ->
+                    for (l in screen.preload()?: listOf()) {
                         l.load()
                     }
                     screen
@@ -55,9 +40,7 @@ class LoadingScreen<T, K>(val next: KClass<out BaseScreen>, val obj: K, val run:
     private val subscriber by lazy {
         object: Subscriber<BaseScreen>() {
             override fun onNext(screen: BaseScreen) {
-                app.postRunnable {
-                    Dev.game?.screen = screen
-                }
+                Dev.game?.screen = screen
             }
 
             override fun onCompleted() {
@@ -90,8 +73,8 @@ class LoadingScreen<T, K>(val next: KClass<out BaseScreen>, val obj: K, val run:
     override fun render(delta: Float) {
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT)
         gl.glClearColor(0F, 0F, 0F, 0F)
-        drawGrid()
         batch.begin()
+        drawGrid()
         font.draw(batch, "now loading", 600 * Dev.UX + i ++, 30 * Dev.UY)
         batch.end()
     }

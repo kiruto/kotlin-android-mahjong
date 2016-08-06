@@ -3,6 +3,7 @@ package dev.yuriel.mahjan.texture
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.HaiType
 import dev.yuriel.kotmahjan.models.UnbelievableException
@@ -46,12 +47,12 @@ object TileMgr: TextureMgr {
         }
     }
 
-    operator fun get(name: String): Texture? {
+    operator fun get(name: String): TextureRegion? {
         //return map["$name.png"]
-        return atlas?.findRegion(name)?.texture
+        return atlas?.findRegion(name)
     }
 
-    operator fun get(hai: Hai): Texture? {
+    operator fun get(hai: Hai): TextureRegion? {
         val name = findTextureNameByHai(hai)
         return this[name]
     }

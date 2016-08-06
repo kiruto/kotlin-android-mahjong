@@ -11,9 +11,8 @@ import dev.yuriel.mahjan.MainGameScreen
  */
 class MainGame: BaseGame() {
     override fun create() {
-        val screen = LoadingScreen(MainGameScreen::class, null) {
-            Thread.sleep(5000)
-        }
+        super.create()
+        val screen = LoadingScreen(MainGameScreen::class)
         setScreen(screen)
     }
 }
