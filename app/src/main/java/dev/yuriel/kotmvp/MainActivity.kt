@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import com.badlogic.gdx.backends.android.AndroidApplication
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
-import dev.yuriel.kotmvp.interfaces.BaseActivity
+import dev.yuriel.kotmvp.bases.BaseActivity
 
 /**
  * Created by yuriel on 8/1/16.
