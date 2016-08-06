@@ -2,15 +2,14 @@ package dev.yuriel.kotmvp.model
 
 import com.badlogic.gdx.graphics.Texture
 import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmahjan.models.HaiType.*
-import dev.yuriel.kotmahjan.models.UnbelievableException
+import dev.yuriel.kotmvp.texture.TileMgr
 
 /**
  * Created by yuriel on 8/5/16.
  */
-class TileWrapper {
+class TileWrapper() {
 
-    constructor(hai: Hai) {
+    constructor(hai: Hai): this() {
         this.hai = hai
     }
 
@@ -34,37 +33,7 @@ class TileWrapper {
 
     private fun initTexture(hai: Hai? = this.hai, status: Int = this.status): Texture? {
         if (null == hai) return null
-        val file = findTextureFileNameByHai(hai) + ".png"
-        return Texture(file)
-    }
-    
-    private fun findTextureFileNameByHai(hai: Hai): String {
-        fun normal(hai: Hai): String {
-            val fileName: String
-            val haiName = hai.toString()
-            when (haiName.length) {
-                2 -> fileName = haiName
-                3 -> {
-                    when(haiName.first()) {
-                        'p' -> fileName = "aka1"
-                        's' -> fileName = "aka2"
-                        'm' -> fileName = "aka3"
-                        else -> throw UnbelievableException()
-                    }
-                }
-                else -> throw UnbelievableException()
-            }
-            return fileName
-        }
-        return when(hai.type) {
-            E -> "ji1"
-            S -> "ji2"
-            W -> "ji3"
-            N -> "ji4"
-            D -> "ji5"
-            H -> "ji6"
-            T -> "ji7"
-            else -> normal(hai)
-        }
+        TileMgr.load()
+        return TileMgr[hai]
     }
 }
