@@ -17,7 +17,7 @@ import dev.yuriel.mahjan.model.TileWrapper
 /**
  * Created by yuriel on 8/5/16.
  */
-class TilePlaceHolderActor: BaseActor(), Comparable<TilePlaceHolderActor>{
+class TilePlaceHolderActor: TileActor(){
     companion object {
         fun from(hai: Hai): TilePlaceHolderActor {
             val result = TilePlaceHolderActor()
@@ -30,46 +30,10 @@ class TilePlaceHolderActor: BaseActor(), Comparable<TilePlaceHolderActor>{
         setSize(TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UY)
     }
 
-    var position: Int = 0
-        set(value) {
-            if (value > -1 || value < 14) {
-                field = value
-            }
-        }
-    var tile: TileWrapper? = null
-        set(value) {
-            field = value
-
-        }
-    var texture: TextureRegion? = null
-        get() = tile?.texture
-        private set
-
-    val image: Image by lazy {
-        val result = Image(texture)
-        result.setSize(TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UY)
-        result
-    }
-
     override fun draw(batch: Batch?, parentAlpha: Float) {
         if (null == texture) return
-//        val a = Sprite(texture)
-//        a.draw(batch)
+        batch?.draw(back, width * position, TILE_HEIGHT * Dev.UX - 0.5F * Dev.UX
+                , TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UX * 0.3F)
         batch?.draw(texture, width * position, 0F, TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UX)
-//        image.setPosition(width * position, 0F)
-//        image.draw(batch, parentAlpha)
     }
-
-    fun update(hai: Hai?) {
-        if (tile == null)
-            tile = TileWrapper()
-        tile?.hai = hai
-    }
-
-    fun destroy() {
-        tile?.destroy()
-        tile = null
-    }
-
-    override fun compareTo(other: TilePlaceHolderActor): Int = position - other.position
 }

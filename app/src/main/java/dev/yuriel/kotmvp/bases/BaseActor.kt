@@ -5,6 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 /**
  * Created by yuriel on 8/5/16.
  */
-open class BaseActor: Actor(){
-
+abstract class BaseActor: Actor(){
+    abstract fun destroy()
 }

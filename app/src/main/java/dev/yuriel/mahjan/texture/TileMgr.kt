@@ -57,6 +57,10 @@ object TileMgr: TextureMgr {
         return this[name]
     }
 
+    fun getBack(): TextureRegion? {
+        return this["back"]
+    }
+
     override fun destroy() {
         //map.clear()
         atlas?.regions?.clear()

@@ -16,6 +16,9 @@ class TileWrapper() {
 
     var texture: TextureRegion? = null
         private set
+
+    var back: TextureRegion? = null
+        private set
     var display: Int = 0
         set(value) {
             field = field and value
@@ -39,6 +42,7 @@ class TileWrapper() {
     private fun initTexture(hai: Hai? = this.hai, status: Int = this.status): TextureRegion? {
         if (null == hai) return null
         TileMgr.load()
+        back = TileMgr.getBack()
         return TileMgr[hai]
     }
 }
