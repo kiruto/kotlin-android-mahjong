@@ -30,6 +30,9 @@ abstract class TileActor: BaseActor(), Comparable<TilePlaceHolderActor> {
         get() = tile?.back
         private set
 
+    var obverse: TextureRegion? = null
+        get() =tile?.obverse
+
     var tile: TileWrapper? = null
         set(value) {
             field = value

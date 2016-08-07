@@ -7,4 +7,4 @@ import dev.yuriel.kotmvp.Dev
 /**
  * Created by yuriel on 8/7/16.
  */
-class StretchViewportImpl(cam: Camera): StretchViewport(Dev.DEFAULT_WIDTH, Dev.DEFAULT_HEIGHT, cam)
+class StretchViewportImpl(cam: Camera): StretchViewport(Dev.getDefaultWidth(), Dev.getDefaultHeight(), cam)

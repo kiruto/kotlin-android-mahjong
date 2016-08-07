@@ -19,6 +19,10 @@ class TileWrapper() {
 
     var back: TextureRegion? = null
         private set
+
+    var obverse: TextureRegion? = null
+        private set
+
     var display: Int = 0
         set(value) {
             field = field and value
@@ -43,6 +47,7 @@ class TileWrapper() {
         if (null == hai) return null
         TileMgr.load()
         back = TileMgr.getBack()
+        obverse = TileMgr.getObverse()
         return TileMgr[hai]
     }
 }

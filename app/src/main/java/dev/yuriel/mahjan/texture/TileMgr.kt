@@ -61,6 +61,10 @@ object TileMgr: TextureMgr {
         return this["back"]
     }
 
+    fun getObverse(): TextureRegion? {
+        return this["back_side"]
+    }
+
     override fun destroy() {
         //map.clear()
         atlas?.regions?.clear()

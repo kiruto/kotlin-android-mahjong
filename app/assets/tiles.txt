@@ -27,244 +27,251 @@ aka3
 back
   rotate: false
   xy: 1, 93
-  size: 66, 30
-  orig: 66, 30
+  size: 66, 45
+  orig: 66, 45
   offset: 0, 0
   index: -1
-ji1
+back_side
   rotate: false
   xy: 69, 93
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-ji2
+ji1
   rotate: false
   xy: 137, 93
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-ji3
+ji2
   rotate: false
   xy: 1, 185
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-ji4
+ji3
   rotate: false
   xy: 69, 185
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-ji5
+ji4
   rotate: false
   xy: 137, 185
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-ji6
+ji5
   rotate: false
   xy: 1, 277
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-ji7
+ji6
   rotate: false
   xy: 69, 277
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-m1
+ji7
   rotate: false
   xy: 137, 277
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-m2
+m1
   rotate: false
   xy: 1, 369
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-m3
+m2
   rotate: false
   xy: 69, 369
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-m4
+m3
   rotate: false
   xy: 137, 369
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-m5
+m4
   rotate: false
   xy: 1, 461
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-m6
+m5
   rotate: false
   xy: 69, 461
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-m7
+m6
   rotate: false
   xy: 137, 461
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-m8
+m7
   rotate: false
   xy: 1, 553
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-m9
+m8
   rotate: false
   xy: 69, 553
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-p1
+m9
   rotate: false
   xy: 137, 553
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-p2
+p1
   rotate: false
   xy: 1, 645
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-p3
+p2
   rotate: false
   xy: 69, 645
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-p4
+p3
   rotate: false
   xy: 137, 645
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-p5
+p4
   rotate: false
   xy: 1, 737
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-p6
+p5
   rotate: false
   xy: 69, 737
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-p7
+p6
   rotate: false
   xy: 137, 737
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-p8
+p7
   rotate: false
   xy: 1, 829
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-p9
+p8
   rotate: false
   xy: 69, 829
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-s1
+p9
   rotate: false
   xy: 137, 829
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-s2
+s1
   rotate: false
   xy: 1, 921
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-s3
+s2
   rotate: false
   xy: 69, 921
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-s4
+s3
   rotate: false
   xy: 137, 921
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-s5
+s4
   rotate: false
   xy: 1, 1013
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-s6
+s5
   rotate: false
   xy: 69, 1013
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-s7
+s6
   rotate: false
   xy: 137, 1013
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-s8
+s7
   rotate: false
   xy: 1, 1105
   size: 66, 90
   orig: 66, 90
   offset: 0, 0
   index: -1
-s9
+s8
   rotate: false
   xy: 69, 1105
+  size: 66, 90
+  orig: 66, 90
+  offset: 0, 0
+  index: -1
+s9
+  rotate: false
+  xy: 137, 1105
   size: 66, 90
   orig: 66, 90
   offset: 0, 0

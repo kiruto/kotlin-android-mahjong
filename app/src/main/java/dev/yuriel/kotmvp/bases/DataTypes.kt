@@ -7,7 +7,8 @@ import dev.yuriel.kotmvp.Dev
  * Created by yuriel on 8/7/16.
  */
 
-fun getScreenLayout() = LayoutPosition(0F, 0F, Dev.MAX_X * Dev.UX, Dev.MAX_Y * Dev.UY)
+fun getScreenLayout() = LayoutPosition(0F, 0F, Dev.getDefaultWidth(), Dev.getDefaultHeight())
+fun getOperateScreenLayout() {}
 
 data class LayoutPosition(var size: LayoutSize, var origin: LayoutOrigin) {
     constructor(x: Float, y: Float, width: Float,height: Float): this(Pair(width, height), Pair(x, y))
@@ -74,6 +75,10 @@ data class LayoutPosition(var size: LayoutSize, var origin: LayoutOrigin) {
 
     fun top(): Float {
         return origin.y + size.height
+    }
+
+    fun right(): Float {
+        return origin.x + size.width
     }
 }
 

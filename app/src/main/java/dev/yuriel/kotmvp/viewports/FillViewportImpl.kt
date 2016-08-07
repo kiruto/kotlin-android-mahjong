@@ -7,4 +7,4 @@ import dev.yuriel.kotmvp.Dev
 /**
  * Created by yuriel on 8/7/16.
  */
-class FillViewportImpl(cam: Camera): FillViewport(Dev.DEFAULT_WIDTH, Dev.DEFAULT_HEIGHT, cam)
+class FillViewportImpl(cam: Camera): FillViewport(Dev.getDefaultWidth(), Dev.getDefaultHeight(), cam)

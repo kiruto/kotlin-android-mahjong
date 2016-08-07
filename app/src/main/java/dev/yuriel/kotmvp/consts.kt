@@ -12,8 +12,13 @@ const val GONE = View.GONE
 const val TILE_WIDTH = 33F * 1.2F
 const val TILE_HEIGHT = 45F * 1.2F
 
-const val SIDE_TILE_WIDTH = TILE_WIDTH * 0.45F
-const val SIDE_TILE_HEIGHT = TILE_HEIGHT * 0.45F / 3F
+private const val SCALE = 0.45F
+
+const val OBVERSE_TILE_WIDTH = TILE_WIDTH * SCALE
+const val OBVERSE_TILE_HEIGHT = TILE_HEIGHT * SCALE
+
+const val SIDE_TILE_WIDTH = TILE_WIDTH * SCALE
+const val SIDE_TILE_HEIGHT = TILE_HEIGHT * SCALE / 2F
 
 const val LEFT_SIDE = 0x10
 const val RIGHT_SIDE = 0x20

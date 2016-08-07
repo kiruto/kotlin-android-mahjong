@@ -32,26 +32,28 @@ object Dev {
     const val MIN_WIDTH = MIN_WEIGHT * MAX_X
     const val MIN_HEIGHT = MIN_WEIGHT * MAX_Y
 
-    var defaultWeight = MIN_WEIGHT
-    val DEFAULT_WIDTH = defaultWeight * MAX_X
-    val DEFAULT_HEIGHT = defaultWeight * MAX_Y
+//    val DEFAULT_WIDTH = getDefaultWeight() * MAX_X
+//    val DEFAULT_HEIGHT = getDefaultWeight() * MAX_Y
 
-    private var width = DEFAULT_WIDTH
-    private var height = DEFAULT_HEIGHT
+    private var width = getDefaultWidth()
+    private var height = getDefaultHeight()
 
-    val UX: Float by lazy {
-        val width = if (width > height) width else height
-        width.toFloat() / MAX_X
-    }
+//    val UX: Float by lazy {
+//        val width = if (width > height) width else height
+//        width.toFloat() / MAX_X
+//    }
+//
+//    val UY: Float by lazy {
+//        val height = if (width < height) width else height
+//        height.toFloat() / MAX_Y
+//    }
+    val UX: Float = getDefaultWeight().toFloat()
+    val UY: Float = getDefaultWeight().toFloat()
+    val U: Float = getDefaultWeight().toFloat()
 
-    val UY: Float by lazy {
-        val height = if (width < height) width else height
-        height.toFloat() / MAX_Y
-    }
+    //val U: Float by lazy { (UX + UY) / 2F }
 
-    val U: Float by lazy { (UX + UY) / 2F }
-
-    val cam = OrthographicCamera(DEFAULT_WIDTH, DEFAULT_HEIGHT)
+    val cam = OrthographicCamera(getDefaultWidth(), getDefaultHeight())
     val fillViewport = FillViewportImpl(cam)
     val fitViewport = FitViewportImpl(cam)
     val stretchViewport = StretchViewportImpl(cam)
@@ -72,5 +74,17 @@ object Dev {
 
     fun setDefaultViewport() {
         setViewport(defaultViewport)
+    }
+
+    fun getDefaultWeight(): Int {
+        return MIN_WEIGHT
+    }
+
+    fun getDefaultWidth(): Float {
+        return getDefaultWeight() * MAX_X
+    }
+
+    fun getDefaultHeight(): Float {
+        return getDefaultWeight() * MAX_Y
     }
 }
