@@ -3,9 +3,6 @@ package dev.yuriel.mahjan.views
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable
 import dev.yuriel.kotmvp.Dev
 import dev.yuriel.kotmvp.views.Views
 import dev.yuriel.mahjan.MockData4Test
@@ -19,7 +16,8 @@ import dev.yuriel.mahjan.stage.ViewStage
  * Created by yuriel on 8/5/16.
  */
 class MainGameRootViews: Views() {
-    private val desk = Image()
+//    private val desk = Image()
+    private val background = Texture("table.jpg")
     private val handGroup = HandsGroup()
     private val leftGroup = LeftSideGroup()
     private val rightGroup = RightSideGroup()
@@ -30,11 +28,11 @@ class MainGameRootViews: Views() {
     val rootStage = ViewStage()
 
     fun inject() {
-        //desk.drawable = SpriteDrawable(Sprite(Texture("table.jpg")))
-        desk.width = Dev.getDefaultWidth()
-        desk.height = Dev.getDefaultHeight()
+//        desk.drawable = SpriteDrawable(Sprite(background))
+//        desk.width = Dev.getDefaultWidth()
+//        desk.height = Dev.getDefaultHeight()
 
-        rootStage.addActor(desk)
+//        rootStage.addActor(desk)
         rootStage.addActor(handGroup)
         rootStage.addActor(leftGroup)
         rootStage.addActor(rightGroup)
@@ -79,6 +77,8 @@ class MainGameRootViews: Views() {
     }
 
     private fun drawDesk() {
-
+        rootStage.batch.begin()
+        rootStage.batch.draw(background, 0F, 0F, Dev.getDefaultWidth(), Dev.getDefaultHeight())
+        rootStage.batch.end()
     }
 }

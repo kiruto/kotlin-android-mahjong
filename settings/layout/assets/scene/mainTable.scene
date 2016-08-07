@@ -1,0 +1,30 @@
+{
+  "versionCode": 2,
+  "path": "/scene/mainTable.scene",
+  "width": 640.0,
+  "height": 360.0,
+  "pixelsPerUnit": 4.0,
+  "viewport": "SCREEN",
+  "physicsSettings": {
+    "physicsEnabled": false,
+    "gravityX": 0.0,
+    "gravityY": 0.0,
+    "allowSleep": false
+  },
+  "variables": {
+    "variables": []
+  },
+  "layers": [
+    {
+      "name": "Background",
+      "id": 0,
+      "locked": false,
+      "visible": true,
+      "cordsSystem": "WORLD",
+      "@class": "EditorLayer"
+    }
+  ],
+  "activeLayerId": 0,
+  "groupIds": [],
+  "schemes": []
+}
