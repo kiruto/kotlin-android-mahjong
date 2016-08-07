@@ -12,10 +12,10 @@ import dev.yuriel.mahjan.enums.TileSide
 class RightTilePlaceHolderActor: TileActor() {
     override fun getSize() = Pair(SIDE_TILE_WIDTH * Dev.UX, SIDE_TILE_HEIGHT * Dev.UY)
 
-    override fun draw(batch: Batch?, parentAlpha: Float) {
+    override fun onDraw(batch: Batch?, parentAlpha: Float) {
         if (null == back) return
         batch?.draw(back,
-                0F, position * width, 0F, 0F,
+                0F, position * width, width / 2, height / 2,
                 SIDE_TILE_WIDTH * Dev.UX, SIDE_TILE_HEIGHT * Dev.UY,
                 1F, 1F, 90F
         )

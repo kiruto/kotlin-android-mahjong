@@ -1,5 +1,6 @@
 package dev.yuriel.mahjan.actor
 
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmvp.bases.BaseActor

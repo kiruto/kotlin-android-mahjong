@@ -39,7 +39,7 @@ class MainGameRootViews: Views() {
 
     fun clearScreen() {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        Gdx.gl.glClearColor(10F, 0F, 10F, 0F)
+        Gdx.gl.glClearColor(0F, 0F, 0F, 0F)
     }
 
     fun render() {

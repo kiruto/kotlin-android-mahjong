@@ -28,7 +28,7 @@ class TilePlaceHolderActor: TileActor(){
         }
     }
 
-    override fun draw(batch: Batch?, parentAlpha: Float) {
+    override fun onDraw(batch: Batch?, parentAlpha: Float) {
         if (null == texture) return
         batch?.draw(back, width * position, TILE_HEIGHT * Dev.UX - 0.5F * Dev.UX
                 , TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UX * 0.3F)

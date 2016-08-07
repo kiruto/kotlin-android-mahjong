@@ -2,11 +2,17 @@ package dev.yuriel.kotmvp.bases
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.Stage
+import dev.yuriel.kotmvp.Dev
 
 /**
  * Created by yuriel on 8/5/16.
  */
-abstract class BaseStage: Stage() {
+abstract class BaseStage: Stage(Dev.defaultViewport) {
+
+    init {
+        setDebugAll(Dev.VIR_DEBUG)
+        setDebugInvisible(!Dev.VIR_DEBUG)
+    }
     var active = false
         set(value) {
             field = value

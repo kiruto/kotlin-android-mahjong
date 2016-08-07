@@ -22,15 +22,21 @@ class LayoutHelper {
     fun calculate() {
         handsBottomLayout.centerHorizontal(SCREEN_LAYOUT)
         operationScreen.above(handsBottomLayout)
-        //operationScreen.size.height = SCREEN_LAYOUT.size.height - operationScreen.origin.y
         operationScreen.origin.y = handsBottomLayout.size.height
         operationScreen.size.height -= handsBottomLayout.size.height
-        operationScreen.setPadding(40 * Dev.U)
+        operationScreen.setPadding(30 * Dev.U)
 
         handsLeftLayout.alignLeftOf(operationScreen)
         handsLeftLayout.alignBottomOf(operationScreen)
 
         handsRightLayout.alignRightOf(operationScreen)
         handsRightLayout.alignBottomOf(operationScreen)
+
+        hack()
+    }
+
+    private fun hack() {
+        handsLeftLayout.origin.y -= SIDE_TILE_WIDTH * Y / 2F
+        handsRightLayout.origin.y += SIDE_TILE_WIDTH * Y / 2F
     }
 }
