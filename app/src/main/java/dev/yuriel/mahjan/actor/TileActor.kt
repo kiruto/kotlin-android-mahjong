@@ -9,10 +9,10 @@ import dev.yuriel.mahjan.model.TileWrapper
  * Created by yuriel on 8/6/16.
  */
 abstract class TileActor: BaseActor(), Comparable<TilePlaceHolderActor> {
-    abstract val size: Pair<Float,  Float>
+    abstract fun getSize(): Pair<Float,  Float>
 
     init {
-        setSize(size.first, size.second)
+        setSize(getSize().first, getSize().second)
     }
 
     var position: Int = 0

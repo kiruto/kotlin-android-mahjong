@@ -18,7 +18,7 @@ import dev.yuriel.mahjan.model.TileWrapper
  * Created by yuriel on 8/5/16.
  */
 class TilePlaceHolderActor: TileActor(){
-    override val size: Pair<Float, Float> = Pair(TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UY)
+    override fun getSize() = Pair(TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UY)
 
     companion object {
         fun from(hai: Hai): TilePlaceHolderActor {

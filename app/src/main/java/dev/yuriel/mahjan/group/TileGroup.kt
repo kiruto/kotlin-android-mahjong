@@ -12,7 +12,7 @@ import dev.yuriel.mahjan.texture.TileMgr
  */
 abstract class TileGroup<out ACTOR: TileActor>: BaseGroup() {
     val tileList: Array<out TileActor>
-    protected abstract val origin: Pair<Float, Float>
+    abstract fun getOrigin(): Pair<Float, Float>
     protected abstract fun factory(): ACTOR
 
     init {
@@ -29,7 +29,7 @@ abstract class TileGroup<out ACTOR: TileActor>: BaseGroup() {
             addActor(actor)
             actor
         }
-        setPosition(origin.first, origin.second)
+        //setPosition(getOrigin().first, getOrigin().second)
     }
 
     fun updateList(haiList: List<Hai>) {

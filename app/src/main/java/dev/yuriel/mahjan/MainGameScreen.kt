@@ -9,6 +9,7 @@ import dev.yuriel.mahjan.group.LeftSideGroup
 import dev.yuriel.mahjan.group.RightSideGroup
 import dev.yuriel.mahjan.stage.ViewStage
 import dev.yuriel.mahjan.texture.TileMgr
+import dev.yuriel.mahjan.views.MainGameRootViews
 import java.util.*
 
 /**
@@ -16,21 +17,13 @@ import java.util.*
  */
 class MainGameScreen: BaseScreen() {
 
-    val haiList4Test: HaiMgr = HaiMgr()
-    val handGroup = HandsGroup()
-    val leftGroup = LeftSideGroup()
-    val rightGroup = RightSideGroup()
-    val rootStage = ViewStage()
+    val views = MainGameRootViews()
 
     override fun preload() = listOf(TileMgr)
 
     override fun show() {
-        rootStage.addActor(handGroup)
-        rootStage.addActor(leftGroup)
-        rootStage.addActor(rightGroup)
-        handGroup.updateList(haiList4Test.getHaiList4Test())
-        leftGroup.updateList(haiList4Test.getHaiList4Test())
-        rightGroup.updateList(haiList4Test.getHaiList4Test())
+        views.inject()
+        views.mockLayout4Test()
     }
 
     override fun pause() {
@@ -46,11 +39,9 @@ class MainGameScreen: BaseScreen() {
     }
 
     override fun render(delta: Float) {
-        gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        gl.glClearColor(10F, 0F, 10F, 0F)
+        views.clearScreen()
         drawGrid()
-        rootStage.active = true
-        rootStage.render()
+        views.render()
     }
 
     override fun resume() {
@@ -59,6 +50,6 @@ class MainGameScreen: BaseScreen() {
 
     override fun dispose() {
         super.dispose()
-        rootStage.dispose()
+        views.destroy()
     }
 }
