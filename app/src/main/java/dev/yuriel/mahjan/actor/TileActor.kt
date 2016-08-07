@@ -8,7 +8,13 @@ import dev.yuriel.mahjan.model.TileWrapper
 /**
  * Created by yuriel on 8/6/16.
  */
-open class TileActor: BaseActor(), Comparable<TilePlaceHolderActor> {
+abstract class TileActor: BaseActor(), Comparable<TilePlaceHolderActor> {
+    abstract val size: Pair<Float,  Float>
+
+    init {
+        setSize(size.first, size.second)
+    }
+
     var position: Int = 0
         set(value) {
             if (value > -1 || value < 14) {

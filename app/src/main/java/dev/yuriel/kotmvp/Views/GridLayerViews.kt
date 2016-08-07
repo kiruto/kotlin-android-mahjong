@@ -21,13 +21,13 @@ class GridLayerViews(val weight: Int = 4) {
         val hw = 40 * Dev.UY / weight
         val ww = 40 * Dev.UX / weight
         for (w in 0..16 * weight) {
-            val start = Vector2(0F * Dev.U, w * ww)
-            val end = Vector2(640F * Dev.U, w * ww)
+            val start = Vector2(0F, w * ww)
+            val end = Vector2(640F * Dev.UX, w * hw)
             sr.line(start, end)
         }
         for (h in 0..9 * weight * 2) {
-            val start = Vector2(h * hw, 0F)
-            val end = Vector2(h * hw, 360F * Dev.U)
+            val start = Vector2(h * ww, 0F)
+            val end = Vector2(h * ww, 360F * Dev.UY)
             sr.line(start, end)
         }
         sr.end()

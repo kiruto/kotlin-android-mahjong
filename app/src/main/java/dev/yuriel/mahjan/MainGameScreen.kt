@@ -27,6 +27,7 @@ class MainGameScreen: BaseScreen() {
     override fun show() {
         rootStage.addActor(handGroup)
         rootStage.addActor(leftGroup)
+        rootStage.addActor(rightGroup)
         handGroup.updateList(haiList4Test.getHaiList4Test())
         leftGroup.updateList(haiList4Test.getHaiList4Test())
         rightGroup.updateList(haiList4Test.getHaiList4Test())

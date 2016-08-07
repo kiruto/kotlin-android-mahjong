@@ -10,17 +10,14 @@ import dev.yuriel.mahjan.enums.TileSide
  * Created by yuriel on 8/7/16.
  */
 class LeftTilePlaceHolderActor: TileActor() {
-
-    init {
-        setSize(SIDE_TILE_WIDTH * Dev.UX, SIDE_TILE_HEIGHT * Dev.UX)
-    }
+    override val size = Pair(SIDE_TILE_WIDTH * Dev.UX, SIDE_TILE_HEIGHT * Dev.UY)
 
     override fun draw(batch: Batch?, parentAlpha: Float) {
         if (null == back) return
         batch?.draw(back,
-                0F, Dev.MAX_Y * Dev.UY - position * width,
-                SIDE_TILE_HEIGHT * Dev.UX / 2F, SIDE_TILE_WIDTH * Dev.UX / 2F,
-                SIDE_TILE_WIDTH * Dev.UX, SIDE_TILE_HEIGHT * Dev.UX,
+                0F, - position * width,
+                SIDE_TILE_HEIGHT * Dev.UX / 2F, SIDE_TILE_WIDTH * Dev.UY / 2F,
+                SIDE_TILE_WIDTH * Dev.UX, SIDE_TILE_HEIGHT * Dev.UY,
                 1F, 1F, 270F
         )
     }
