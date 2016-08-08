@@ -12,7 +12,6 @@ import dev.yuriel.kotmahjan.models.UnbelievableException
  * Created by yuriel on 8/5/16.
  */
 object TileMgr: TextureMgr {
-//    private val map: MutableMap<String, Texture> = mutableMapOf()
     private var atlas: TextureAtlas? = null
     private var loaded: Boolean = false
 
@@ -20,23 +19,6 @@ object TileMgr: TextureMgr {
         try {
             if (loaded)
                 return true
-//            for (n in listOf("m", "p", "s")) {
-//                for (t in 1..9) {
-//                    val fileName = "$n$t.png"
-//                    val texture = Texture(fileName)
-//                    map.put(fileName, texture)
-//                }
-//            }
-//            for (t in 1..7) {
-//                val fileName = "ji$t.png"
-//                val texture = Texture(fileName)
-//                map.put(fileName, texture)
-//            }
-//            for (t in 1..3) {
-//                val fileName = "aka$t.png"
-//                val texture = Texture(fileName)
-//                map.put(fileName, texture)
-//            }
             atlas = TextureAtlas(Gdx.files.internal("tiles.txt"))
 
             loaded = true
@@ -48,7 +30,6 @@ object TileMgr: TextureMgr {
     }
 
     operator fun get(name: String): TextureRegion? {
-        //return map["$name.png"]
         return atlas?.findRegion(name)
     }
 

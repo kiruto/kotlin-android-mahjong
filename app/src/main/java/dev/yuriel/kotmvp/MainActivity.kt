@@ -26,6 +26,10 @@ class MainActivity: AndroidApplication() {
 
     override fun onPause() {
         super.onPause()
-        mWakelock?.release()
+        try {
+            mWakelock?.release()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

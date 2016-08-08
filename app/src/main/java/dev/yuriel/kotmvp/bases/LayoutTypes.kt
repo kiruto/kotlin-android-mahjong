@@ -21,47 +21,70 @@ data class LayoutPosition(var size: LayoutSize, var origin: LayoutOrigin) {
 
     fun rectangle(): Rectangle = Rectangle(origin.x, origin.y, size.width, size.height)
 
-    fun above(other: LayoutPosition) {
+    fun move(top: Float, right: Float, bottom: Float, left: Float) {
+        moveTop(top)
+        moveRight(right)
+        moveBottom(bottom)
+        moveLeft(left)
+    }
+
+    infix fun moveTop(top: Float) {
+        origin.y += top
+    }
+
+    infix fun moveRight(right: Float) {
+        origin.x += right
+    }
+
+    infix fun moveBottom(bottom: Float) {
+        origin.y -= bottom
+    }
+
+    infix fun moveLeft(left: Float) {
+        origin.x -= left
+    }
+
+    infix fun above(other: LayoutPosition) {
         origin.y = other.origin.y + other.size.height
     }
 
-    fun below(other: LayoutPosition) {
+    infix fun below(other: LayoutPosition) {
         origin.y = other.origin.y - size.height
     }
 
-    fun toLeftOf(other: LayoutPosition) {
+    infix fun toLeftOf(other: LayoutPosition) {
         origin.x = other.origin.x - size.width
     }
 
-    fun toRightOf(other: LayoutPosition) {
+    infix fun toRightOf(other: LayoutPosition) {
         origin.x = other.origin.x + other.size.width
     }
 
-    fun alignTopOf(other: LayoutPosition) {
+    infix fun alignTopOf(other: LayoutPosition) {
         origin.y = other.origin.y + other.size.height - size.height
     }
 
-    fun alignBottomOf(other: LayoutPosition) {
+    infix fun alignBottomOf(other: LayoutPosition) {
         origin.y = other.origin.y
     }
 
-    fun alignLeftOf(other: LayoutPosition) {
+    infix fun alignLeftOf(other: LayoutPosition) {
         origin.x = other.origin.x
     }
 
-    fun alignRightOf(other: LayoutPosition) {
+    infix fun alignRightOf(other: LayoutPosition) {
         origin.x = other.origin.x + other.size.width - size.width
     }
 
-    fun centerHorizontal(other: LayoutPosition) {
+    infix fun centerHorizontal(other: LayoutPosition) {
         origin.x = other.origin.x + (other.size.width - size.width) / 2F
     }
 
-    fun centerVertical(other: LayoutPosition) {
+    infix fun centerVertical(other: LayoutPosition) {
         origin.y = other.origin.y + (other.size.height - size.height) / 2F
     }
 
-    fun cutBy(other: LayoutPosition) {
+    infix fun cutBy(other: LayoutPosition) {
         if (origin.x < other.origin.x) origin.x = other.origin.x
         if (origin.y < other.origin.y) origin.y = other.origin.y
         if (origin.x + size.width > other.origin.x + other.size.width)
@@ -81,13 +104,13 @@ data class LayoutPosition(var size: LayoutSize, var origin: LayoutOrigin) {
         size.height -= bottom + top
     }
 
-    fun top(): Float {
-        return origin.y + size.height
-    }
+    fun top(): Float = origin.y + size.height
 
-    fun right(): Float {
-        return origin.x + size.width
-    }
+    fun right(): Float = origin.x + size.width
+
+    fun bottom() = origin.y
+
+    fun left() = origin.x
 }
 
 data class LayoutSize(var width: Float, var height: Float) {
