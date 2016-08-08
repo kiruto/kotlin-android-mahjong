@@ -8,12 +8,16 @@ import dev.yuriel.kotmvp.Dev
  */
 
 fun getScreenLayout() = LayoutPosition(0F, 0F, Dev.getDefaultWidth(), Dev.getDefaultHeight())
-fun getOperateScreenLayout() {}
 
 data class LayoutPosition(var size: LayoutSize, var origin: LayoutOrigin) {
     constructor(x: Float, y: Float, width: Float,height: Float): this(Pair(width, height), Pair(x, y))
     constructor(size: Pair<Float, Float>, origin: Pair<Float, Float>): this(LayoutSize(size), LayoutOrigin(origin))
     constructor(rect: Rectangle): this(Pair(rect.width, rect.height), Pair(rect.x, rect.y))
+
+    fun correct(relativeX: Float, relativeY: Float) {
+        origin.x += relativeX
+        origin.y += relativeY
+    }
 
     fun rectangle(): Rectangle = Rectangle(origin.x, origin.y, size.width, size.height)
 
@@ -67,10 +71,14 @@ data class LayoutPosition(var size: LayoutSize, var origin: LayoutOrigin) {
     }
 
     fun setPadding(padding: Float) {
-        origin.x += padding
-        origin.y += padding
-        size.width -= padding * 2
-        size.height -= padding * 2
+        setPadding(padding, padding, padding, padding)
+    }
+
+    fun setPadding(top: Float, right: Float, bottom: Float, left: Float) {
+        origin.x += left
+        origin.y += bottom
+        size.width -= left + right
+        size.height -= bottom + top
     }
 
     fun top(): Float {

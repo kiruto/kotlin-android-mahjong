@@ -31,7 +31,7 @@ class MainGameRootViews: Views() {
 //        desk.drawable = SpriteDrawable(Sprite(background))
 //        desk.width = Dev.getDefaultWidth()
 //        desk.height = Dev.getDefaultHeight()
-
+//
 //        rootStage.addActor(desk)
         rootStage.addActor(handGroup)
         rootStage.addActor(leftGroup)
@@ -66,14 +66,24 @@ class MainGameRootViews: Views() {
     }
 
     private fun setPosition() {
+
+        leftGroup.rotateBy(270F)
+        //oppoGroup.rotateBy(180F)
+        rightGroup.rotateBy(90F)
+
         handGroup.setPosition(layoutHelper.handsBottomLayout.origin.x,
                 layoutHelper.handsBottomLayout.origin.y)
         leftGroup.setPosition(layoutHelper.handsLeftLayout.origin.x,
                 layoutHelper.handsLeftLayout.top())
         rightGroup.setPosition(layoutHelper.handsRightLayout.origin.x,
                 layoutHelper.handsRightLayout.origin.y)
-        oppoGroup.setPosition(layoutHelper.handsOppoLayout.right(),
+        oppoGroup.setPosition(layoutHelper.handsOppoLayout.origin.x,
                 layoutHelper.handsOppoLayout.origin.y)
+        /*
+        val table = TableLayoutHelper()
+        table.calculate(handGroup, leftGroup, oppoGroup, rightGroup)
+        rootStage.addActor(table.layout)
+        */
     }
 
     private fun drawDesk() {

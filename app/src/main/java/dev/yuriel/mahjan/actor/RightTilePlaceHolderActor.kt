@@ -14,10 +14,11 @@ class RightTilePlaceHolderActor: TileActor() {
 
     override fun onDraw(batch: Batch?, parentAlpha: Float) {
         if (null == back) return
-        batch?.draw(back,
-                0F, position * width, width / 2, height / 2,
-                SIDE_TILE_WIDTH * Dev.UX, SIDE_TILE_HEIGHT * Dev.UY,
-                1F, 1F, 90F
-        )
+//        batch?.draw(back,
+//                0F, position * width, width / 2, height / 2,
+//                SIDE_TILE_WIDTH * Dev.UX, SIDE_TILE_HEIGHT * Dev.UY,
+//                1F, 1F, 90F
+//        )
+        batch?.draw(back, width * position, 0F, width, height)
     }
 }

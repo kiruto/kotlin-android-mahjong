@@ -24,8 +24,8 @@ class MainActivity: AndroidApplication() {
         initialize(MainGame(), config)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         mWakelock?.release()
     }
 }
