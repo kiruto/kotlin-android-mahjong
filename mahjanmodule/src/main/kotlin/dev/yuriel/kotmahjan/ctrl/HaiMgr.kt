@@ -9,11 +9,12 @@ package dev.yuriel.kotmahjan.ctrl
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.HaiType
 import dev.yuriel.kotmahjan.models.MahjanException
+import java.util.*
 
 /**
  * Created by yuriel on 7/17/16.
  */
-class HaiMgr(u: HaiUtil = HaiUtil()) {
+class HaiMgr(u: HaiUtil = HaiUtil()): Comparator<Hai> {
 
     private val haiList: MutableList<Hai> = u.getAllHaiRand()
     private val haiSan: MutableList<Hai> = mutableListOf()
@@ -41,6 +42,7 @@ class HaiMgr(u: HaiUtil = HaiUtil()) {
             result.addAll(haiPai())
         }
         result.add(getHai())
+        result.sortWith(this)
         return result
     }
 
@@ -88,5 +90,9 @@ class HaiMgr(u: HaiUtil = HaiUtil()) {
 
     fun doraUra(): List<Hai> {
         return doraUra
+    }
+
+    override fun compare(hai1: Hai, hai2: Hai): Int {
+        return hai1.num - hai2.num
     }
 }

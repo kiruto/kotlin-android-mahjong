@@ -2,8 +2,8 @@ package dev.yuriel.mahjan.views
 
 import android.support.v4.view.ViewPager
 import dev.yuriel.kotmvp.*
-import dev.yuriel.kotmvp.bases.LayoutPosition
-import dev.yuriel.kotmvp.bases.getScreenLayout
+import dev.yuriel.kotmvp.layout.LayoutPosition
+import dev.yuriel.kotmvp.layout.getScreenLayout
 
 /**
  * Created by yuriel on 8/7/16.

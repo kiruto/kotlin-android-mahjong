@@ -8,11 +8,11 @@ import dev.yuriel.mahjan.model.TileWrapper
  */
 class RiverGroup(tile: List<TileWrapper>): BaseGroup() {
 
-    private val lines: Array<FuroGroup>
+    private val lines: Array<TileHorizontalGroup>
 
     init {
         lines = Array(3) { i ->
-            FuroGroup(mutableListOf(), i)
+            TileHorizontalGroup(mutableListOf(), i)
         }
         update(tile)
     }
@@ -52,5 +52,5 @@ class RiverGroup(tile: List<TileWrapper>): BaseGroup() {
         }
     }
 
-    private fun FuroGroup.isFull(): Boolean = size == 6
+    private fun TileHorizontalGroup.isFull(): Boolean = size == 6
 }

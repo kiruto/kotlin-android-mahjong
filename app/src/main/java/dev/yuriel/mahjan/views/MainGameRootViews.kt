@@ -44,10 +44,10 @@ class MainGameRootViews: Views() {
     }
 
     fun mockLayout4Test() {
-        handGroup.updateList(MockData4Test.instance.getHaiList4Test())
-        leftGroup.updateList(MockData4Test.instance.getHaiList4Test())
-        rightGroup.updateList(MockData4Test.instance.getHaiList4Test())
-        oppoGroup.updateList(MockData4Test.instance.getHaiList4Test())
+        handGroup.updateList(MockData4Test.instance.getTehaiList4Test())
+        leftGroup.updateList(MockData4Test.instance.getTehaiList4Test())
+        rightGroup.updateList(MockData4Test.instance.getTehaiList4Test())
+        oppoGroup.updateList(MockData4Test.instance.getTehaiList4Test())
     }
 
     fun clearScreen() {

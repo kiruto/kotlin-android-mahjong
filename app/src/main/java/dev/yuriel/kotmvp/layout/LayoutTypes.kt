@@ -1,4 +1,4 @@
-package dev.yuriel.kotmvp.bases
+package dev.yuriel.kotmvp.layout
 
 import com.badlogic.gdx.math.Rectangle
 import dev.yuriel.kotmvp.Dev

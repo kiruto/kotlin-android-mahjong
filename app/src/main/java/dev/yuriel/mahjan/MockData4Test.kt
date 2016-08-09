@@ -7,6 +7,7 @@ import dev.yuriel.kotmahjan.ctrl.HaiMgr
  */
 class MockData4Test private constructor() {
     val haiList4Test: HaiMgr = HaiMgr()
+    fun getTehaiList4Test() = haiList4Test.getTehai4Test()
     fun getHaiList4Test() = haiList4Test.getHaiList4Test()
 
     companion object {
