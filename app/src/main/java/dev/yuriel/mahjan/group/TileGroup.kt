@@ -29,7 +29,6 @@ abstract class TileGroup<out ACTOR: TileActor>: BaseGroup() {
             addActor(actor)
             actor
         }
-        //setPosition(getOrigin().first, getOrigin().second)
     }
 
     fun updateList(haiList: List<Hai>) {

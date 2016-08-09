@@ -3,6 +3,7 @@ package dev.yuriel.mahjan.model
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import dev.yuriel.kotmahjan.models.Hai
+import dev.yuriel.mahjan.enums.TileStatus
 import dev.yuriel.mahjan.texture.TileMgr
 
 /**
@@ -32,7 +33,7 @@ class TileWrapper() {
             field = value
             texture = initTexture(hai = value)
         }
-    var status: Int = 0
+    var status: TileStatus = TileStatus.NORMAL
         set(value) {
             field = value
             texture = initTexture(status = value)
@@ -43,7 +44,7 @@ class TileWrapper() {
         hai = null
     }
 
-    private fun initTexture(hai: Hai? = this.hai, status: Int = this.status): TextureRegion? {
+    private fun initTexture(hai: Hai? = this.hai, status: TileStatus = this.status): TextureRegion? {
         if (null == hai) return null
         TileMgr.load()
         back = TileMgr.getBack()

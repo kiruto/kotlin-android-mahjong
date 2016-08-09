@@ -11,3 +11,4 @@ open class GameException(message: String): Exception(message) {
 }
 
 class AlreadyDestroyedException: GameException("廃棄されたオブジェクトは二度と使わない")
+class LayoutWrongException: GameException("レイアウトが間違えます")

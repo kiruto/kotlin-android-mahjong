@@ -15,7 +15,7 @@ class LayoutHelper {
     val handsBottomLayout = LayoutPosition(0F, 0F, TILE_WIDTH * U * 14.5F, TILE_HEIGHT * U * 1.5F)
     val handsLeftLayout = LayoutPosition(0F, 0F, SIDE_TILE_HEIGHT * U, SIDE_TILE_WIDTH * U * 14.5F)
     val handsRightLayout = LayoutPosition(0F, 0F, SIDE_TILE_HEIGHT * U, SIDE_TILE_WIDTH * U * 14.5F)
-    val handsOppoLayout = LayoutPosition(0F, 0F, OBVERSE_TILE_WIDTH * U * 14.5F, OBVERSE_TILE_HEIGHT * U)
+    val handsOppoLayout = LayoutPosition(0F, 0F, SMALL_TILE_WIDTH * U * 14.5F, SMALL_TILE_HEIGHT * U)
     val tableArea = LayoutPosition(0F, 0F,TABLE_AREA_WIDTH * U, TABLE_AREA_HEIGHT * U)
 
 
@@ -35,7 +35,7 @@ class LayoutHelper {
     }
 
     private fun hack() {
-        handsOppoLayout.correct(OBVERSE_TILE_WIDTH * U * 13.5F, 0F)
+        handsOppoLayout.correct(SMALL_TILE_WIDTH * U * 13.5F, 0F)
 
     }
 }
