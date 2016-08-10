@@ -11,6 +11,7 @@ import dev.yuriel.mahjan.group.RightSideGroup
 /**
  * Created by yuriel on 8/8/16.
  */
+@Deprecated("")
 class TableLayoutHelper {
     val layout: Table = Table()
 

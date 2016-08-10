@@ -36,6 +36,14 @@ class HaiMgr(u: HaiUtil = HaiUtil()): Comparator<Hai> {
 
     fun getHaiList4Test() = haiSan
 
+    fun getHaiList4Test(count: Int): List<Hai> {
+        val result = mutableListOf<Hai>()
+        for (i in 0..count - 1) {
+            result.add(getHai())
+        }
+        return result
+    }
+
     fun getTehai4Test(): List<Hai> {
         val result = mutableListOf<Hai>()
         for (i in 0..2) {

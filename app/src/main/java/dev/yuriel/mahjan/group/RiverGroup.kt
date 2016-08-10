@@ -1,23 +1,30 @@
 package dev.yuriel.mahjan.group
 
+import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmvp.bases.BaseGroup
 import dev.yuriel.mahjan.model.TileWrapper
 
 /**
  * Created by yuriel on 8/9/16.
  */
-class RiverGroup(tile: List<TileWrapper>): BaseGroup() {
+class RiverGroup(): BaseGroup() {
 
     private val lines: Array<TileHorizontalGroup>
 
     init {
         lines = Array(3) { i ->
-            TileHorizontalGroup(mutableListOf(), i)
+            val result = TileHorizontalGroup(mutableListOf(), i)
+            addActor(result)
+            result
         }
-        update(tile)
     }
 
-    fun update(tile: List<TileWrapper>) {
+    fun update(tile: List<Hai>) {
+        val list = Array(tile.size) { i -> TileWrapper(tile[i]) }.toList()
+        addTiles(list)
+    }
+
+    private fun addTiles(tile: List<TileWrapper>) {
         var index = -1
         var subList: MutableList<TileWrapper>? = null
         for (i in 0..tile.size - 1) {

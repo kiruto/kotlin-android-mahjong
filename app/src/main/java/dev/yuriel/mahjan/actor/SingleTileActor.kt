@@ -1,8 +1,9 @@
 package dev.yuriel.mahjan.actor
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import dev.yuriel.kotmvp.SMALL_TILE_HEIGHT
-import dev.yuriel.kotmvp.SMALL_TILE_WIDTH
+import dev.yuriel.kotmvp.Dev
+import dev.yuriel.kotmvp.FURO_TILE_HEIGHT
+import dev.yuriel.kotmvp.FURO_TILE_WIDTH
 import dev.yuriel.kotmvp.bases.BaseActor
 import dev.yuriel.mahjan.enums.TileStatus
 import dev.yuriel.mahjan.model.TileWrapper
@@ -12,7 +13,7 @@ import dev.yuriel.mahjan.model.TileWrapper
  */
 class SingleTileActor(private val tile: TileWrapper): BaseActor() {
 
-    private val size = Pair(SMALL_TILE_WIDTH, SMALL_TILE_HEIGHT)
+    private val size = Pair(FURO_TILE_WIDTH * Dev.U, FURO_TILE_HEIGHT * Dev.U)
 
     init {
         width = size.first
@@ -20,6 +21,7 @@ class SingleTileActor(private val tile: TileWrapper): BaseActor() {
     }
 
     val status = tile.status
+    var position: Float = 0F
 
     override fun destroy() {
         tile.destroy()
@@ -27,10 +29,10 @@ class SingleTileActor(private val tile: TileWrapper): BaseActor() {
 
     override fun onDraw(batch: Batch?, parentAlpha: Float) {
         if (tile.status == TileStatus.OBVERSE) {
-            batch?.draw(tile.back, size.first, size.second)
+            batch?.draw(tile.back, position, 0F, size.first, size.second)
             return
         } else {
-            batch?.draw(tile.texture, size.first, size.second)
+            batch?.draw(tile.texture, position, 0F, size.first, size.second)
         }
         if (tile.status == TileStatus.HORIZONTAL) {
             rotation = 90F

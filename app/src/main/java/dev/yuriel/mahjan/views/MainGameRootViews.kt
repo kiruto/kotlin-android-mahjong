@@ -7,10 +7,7 @@ import dev.yuriel.kotmvp.*
 import dev.yuriel.kotmvp.layout.RootScreen.Companion.layout
 import dev.yuriel.kotmvp.views.Views
 import dev.yuriel.mahjan.MockData4Test
-import dev.yuriel.mahjan.group.HandsGroup
-import dev.yuriel.mahjan.group.LeftSideGroup
-import dev.yuriel.mahjan.group.OpposideGroup
-import dev.yuriel.mahjan.group.RightSideGroup
+import dev.yuriel.mahjan.group.*
 import dev.yuriel.mahjan.stage.ViewStage
 
 /**
@@ -24,6 +21,11 @@ class MainGameRootViews: Views() {
     private val rightGroup = RightSideGroup()
     private val oppoGroup = OpposideGroup()
 
+    private val riverBottomGroup = RiverGroup()
+    private val riverLeftGroup = RiverGroup()
+    private val riverRightGroup = RiverGroup()
+    private val riverOppoGroup = RiverGroup()
+
     //private val layoutHelper = LayoutHelper()
 
     val rootStage = ViewStage()
@@ -35,6 +37,10 @@ class MainGameRootViews: Views() {
         val HANDS_LEFT = "hands_left"
         val HANDS_RIGHT = "hands_right"
         val HANDS_OPPO = "hands_oppo"
+        val RIVER_BOTTOM = "river_bottom"
+        val RIVER_LEFT = "river_left"
+        val RIVER_RIGHT = "river_right"
+        val RIVER_OPPO = "river_oppo"
         val TABLE = "table"
 
         layout {
@@ -75,6 +81,38 @@ class MainGameRootViews: Views() {
                 centerHorizontal(TABLE)
                 move(SMALL_TILE_WIDTH * 13.5, 0)
             }
+
+            relative(RIVER_BOTTOM) {
+                FURO_TILE_WIDTH * 6 x FURO_TILE_HEIGHT * 3
+                actor = riverBottomGroup
+                centerHorizontal(TABLE)
+                alignBottomOf(TABLE)
+                move(- FURO_TILE_WIDTH * 0.25, FURO_TILE_HEIGHT * 2)
+            }
+
+            relative(RIVER_LEFT) {
+                FURO_TILE_HEIGHT * 3 x FURO_TILE_WIDTH * 6
+                actor = riverLeftGroup
+                centerVertical(TABLE)
+                alignLeftOf(TABLE)
+                move(FURO_TILE_HEIGHT * 2.6, FURO_TILE_HEIGHT * 4.5)
+            }
+
+            relative(RIVER_RIGHT) {
+                FURO_TILE_HEIGHT * 3 x FURO_TILE_WIDTH * 6
+                actor = riverRightGroup
+                centerVertical(TABLE)
+                alignRightOf(TABLE)
+                //move(0, FURO_TILE_HEIGHT * 2)
+            }
+
+            relative(RIVER_OPPO) {
+                FURO_TILE_WIDTH * 6 x FURO_TILE_HEIGHT * 3
+                actor = riverOppoGroup
+                centerHorizontal(TABLE)
+                alignTopOf(TABLE)
+                move(FURO_TILE_WIDTH * 5.75, FURO_TILE_HEIGHT * 0.6)
+            }
         }
     }
 
@@ -89,6 +127,11 @@ class MainGameRootViews: Views() {
         rootStage.addActor(rightGroup)
         rootStage.addActor(oppoGroup)
 
+        rootStage.addActor(riverBottomGroup)
+        rootStage.addActor(riverLeftGroup)
+        rootStage.addActor(riverRightGroup)
+        rootStage.addActor(riverOppoGroup)
+
         //layoutHelper.calculate()
         setPosition()
 
@@ -99,6 +142,11 @@ class MainGameRootViews: Views() {
         leftGroup.updateList(MockData4Test.instance.getTehaiList4Test())
         rightGroup.updateList(MockData4Test.instance.getTehaiList4Test())
         oppoGroup.updateList(MockData4Test.instance.getTehaiList4Test())
+
+        riverBottomGroup.update(MockData4Test.instance2.getHaiList4Test(19))
+        riverLeftGroup.update(MockData4Test.instance2.getHaiList4Test(19))
+        riverRightGroup.update(MockData4Test.instance2.getHaiList4Test(19))
+        riverOppoGroup.update(MockData4Test.instance2.getHaiList4Test(19))
     }
 
     fun clearScreen() {
@@ -121,6 +169,10 @@ class MainGameRootViews: Views() {
         leftGroup.rotateBy(270F)
         //oppoGroup.rotateBy(180F)
         rightGroup.rotateBy(90F)
+
+        riverLeftGroup.rotateBy(270F)
+        riverRightGroup.rotateBy(90F)
+        riverOppoGroup.rotateBy(180F)
 
 //        handGroup.setPosition(layoutHelper.handsBottomLayout.origin.x,
 //                layoutHelper.handsBottomLayout.origin.y)

@@ -1,6 +1,7 @@
 package dev.yuriel.mahjan.group
 
-import dev.yuriel.kotmvp.SMALL_TILE_HEIGHT
+import dev.yuriel.kotmvp.Dev
+import dev.yuriel.kotmvp.FURO_TILE_HEIGHT
 import dev.yuriel.kotmvp.bases.BaseGroup
 import dev.yuriel.mahjan.actor.SingleTileActor
 import dev.yuriel.mahjan.enums.TileStatus
@@ -32,7 +33,8 @@ class TileHorizontalGroup(tiles: List<TileWrapper>, val position: Int): BaseGrou
     fun calculate() {
         var originX = 0F
         for (t in tileList) {
-            t.setPosition(originX, 0F)
+            //t.setPosition(originX, 0F)
+            t.position = originX
             when (t.status) {
                 TileStatus.NORMAL,
                 TileStatus.OBVERSE -> originX += t.width
@@ -40,7 +42,7 @@ class TileHorizontalGroup(tiles: List<TileWrapper>, val position: Int): BaseGrou
             }
         }
         width = originX
-        height = SMALL_TILE_HEIGHT
+        height = FURO_TILE_HEIGHT * Dev.U
     }
 
     override fun destroy() {

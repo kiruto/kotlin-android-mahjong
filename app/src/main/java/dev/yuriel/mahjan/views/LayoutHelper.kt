@@ -8,6 +8,7 @@ import dev.yuriel.kotmvp.layout.getScreenLayout
 /**
  * Created by yuriel on 8/7/16.
  */
+@Deprecated("")
 class LayoutHelper {
     private val U = Dev.U
     private val SCREEN_LAYOUT = getScreenLayout()
