@@ -7,6 +7,7 @@ import dev.yuriel.kotmvp.*
 import dev.yuriel.kotmvp.layout.RootScreen.Companion.layout
 import dev.yuriel.kotmvp.views.Views
 import dev.yuriel.mahjan.MockData4Test
+import dev.yuriel.mahjan.actor.CenterIndicator
 import dev.yuriel.mahjan.group.*
 import dev.yuriel.mahjan.stage.ViewStage
 
@@ -26,6 +27,8 @@ class MainGameRootViews: Views() {
     private val riverRightGroup = RiverGroup()
     private val riverOppoGroup = RiverGroup()
 
+    private val indicator = CenterIndicator()
+
     //private val layoutHelper = LayoutHelper()
 
     val rootStage = ViewStage()
@@ -42,6 +45,7 @@ class MainGameRootViews: Views() {
         val RIVER_RIGHT = "river_right"
         val RIVER_OPPO = "river_oppo"
         val TABLE = "table"
+        val TABLE_INDICATOR = "table_indicator"
 
         layout {
             id = SCREEN
@@ -95,7 +99,7 @@ class MainGameRootViews: Views() {
                 actor = riverLeftGroup
                 centerVertical(TABLE)
                 alignLeftOf(TABLE)
-                move(FURO_TILE_HEIGHT * 2.6, FURO_TILE_HEIGHT * 4.5)
+                move(FURO_TILE_HEIGHT * 2.6, FURO_TILE_HEIGHT * 4.25)
             }
 
             relative(RIVER_RIGHT) {
@@ -103,7 +107,7 @@ class MainGameRootViews: Views() {
                 actor = riverRightGroup
                 centerVertical(TABLE)
                 alignRightOf(TABLE)
-                //move(0, FURO_TILE_HEIGHT * 2)
+                move(0, - FURO_TILE_HEIGHT * 0.25)
             }
 
             relative(RIVER_OPPO) {
@@ -112,6 +116,11 @@ class MainGameRootViews: Views() {
                 centerHorizontal(TABLE)
                 alignTopOf(TABLE)
                 move(FURO_TILE_WIDTH * 5.75, FURO_TILE_HEIGHT * 0.6)
+            }
+
+            absolute(TABLE_INDICATOR) {
+                actor = indicator
+                rect(RIVER_OPPO.bottom(), RIVER_RIGHT.left(), RIVER_BOTTOM.top(), RIVER_LEFT.right())
             }
         }
     }
@@ -131,6 +140,8 @@ class MainGameRootViews: Views() {
         rootStage.addActor(riverLeftGroup)
         rootStage.addActor(riverRightGroup)
         rootStage.addActor(riverOppoGroup)
+
+        rootStage.addActor(indicator)
 
         //layoutHelper.calculate()
         setPosition()

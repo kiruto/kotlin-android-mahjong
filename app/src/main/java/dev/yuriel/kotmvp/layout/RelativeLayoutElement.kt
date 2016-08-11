@@ -5,6 +5,32 @@ package dev.yuriel.kotmvp.layout
  */
 class RelativeLayoutElement(override val id: String): LayoutElement() {
 
+    fun o(x: Number?, y: Number?) {
+        x(x?: 0)
+        y(y?: 0)
+    }
+
+    infix fun Number.x(other: Number) {
+        w(this)
+        h(other)
+    }
+
+    infix fun x(originX: Number) {
+        attr.origin.x = originX.toFloat() * unit.toFloat()
+    }
+
+    infix fun y(originY: Number) {
+        attr.origin.y = originY.toFloat() * unit.toFloat()
+    }
+
+    infix fun w(width: Number) {
+        attr.size.width = width.toFloat() * unit.toFloat()
+    }
+
+    infix fun h(height: Number) {
+        attr.size.height = height.toFloat() * unit.toFloat()
+    }
+
     infix fun moveTop(top: Number) {
         attr moveTop top.toFloat() * unit.toFloat()
     }
@@ -100,6 +126,15 @@ class RelativeLayoutElement(override val id: String): LayoutElement() {
         set(left: Number) {
             attr.setPadding(0F, 0F, 0F, left.toFloat() * unit.toFloat())
         }
+
+    fun move(relativeX: Number?, relativeY: Number?) {
+        attr.correct((relativeX?.toFloat()?: 0F) * unit.toFloat(),
+                (relativeY?.toFloat()?: 0F) * unit.toFloat())
+    }
+
+    fun moveBy(relativeX: Number?, relativeY: Number?) {
+        attr.correct(relativeX?.toFloat()?: 0F, relativeY?.toFloat()?: 0F)
+    }
 
     private fun target(id: String): LayoutPosition? = this[id]?.attr
 }

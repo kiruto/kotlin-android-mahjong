@@ -13,6 +13,20 @@ class RootScreen: LayoutElement() {
 
     override val attr = getScreenLayout()
 
+    var unit: Number
+        set(value) {
+            LayoutElement.unit = value
+        }
+        get() = LayoutElement.unit
+
+    fun relative(id: String, init: RelativeLayoutElement.() -> Unit): RelativeLayoutElement {
+        return layout(RelativeLayoutElement(id), init)
+    }
+
+    fun absolute(id: String, init: AbsoluteLayoutElement.() -> Unit): AbsoluteLayoutElement {
+        return layout(AbsoluteLayoutElement(id), init)
+    }
+
     companion object {
         fun layout(init: RootScreen.() -> Unit): RootScreen {
             val layout = RootScreen()

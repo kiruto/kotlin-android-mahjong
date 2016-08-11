@@ -14,9 +14,12 @@ data class LayoutPosition(var size: LayoutSize, var origin: LayoutOrigin) {
     constructor(size: Pair<Float, Float>, origin: Pair<Float, Float>): this(LayoutSize(size), LayoutOrigin(origin))
     constructor(rect: Rectangle): this(Pair(rect.width, rect.height), Pair(rect.x, rect.y))
 
+    var ghostOrigin = Pair<Float?, Float?>(null, null)
+        private set
+        get() = Pair(field.first?: origin.x, field.second?: origin.y)
+
     fun correct(relativeX: Float, relativeY: Float) {
-        origin.x += relativeX
-        origin.y += relativeY
+        ghostOrigin = Pair(origin.x + relativeX, origin.y + relativeY)
     }
 
     fun rectangle(): Rectangle = Rectangle(origin.x, origin.y, size.width, size.height)
