@@ -3,6 +3,7 @@ package dev.yuriel.mahjan
 import dev.yuriel.kotmvp.Dev
 import dev.yuriel.kotmvp.bases.BaseScreen
 import dev.yuriel.mahjan.texture.TileMgr
+import dev.yuriel.mahjan.texture.UITexture
 import dev.yuriel.mahjan.views.MainGameRootViews
 import java.util.*
 
@@ -13,7 +14,7 @@ class MainGameScreen: BaseScreen() {
 
     val views = MainGameRootViews()
 
-    override fun preload() = listOf(TileMgr)
+    override fun preload() = listOf(TileMgr, UITexture)
 
     override fun show() {
         views.inject()

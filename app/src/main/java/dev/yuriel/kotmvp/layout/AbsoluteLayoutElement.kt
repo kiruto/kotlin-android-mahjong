@@ -17,5 +17,10 @@ class AbsoluteLayoutElement(override val id: String): LayoutElement() {
     fun String.bottom() = target(this)?.bottom()?: 0F
     fun String.left() = target(this)?.left()?: 0F
 
+    fun moveUnits(relativeX: Number?, relativeY: Number?) {
+        attr.correct((relativeX?.toFloat()?: 0F) * unit.toFloat(),
+                (relativeY?.toFloat()?: 0F) * unit.toFloat())
+    }
+
     private fun target(id: String): LayoutPosition? = this[id]?.attr
 }

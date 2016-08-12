@@ -33,7 +33,7 @@ class MainGameRootViews: Views() {
 
     val rootStage = ViewStage()
 
-    fun layout() {
+    private fun layout() {
 
         val SCREEN = "root_screen"
         val HANDS_BOTTOM = "hands_bottom"
@@ -68,7 +68,7 @@ class MainGameRootViews: Views() {
                 actor = leftGroup
                 toLeftOf(TABLE)
                 alignTopOf(TABLE)
-                moveBy(0F, height)
+                move(0F, height)
             }
 
             relative(HANDS_RIGHT) {
@@ -83,7 +83,7 @@ class MainGameRootViews: Views() {
                 actor = oppoGroup
                 above(TABLE)
                 centerHorizontal(TABLE)
-                move(SMALL_TILE_WIDTH * 13.5, 0)
+                moveUnits(SMALL_TILE_WIDTH * 13.5, 0)
             }
 
             relative(RIVER_BOTTOM) {
@@ -91,7 +91,7 @@ class MainGameRootViews: Views() {
                 actor = riverBottomGroup
                 centerHorizontal(TABLE)
                 alignBottomOf(TABLE)
-                move(- FURO_TILE_WIDTH * 0.25, FURO_TILE_HEIGHT * 2)
+                moveUnits(- FURO_TILE_WIDTH * 0.25, FURO_TILE_HEIGHT * 2)
             }
 
             relative(RIVER_LEFT) {
@@ -99,7 +99,7 @@ class MainGameRootViews: Views() {
                 actor = riverLeftGroup
                 centerVertical(TABLE)
                 alignLeftOf(TABLE)
-                move(FURO_TILE_HEIGHT * 2.6, FURO_TILE_HEIGHT * 4.25)
+                moveUnits(FURO_TILE_HEIGHT * 2.95, FURO_TILE_HEIGHT * 4.25)
             }
 
             relative(RIVER_RIGHT) {
@@ -107,7 +107,7 @@ class MainGameRootViews: Views() {
                 actor = riverRightGroup
                 centerVertical(TABLE)
                 alignRightOf(TABLE)
-                move(0, - FURO_TILE_HEIGHT * 0.25)
+                moveUnits(- FURO_TILE_HEIGHT * 0.3, - FURO_TILE_HEIGHT * 0.25)
             }
 
             relative(RIVER_OPPO) {
@@ -115,12 +115,13 @@ class MainGameRootViews: Views() {
                 actor = riverOppoGroup
                 centerHorizontal(TABLE)
                 alignTopOf(TABLE)
-                move(FURO_TILE_WIDTH * 5.75, FURO_TILE_HEIGHT * 0.6)
+                moveUnits(FURO_TILE_WIDTH * 5.75, FURO_TILE_HEIGHT * 0.6)
             }
 
             absolute(TABLE_INDICATOR) {
                 actor = indicator
                 rect(RIVER_OPPO.bottom(), RIVER_RIGHT.left(), RIVER_BOTTOM.top(), RIVER_LEFT.right())
+                moveUnits(FURO_TILE_HEIGHT * 1.25, FURO_TILE_HEIGHT * 0.25)
             }
         }
     }

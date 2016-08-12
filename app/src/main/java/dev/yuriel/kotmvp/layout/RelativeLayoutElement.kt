@@ -87,6 +87,11 @@ class RelativeLayoutElement(override val id: String): LayoutElement() {
         attr alignRightOf t
     }
 
+    infix fun center(id: String) {
+        centerVertical(id)
+        centerHorizontal(id)
+    }
+
     infix fun centerHorizontal(id: String) {
         val t = target(id)?: return
         attr centerHorizontal t
@@ -127,12 +132,12 @@ class RelativeLayoutElement(override val id: String): LayoutElement() {
             attr.setPadding(0F, 0F, 0F, left.toFloat() * unit.toFloat())
         }
 
-    fun move(relativeX: Number?, relativeY: Number?) {
+    fun moveUnits(relativeX: Number?, relativeY: Number?) {
         attr.correct((relativeX?.toFloat()?: 0F) * unit.toFloat(),
                 (relativeY?.toFloat()?: 0F) * unit.toFloat())
     }
 
-    fun moveBy(relativeX: Number?, relativeY: Number?) {
+    fun move(relativeX: Number?, relativeY: Number?) {
         attr.correct(relativeX?.toFloat()?: 0F, relativeY?.toFloat()?: 0F)
     }
 
