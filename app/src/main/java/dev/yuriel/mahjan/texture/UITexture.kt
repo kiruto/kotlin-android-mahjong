@@ -10,27 +10,7 @@ import dev.yuriel.kotmahjan.models.Hai
 /**
  * Created by yuriel on 8/12/16.
  */
-object UITexture: TextureMgr {
-    private var atlas: TextureAtlas? = null
-    private var loaded: Boolean = false
-
-    override fun load(): Boolean {
-        try {
-            if (loaded)
-                return true
-            atlas = TextureAtlas(Gdx.files.internal("window.txt"))
-
-            loaded = true
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-    }
-
-    private operator fun get(name: String): TextureRegion? {
-        return atlas?.findRegion(name)
-    }
+object UITexture: NormalTextureMgr("window.txt") {
 
     operator fun get(id: Int): TextureRegion? {
         return atlas?.findRegion("window_${id - 1}")
@@ -56,10 +36,5 @@ object UITexture: TextureMgr {
         val result = Animation(1F, this[25], this[26], this[27], this[28])
         result.playMode = Animation.PlayMode.LOOP_PINGPONG
         return result
-    }
-
-    override fun destroy() {
-        atlas = null
-        loaded = false
     }
 }

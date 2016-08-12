@@ -7,6 +7,7 @@ import dev.yuriel.kotmvp.*
 import dev.yuriel.kotmvp.layout.RootScreen.Companion.layout
 import dev.yuriel.kotmvp.views.Views
 import dev.yuriel.mahjan.MockData4Test
+import dev.yuriel.mahjan.actor.CenterFont
 import dev.yuriel.mahjan.actor.CenterIndicator
 import dev.yuriel.mahjan.group.*
 import dev.yuriel.mahjan.stage.ViewStage
@@ -28,6 +29,7 @@ class MainGameRootViews: Views() {
     private val riverOppoGroup = RiverGroup()
 
     private val indicator = CenterIndicator()
+    private val centerFont = CenterFont()
 
     //private val layoutHelper = LayoutHelper()
 
@@ -46,6 +48,7 @@ class MainGameRootViews: Views() {
         val RIVER_OPPO = "river_oppo"
         val TABLE = "table"
         val TABLE_INDICATOR = "table_indicator"
+        val CENTER_FONT = "center_font"
 
         layout {
             id = SCREEN
@@ -123,6 +126,12 @@ class MainGameRootViews: Views() {
                 rect(RIVER_OPPO.bottom(), RIVER_RIGHT.left(), RIVER_BOTTOM.top(), RIVER_LEFT.right())
                 moveUnits(FURO_TILE_HEIGHT * 1.25, FURO_TILE_HEIGHT * 0.25)
             }
+
+            relative(CENTER_FONT) {
+                actor = centerFont
+                actor!!.width x actor!!.height
+                center(TABLE_INDICATOR)
+            }
         }
     }
 
@@ -143,6 +152,7 @@ class MainGameRootViews: Views() {
         rootStage.addActor(riverOppoGroup)
 
         rootStage.addActor(indicator)
+        rootStage.addActor(centerFont)
 
         //layoutHelper.calculate()
         setPosition()
@@ -159,6 +169,8 @@ class MainGameRootViews: Views() {
         riverLeftGroup.update(MockData4Test.instance2.getHaiList4Test(19))
         riverRightGroup.update(MockData4Test.instance2.getHaiList4Test(19))
         riverOppoGroup.update(MockData4Test.instance2.getHaiList4Test(19))
+
+        centerFont.text = "東一局"
     }
 
     fun clearScreen() {

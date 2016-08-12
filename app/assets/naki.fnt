@@ -1,11 +1,11 @@
 info face="GN-KMBFont-UB-OldstyleKana" size=100 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=1,1,1,1 spacing=-2,-2
 common lineHeight=121 base=86 scaleW=512 scaleH=512 pages=6 packed=0
-page id=0 file="鳴き1.png"
-page id=1 file="鳴き2.png"
-page id=2 file="鳴き3.png"
-page id=3 file="鳴き4.png"
-page id=4 file="鳴き5.png"
-page id=5 file="鳴き6.png"
+page id=0 file="naki1.png"
+page id=1 file="naki2.png"
+page id=2 file="naki3.png"
+page id=3 file="naki4.png"
+page id=4 file="naki5.png"
+page id=5 file="naki6.png"
 chars count=167
 char id=0     x=485  y=313  width=24   height=24   xoffset=38   yoffset=38   xadvance=100  page=0    chnl=0 
 char id=10    x=0    y=0    width=0    height=0    xoffset=-1   yoffset=0    xadvance=0    page=0    chnl=0 

@@ -11,27 +11,7 @@ import dev.yuriel.kotmahjan.models.UnbelievableException
 /**
  * Created by yuriel on 8/5/16.
  */
-object TileMgr: TextureMgr {
-    private var atlas: TextureAtlas? = null
-    private var loaded: Boolean = false
-
-    override fun load(): Boolean {
-        try {
-            if (loaded)
-                return true
-            atlas = TextureAtlas(Gdx.files.internal("tiles.txt"))
-
-            loaded = true
-            return true
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return false
-        }
-    }
-
-    operator fun get(name: String): TextureRegion? {
-        return atlas?.findRegion(name)
-    }
+object TileMgr: NormalTextureMgr("tiles.txt") {
 
     operator fun get(hai: Hai): TextureRegion? {
         val name = findTextureNameByHai(hai)
@@ -44,13 +24,6 @@ object TileMgr: TextureMgr {
 
     fun getObverse(): TextureRegion? {
         return this["back_side"]
-    }
-
-    override fun destroy() {
-        //map.clear()
-        atlas?.regions?.clear()
-        atlas = null
-        loaded = false
     }
 
     private fun findTextureNameByHai(hai: Hai): String {

@@ -1,5 +1,5 @@
 font.name=GN-KMBFont-UB-OldstyleKana
-font.size=60
+font.size=100
 font.bold=false
 font.italic=false
 font.gamma=1.8
@@ -18,7 +18,7 @@ pad.advance.y=-2
 glyph.native.rendering=false
 glyph.page.width=512
 glyph.page.height=512
-glyph.text=チー\nポン\nカン\nロン\nツモ\nチャレンジ
+glyph.text=あいうえお\nかきくけこ\nさしすせそ\nたちつてと\nなにぬねの\nはひふへほ\nまみむめも\nやゆよ\nらりるれろ\nわゐゑを\nん\n\nがぎぐげご\nざじずぜぞ\nだぢづでど\nばびぶべぼ\n\nぱぴぷぺぽ\n\nぁぃぅぇぉ\nっ\nゃゅょ\n\nアイウエオ\nカキクケコ\nサシスセソ\nタチツテト\nナニヌネノ\nハヒフヘホ\nマミムメモ\nヤユヨ\nラリルレロ\nワヰヱヲ\nン\n\nガギグゲゴ\nザジズゼゾ\nダヂズデド\nバビブベボ\n\nパピプペポ\n\nァィゥェォ\nッ\nャュョ\n\nヴ
 
 effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.ShadowEffect
 effect.Color=000000
