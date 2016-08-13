@@ -14,6 +14,7 @@ import dev.yuriel.kotmahjan.models.collections.Mentsu
 import dev.yuriel.kotmahjan.models.collections.Tehai
 import dev.yuriel.kotmahjan.models.toTypedHaiArray
 import rx.Observable
+import rx.schedulers.Schedulers
 import java.util.*
 
 /**
@@ -48,8 +49,9 @@ class I(val name: String = "名無し"): AI(), PlayerModel {
     }
 
     override fun receive(hai: Hai) {
-        tehai.put(hai)
-        tehai.sort()
+//        tehai.put(hai)
+//        tehai.sort()
+        tsumo.hai = hai
         val shanten = calculateShantensu(getHai(), 0)
 
         outln("手牌: ${getHai()}")
@@ -58,6 +60,10 @@ class I(val name: String = "名無し"): AI(), PlayerModel {
 
     override fun da(haiList: List<Hai>, basis: List<Hai>): Hai {
         var resultHai: Hai
+        val tehai = Tehai()
+        tehai.put(this.tehai.haiList)
+        if (tsumo.hai != null) tehai.put(tsumo.hai!!)
+
         var u = getUselessGeneralized(tehai.toTypedArray(false))
         val array = toTypedHaiArray(basis)
         var result = printResultByGen(u, tehai, array, false)
@@ -89,6 +95,14 @@ class I(val name: String = "名無し"): AI(), PlayerModel {
             */
         }
         println()
+        Thread.sleep(400L)
+        if (tsumo.hai?.sameAs(resultHai)?: false) {
+            tsumo.hai = null
+        } else {
+            this.tehai.put(tsumo.hai!!)
+            tsumo.hai = null
+        }
+        Thread.sleep(100L)
         return resultHai
     }
 

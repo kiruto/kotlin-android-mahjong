@@ -11,6 +11,9 @@ import dev.yuriel.kotmahjan.ctrl.HaiMgr
 import dev.yuriel.kotmahjan.models.*
 import rx.Observable
 import rx.Observer
+import rx.android.schedulers.AndroidSchedulers
+import rx.internal.schedulers.NewThreadScheduler
+import rx.schedulers.Schedulers
 import java.util.concurrent.CountDownLatch
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
@@ -302,7 +305,9 @@ class RoundController(val rounder: RoundContextV2) {
         for (p in players) {
             if (p == player) continue
             val pContext = context.getPlayerContext(player)
-            pContext.getObservable(event, duration)?.subscribe(observer)
+            pContext.getObservable(event, duration)
+                    ?.observeOn(Schedulers.newThread())
+                    ?.subscribe(observer)
         }
 
         litch.await()

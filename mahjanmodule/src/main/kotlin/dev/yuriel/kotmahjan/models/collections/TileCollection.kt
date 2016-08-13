@@ -8,6 +8,8 @@ package dev.yuriel.kotmahjan.models.collections
 
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.toTypedHaiArray
+import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
 
 /**
  * Created by yuriel on 8/13/16.
@@ -23,9 +25,14 @@ abstract class TileCollection {
     }
 
     protected fun notifyDataChange() {
-        for ((id, l) in listeners) {
-            l.invoke(haiList)
-        }
+        Observable.just(0)
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    for ((id, l) in listeners) {
+                        l.invoke(haiList)
+                    }
+                }
+                .subscribe()
     }
 
     fun remove(hai: Hai) {

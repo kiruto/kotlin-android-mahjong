@@ -14,6 +14,9 @@ import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.PlayerModel
 import dev.yuriel.kotmahjan.models.UnbelievableException
 import dev.yuriel.mahjan.interfaces.PlayViewsInterface
+import rx.Observable
+import rx.Scheduler
+import rx.schedulers.Schedulers
 
 /**
  * Created by yuriel on 8/13/16.
@@ -85,7 +88,10 @@ class PlayPresenter(private val view: PlayViewsInterface) {
     }
 
     fun start() {
-        ctrl.mainLoop()
+        Observable.just(0)
+                .observeOn(Schedulers.newThread())
+                .map { ctrl.mainLoop() }
+                .subscribe()
     }
 
     private fun roleOf(tileModel: PlayerModel): Kaze {

@@ -6,6 +6,8 @@
 
 package dev.yuriel.kotmahjan.models
 
+import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
 import kotlin.properties.Delegates
 
 /**
@@ -23,8 +25,13 @@ class TsumoHaiModel {
     }
 
     private fun notifyDataChange(h: Hai?) {
-        for ((id, l) in listeners) {
-            l.invoke(h)
-        }
+        Observable.just(0)
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    for ((id, l) in listeners) {
+                        l.invoke(h)
+                    }
+                }
+                .subscribe()
     }
 }

@@ -18,8 +18,6 @@ open class Player(private val model: PlayerModel,
                   private val commander: PlayerCommander,
                   private val rounder: RoundContextV2): PlayerContext {
 
-
-
     init{
 
     }
