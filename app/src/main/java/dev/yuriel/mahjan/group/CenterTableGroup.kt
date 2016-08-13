@@ -11,7 +11,7 @@ import dev.yuriel.mahjan.actor.CenterIndicator
 /**
  * Created by yuriel on 8/13/16.
  */
-class CenterTableGroup: BaseGroup() {
+class CenterTableGroup(private val callback: () -> Unit): BaseGroup() {
 
     val bg: CenterIndicator = CenterIndicator()
     val idText: CenterFont = CenterFont()
@@ -29,7 +29,10 @@ class CenterTableGroup: BaseGroup() {
                 Actions.parallel(
                         Actions.scaleTo(0.2F, 0.2F, 0.4F),
                         Actions.moveBy(- FURO_TILE_WIDTH * 1.5F * Dev.U, FURO_TILE_WIDTH * 0.5F * Dev.U, 0.4F)
-                )
+                ),
+                Actions.run() {
+                    callback()
+                }
         ))
         idText.setPosition(- FURO_TILE_WIDTH * 2.25F * Dev.U, FURO_TILE_WIDTH * 2.75F * Dev.U)
     }

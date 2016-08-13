@@ -1,0 +1,37 @@
+font.name=MarugameHonmaruGothicMini
+font.size=150
+font.bold=false
+font.italic=false
+font.gamma=1.8
+font.mono=false
+
+font2.file=
+font2.use=false
+
+pad.top=1
+pad.right=1
+pad.bottom=1
+pad.left=1
+pad.advance.x=-2
+pad.advance.y=-2
+
+glyph.native.rendering=false
+glyph.page.width=512
+glyph.page.height=512
+glyph.text=東南西北\n一二三四局
+
+effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.ColorEffect
+effect.Color=ffffff
+
+effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.OutlineEffect
+effect.Color=999999
+effect.Width=2.0
+effect.Join=2
+
+effect.class=com.badlogic.gdx.tools.hiero.unicodefont.effects.GradientEffect
+effect.Top color=ffffff
+effect.Bottom color=cccccc
+effect.Offset=0
+effect.Scale=1.0
+effect.Cyclic=false
+

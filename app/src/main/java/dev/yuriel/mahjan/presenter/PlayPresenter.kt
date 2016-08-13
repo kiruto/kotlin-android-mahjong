@@ -6,6 +6,7 @@ import dev.yuriel.kotmahjan.ctrl.impl.Round
 import dev.yuriel.kotmahjan.ctrl.reactive.RoundController
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.PlayerModel
+import dev.yuriel.kotmahjan.models.UnbelievableException
 import dev.yuriel.mahjan.interfaces.PlayViewsInterface
 
 /**
@@ -49,6 +50,25 @@ class PlayPresenter(private val view: PlayViewsInterface) {
         ctrl.listen(ID_LAST) { last ->
             view.updateHaisanLast(last)
         }
+
+        var roundText = ""
+        roundText += when(round.kazeRound) {
+            0 -> "東"
+            1 -> "南"
+            2 -> "西"
+            3 -> "北"
+            else -> throw UnbelievableException()
+        }
+        roundText += when(round.bakaze) {
+            Kaze.EAST -> "一"
+            Kaze.SOUTH -> "二"
+            Kaze.WEST -> "三"
+            Kaze.NORTH -> "四"
+        }
+
+        roundText += "局"
+
+        view.updateRoundText(roundText)
     }
 
     fun addPlayer() {

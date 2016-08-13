@@ -2,6 +2,7 @@ package dev.yuriel.mahjan.views
 
 import android.util.Log
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import dev.yuriel.kotmahjan.ctrl.impl.Kaze
@@ -12,13 +13,14 @@ import dev.yuriel.kotmvp.layout.RootScreen.Companion.layout
 import dev.yuriel.kotmvp.views.Views
 import dev.yuriel.mahjan.MockData4Test
 import dev.yuriel.mahjan.group.*
+import dev.yuriel.mahjan.interfaces.MainScreenPresenter
 import dev.yuriel.mahjan.interfaces.PlayViewsInterface
 import dev.yuriel.mahjan.stage.ViewStage
 
 /**
  * Created by yuriel on 8/5/16.
  */
-class MainGameRootViews: Views(), PlayViewsInterface {
+class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsInterface {
     private val background = Texture("table.jpg")
     private val handGroup = HandsGroup()
     private val leftGroup = LeftSideGroup()
@@ -30,7 +32,9 @@ class MainGameRootViews: Views(), PlayViewsInterface {
     private val riverRightGroup = RiverGroup()
     private val riverOppoGroup = RiverGroup()
 
-    private val centerTableGroup = CenterTableGroup()
+    private val centerTableGroup = CenterTableGroup() {
+        presenter.startRound()
+    }
 
 
     val rootStage = ViewStage()
@@ -125,7 +129,6 @@ class MainGameRootViews: Views(), PlayViewsInterface {
                 rect(RIVER_OPPO.bottom(), RIVER_RIGHT.left(), RIVER_BOTTOM.top(), RIVER_LEFT.right())
                 moveUnits(FURO_TILE_HEIGHT * 1.25, FURO_TILE_HEIGHT * 0.25)
             }
-
         }
     }
 
@@ -157,6 +160,10 @@ class MainGameRootViews: Views(), PlayViewsInterface {
 
     override fun updateHaisanLast(last: Int) {
         Log.d("last", last.toString())
+    }
+
+    override fun updateRoundText(roundText: String) {
+        centerTableGroup.idText.text = roundText
     }
 
     fun inject() {
@@ -222,4 +229,6 @@ class MainGameRootViews: Views(), PlayViewsInterface {
         rootStage.batch.draw(background, 0F, 0F, Dev.getDefaultWidth(), Dev.getDefaultHeight())
         rootStage.batch.end()
     }
+
+
 }

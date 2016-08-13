@@ -24,6 +24,21 @@ open class Round: RoundContextV2 {
     private var roundNo: Int
     private var nextRound: Boolean = true
 
+    val bakaze: Kaze
+        get() {
+            return when (roundNo % 4) {
+                0 -> Kaze.EAST
+                1 -> Kaze.SOUTH
+                2 -> Kaze.WEST
+                3 -> Kaze.NORTH
+                else -> throw UnbelievableException()
+            }
+        }
+
+    val kazeRound: Int
+        get() {
+            return roundNo / 4
+        }
 
     override var isFirstLoop: Boolean = false
     override var isRich: Boolean = false
@@ -84,10 +99,10 @@ open class Round: RoundContextV2 {
 
     override fun getBakaze(): Hai {
         return when (roundNo % 4) {
-            1 -> Hai(HaiType.E)
-            2 -> Hai(HaiType.S)
-            3 -> Hai(HaiType.W)
-            4 -> Hai(HaiType.N)
+            0 -> Hai(HaiType.E)
+            1 -> Hai(HaiType.S)
+            2 -> Hai(HaiType.W)
+            3 -> Hai(HaiType.N)
             else -> throw UnbelievableException()
         }
     }

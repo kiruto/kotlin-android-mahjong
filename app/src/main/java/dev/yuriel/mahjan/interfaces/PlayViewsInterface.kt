@@ -16,4 +16,6 @@ interface PlayViewsInterface {
 
     fun updateHaisanLast(last: Int)
 
+    fun updateRoundText(roundText: String)
+
 }

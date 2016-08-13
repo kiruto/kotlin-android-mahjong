@@ -2,6 +2,7 @@ package dev.yuriel.mahjan
 
 import dev.yuriel.kotmvp.Dev
 import dev.yuriel.kotmvp.bases.BaseScreen
+import dev.yuriel.mahjan.interfaces.MainScreenPresenter
 import dev.yuriel.mahjan.presenter.PlayPresenter
 import dev.yuriel.mahjan.texture.TileMgr
 import dev.yuriel.mahjan.texture.UITexture
@@ -10,9 +11,9 @@ import dev.yuriel.mahjan.views.MainGameRootViews
 /**
  * Created by yuriel on 8/5/16.
  */
-class MainGameScreen: BaseScreen() {
+class MainGameScreen: BaseScreen(), MainScreenPresenter {
 
-    val views = MainGameRootViews()
+    val views = MainGameRootViews(this)
     val play = PlayPresenter(views)
 
     override fun preload() = listOf(TileMgr, UITexture)
@@ -21,7 +22,7 @@ class MainGameScreen: BaseScreen() {
         views.inject()
         //views.mockLayout4Test()
         play.addPlayer()
-        play.start()
+        //play.start()
         Dev.setViewport(Dev.stretchViewport)
     }
 
@@ -50,5 +51,9 @@ class MainGameScreen: BaseScreen() {
     override fun dispose() {
         super.dispose()
         views.destroy()
+    }
+
+    override fun startRound() {
+        play.start()
     }
 }
