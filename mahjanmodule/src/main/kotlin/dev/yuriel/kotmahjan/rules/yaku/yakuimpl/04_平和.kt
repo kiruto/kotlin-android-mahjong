@@ -7,6 +7,7 @@
 package dev.yuriel.kotmahjan.rules.yaku.yakuimpl
 
 import dev.yuriel.kotmahjan.models.*
+import dev.yuriel.kotmahjan.models.collections.Shuntsu
 import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**

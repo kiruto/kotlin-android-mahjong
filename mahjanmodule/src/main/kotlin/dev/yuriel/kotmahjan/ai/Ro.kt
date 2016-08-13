@@ -9,6 +9,7 @@ package dev.yuriel.kotmahjan.ai
 import dev.yuriel.kotmahjan.ai.AI
 import dev.yuriel.kotmahjan.ai.analysis.*
 import dev.yuriel.kotmahjan.models.*
+import dev.yuriel.kotmahjan.models.collections.Tehai
 import dev.yuriel.kotmahjan.models.toTypedHaiArray
 
 /**

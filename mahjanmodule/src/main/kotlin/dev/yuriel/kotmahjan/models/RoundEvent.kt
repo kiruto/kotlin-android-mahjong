@@ -32,7 +32,3 @@ open class RoundEvent(var action: Int = EVENT_INIT, var hai: Hai? = null, var ex
         return "^A(${action.toString()}),P(${hai.toString()}),F(${from.toString()}),T(${to.toString()}),E(${extra})$"
     }
 }
-
-class RoundEventResponse: RoundEvent() {
-
-}

@@ -7,7 +7,7 @@
 package dev.yuriel.kotmahjan.rules.yaku.yakuimpl
 
 import dev.yuriel.kotmahjan.models.HaiType
-import dev.yuriel.kotmahjan.models.Mentsu
+import dev.yuriel.kotmahjan.models.collections.Mentsu
 import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**

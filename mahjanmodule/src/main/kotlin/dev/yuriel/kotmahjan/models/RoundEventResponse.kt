@@ -4,8 +4,9 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.kotmahjan.ctrl
+package dev.yuriel.kotmahjan.models
 
 /**
- * Created by yuriel on 7/18/16.
+ * Created by yuriel on 8/13/16.
  */
+class RoundEventResponse: RoundEvent()

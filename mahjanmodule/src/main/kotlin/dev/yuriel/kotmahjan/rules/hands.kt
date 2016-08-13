@@ -7,6 +7,7 @@
 package dev.yuriel.kotmahjan.rules
 
 import dev.yuriel.kotmahjan.models.*
+import dev.yuriel.kotmahjan.models.collections.*
 import dev.yuriel.kotmahjan.rules.yaku.国士無双
 
 import java.util.*

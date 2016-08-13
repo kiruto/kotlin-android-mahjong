@@ -8,7 +8,7 @@ package dev.yuriel.kotmahjan.rules.yaku.yakuimpl
 
 import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.HaiType
-import dev.yuriel.kotmahjan.models.Shuntsu
+import dev.yuriel.kotmahjan.models.collections.Shuntsu
 
 /**
  * Created by yuriel on 7/24/16.

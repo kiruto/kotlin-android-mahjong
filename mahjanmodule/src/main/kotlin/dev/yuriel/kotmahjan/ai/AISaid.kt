@@ -12,12 +12,3 @@ package dev.yuriel.kotmahjan.ai
 interface AISaid {
     fun heard(str: String)
 }
-
-object Console: AISaid {
-    override fun heard(str: String) {
-        when (str.last()) {
-            '\n' -> println(str.substring(0, str.length - 1))
-            else -> print(str)
-        }
-    }
-}

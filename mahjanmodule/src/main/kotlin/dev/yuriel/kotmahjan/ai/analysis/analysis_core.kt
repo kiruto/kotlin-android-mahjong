@@ -7,6 +7,7 @@
 package dev.yuriel.kotmahjan.ai.analysis
 
 import android.util.SparseArray
+import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.IllegalIntArrayException
 import dev.yuriel.kotmahjan.models.NoSuchTileException
 import java.util.*

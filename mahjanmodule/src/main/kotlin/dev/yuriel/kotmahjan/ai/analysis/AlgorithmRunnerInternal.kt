@@ -7,28 +7,12 @@
 package dev.yuriel.kotmahjan.ai.analysis
 
 import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmahjan.models.Mentsu
+import dev.yuriel.kotmahjan.models.collections.Mentsu
 import java.util.*
 
 /**
  * Created by yuriel on 7/26/16.
  */
-fun runAlgorithm(
-        tehais: List<Hai>, furos: List<Mentsu>, algorithm: TehaiAnalysisAlgorithm) {
-    AlgorithmRunnerInternal(tehais, furos, algorithm).runAlgorithm()
-}
-
-interface TehaiAnalysisAlgorithm {
-    val maxShantensu: Int
-    fun processChitoitsu(
-            tehais: List<Hai>, toitsuIds: List<Int>, currentVector: IntArray, targetVector: IntArray)
-
-    fun processNormalHora(
-            tehais: List<Hai>, furos: List<Mentsu>, mentsuIds: List<Int>, jantoId: Int,
-            currentVector: IntArray, targetVector: IntArray)
-}
-
-
 class AlgorithmRunnerInternal(
         private val tehais: List<Hai>, private val furos: List<Mentsu>, private val algorithm: TehaiAnalysisAlgorithm) {
     private val currentVector: IntArray

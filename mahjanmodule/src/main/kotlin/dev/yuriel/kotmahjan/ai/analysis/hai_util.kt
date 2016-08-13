@@ -7,7 +7,7 @@
 package dev.yuriel.kotmahjan.ai.analysis
 
 import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmahjan.models.Mentsu
+import dev.yuriel.kotmahjan.models.collections.Mentsu
 
 /**
  * Created by yuriel on 7/25/16.
@@ -48,3 +48,8 @@ fun calculateShantensu(tehais: List<Hai>, furoCount: Int = 0): Int {
 }
 
 fun calculateShantensu(tehais: List<Hai>, furos: List<Mentsu> = listOf()): Int = calculateShantensu(tehais, furos.size)
+
+fun runAlgorithm(
+        tehais: List<Hai>, furos: List<Mentsu>, algorithm: TehaiAnalysisAlgorithm) {
+    AlgorithmRunnerInternal(tehais, furos, algorithm).runAlgorithm()
+}

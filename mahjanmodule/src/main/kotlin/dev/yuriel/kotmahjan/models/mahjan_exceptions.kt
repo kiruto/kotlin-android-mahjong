@@ -6,6 +6,8 @@
 
 package dev.yuriel.kotmahjan.models
 
+import dev.yuriel.kotmahjan.models.collections.Mentsu
+
 
 /**
  * Created by yuriel on 7/23/16.

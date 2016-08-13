@@ -8,7 +8,7 @@ package dev.yuriel.kotmahjan.ctrl.impl
 
 import dev.yuriel.kotmahjan.ai.analysis.*
 import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmahjan.models.Mentsu
+import dev.yuriel.kotmahjan.models.collections.Mentsu
 import java.util.*
 
 /**

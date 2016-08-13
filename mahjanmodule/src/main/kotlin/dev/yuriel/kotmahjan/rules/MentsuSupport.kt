@@ -7,6 +7,7 @@
 package dev.yuriel.kotmahjan.rules
 
 import dev.yuriel.kotmahjan.models.*
+import dev.yuriel.kotmahjan.models.collections.*
 import java.util.*
 
 /**

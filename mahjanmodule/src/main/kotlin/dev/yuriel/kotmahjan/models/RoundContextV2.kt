@@ -7,10 +7,9 @@
 package dev.yuriel.kotmahjan.models
 
 /**
- * Created by yuriel on 7/17/16.
+ * Created by yuriel on 8/13/16.
  */
-
-class RoundModel (val players: List<PlayerModel>, val roles: Map<String, Any>) {
-
-
+interface RoundContextV2: RoundContext {
+    fun getPlayerContext(player: PlayerModel): PlayerContext
+    fun getAllVisibleHai(): List<Hai>
 }

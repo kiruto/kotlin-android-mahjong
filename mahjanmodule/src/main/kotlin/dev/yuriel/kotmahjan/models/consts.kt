@@ -47,3 +47,31 @@ val ANSI_RESET = "\u001B[0m"
 val ANSI_YELLOW = "\u001B[33m"
 val ANSI_CYAN = "\u001B[36m"
 val ANSI_RED = "\u001B[31m"
+
+const val ROLE_MASTER = -1
+const val ROLE_OYA = 1 shl 1
+const val ROLE_KO = 1 shl 2
+const val ROLE_E = 1 shl 3
+const val ROLE_S = 1 shl 4
+const val ROLE_W = 1 shl 5
+const val ROLE_N = 1 shl 6
+
+const val MANZU = "m"  //萬子
+const val PINZU = "p"  //筒子
+const val SOUZU = "s"  //索子
+const val FUPAI = "風牌"
+const val TOU = "E"   //
+const val NAN = "S"   //
+const val SHA = "W"   //
+const val PEI = "N"   //
+const val SANGENPAI = "三元牌"
+const val HAKU = "D"  //白
+const val HATSU = "H" //発
+const val TIUN = "T"  //中
+
+const val STATUS_NORMAL = 1 shl 1
+const val STATUS_DIM = 1 shl 2
+const val STATUS_HORIZON = 1 shl 3
+const val STATUS_NEGATIVE = 1 shl 4
+const val STATUS_DORA = 1 shl 5
+const val STATUS_FURO = 1 shl 6

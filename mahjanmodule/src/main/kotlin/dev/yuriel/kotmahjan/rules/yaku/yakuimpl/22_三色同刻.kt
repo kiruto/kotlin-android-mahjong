@@ -6,7 +6,7 @@
 
 package dev.yuriel.kotmahjan.rules.yaku.yakuimpl
 
-import dev.yuriel.kotmahjan.models.Kotsu
+import dev.yuriel.kotmahjan.models.collections.Kotsu
 import dev.yuriel.kotmahjan.rules.MentsuSupport
 
 /**
