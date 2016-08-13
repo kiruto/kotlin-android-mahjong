@@ -44,6 +44,10 @@ abstract class LayoutElement {
             setH(value?: field?: 0)
         }
 
+    fun actor(init: Actor.() -> Unit) {
+        actor?.init()
+    }
+
     private fun setW(width: Number) {
         attr.size.width = width.toFloat() * unit.toFloat()
     }

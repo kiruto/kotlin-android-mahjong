@@ -4,16 +4,23 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
 /**
  * Created by yuriel on 8/12/16.
  */
-open class NormalFontMgr(private var batch: Batch? = null) {
+open class NormalFontBlock(private var batch: Batch? = null) {
 
-    private var font: BitmapFont? = null
+    var font: BitmapFont? = null
+        private set
     var painter: Painter? = null
         private set
+
+    var width: Float = 0F
+    var height: Float = 0F
+
+    val layout: GlyphLayout = GlyphLayout()
 
     fun load(fileName: String, imageName: String): Painter {
         font = BitmapFont(Gdx.files.internal(fileName), Gdx.files.internal(imageName), false)
@@ -21,6 +28,7 @@ open class NormalFontMgr(private var batch: Batch? = null) {
             batch = SpriteBatch()
         }
         painter = Painter()
+        layout.setText(font, "")
         return painter!!
     }
 
@@ -30,6 +38,14 @@ open class NormalFontMgr(private var batch: Batch? = null) {
 
     fun draw(batch: Batch) {
         painter?.draw(batch)
+    }
+
+    fun getCenterOriginToText(x: Float, y: Float, width: Float, height: Float): Pair<Float, Float> {
+        var resultX = x
+        var resultY = y
+        resultX += (width - this.width) / 2F
+        resultY -= (height - this.height) / 2F
+        return Pair(resultX, resultY)
     }
 
     inner class Painter internal constructor(){
@@ -73,6 +89,9 @@ open class NormalFontMgr(private var batch: Batch? = null) {
 
         fun text(t: String): Painter {
             text = t
+            layout.setText(font, text)
+            width = layout.width
+            height =layout.height
             return this
         }
 
@@ -88,26 +107,21 @@ open class NormalFontMgr(private var batch: Batch? = null) {
         }
 
         internal fun draw() {
-            if (frame == Int.MAX_VALUE) frame = 0
-            font?.color = colorGetter?.invoke(frame)?: color
-            val scale: Pair<Float, Float>? = scaleGetter?.invoke(frame)
-            font?.data?.scaleX = scale?.first?: scaleX
-            font?.data?.scaleY = scale?.second?: scaleY
-            val origin: Pair<Float, Float>? = originGetter?.invoke(frame)
-            x = origin?.first?: x
-            y = origin?.second?: y
             batch?.begin()
-            font?.draw(batch, text, x, y)
+            draw(batch)
             batch?.end()
-            frame ++
         }
 
-        internal fun draw(batch: Batch) {
+        internal fun draw(batch: Batch?) {
             if (frame == Int.MAX_VALUE) frame = 0
             font?.color = colorGetter?.invoke(frame)?: color
             val scale: Pair<Float, Float>? = scaleGetter?.invoke(frame)
             font?.data?.scaleX = scale?.first?: scaleX
             font?.data?.scaleY = scale?.second?: scaleY
+            if (null != scale) {
+                width = layout.width * scale.first
+                height = layout.height * scale.second
+            }
             val origin: Pair<Float, Float>? = originGetter?.invoke(frame)
             x = origin?.first?: x
             y = origin?.second?: y

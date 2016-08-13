@@ -3,6 +3,8 @@ package dev.yuriel.mahjan.views
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.scenes.scene2d.Action
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import dev.yuriel.kotmvp.*
 import dev.yuriel.kotmvp.layout.RootScreen.Companion.layout
 import dev.yuriel.kotmvp.views.Views
@@ -28,8 +30,9 @@ class MainGameRootViews: Views() {
     private val riverRightGroup = RiverGroup()
     private val riverOppoGroup = RiverGroup()
 
-    private val indicator = CenterIndicator()
-    private val centerFont = CenterFont()
+    //private val indicator = CenterIndicator()
+    //private val centerFont = CenterFont()
+    private val centerTableGroup = CenterTableGroup()
 
     //private val layoutHelper = LayoutHelper()
 
@@ -122,16 +125,28 @@ class MainGameRootViews: Views() {
             }
 
             absolute(TABLE_INDICATOR) {
-                actor = indicator
+                actor = centerTableGroup
                 rect(RIVER_OPPO.bottom(), RIVER_RIGHT.left(), RIVER_BOTTOM.top(), RIVER_LEFT.right())
                 moveUnits(FURO_TILE_HEIGHT * 1.25, FURO_TILE_HEIGHT * 0.25)
             }
 
-            relative(CENTER_FONT) {
-                actor = centerFont
-                actor!!.width x actor!!.height
-                center(TABLE_INDICATOR)
-            }
+//            relative(CENTER_FONT) {
+//                actor = centerFont
+//                actor!!.width x actor!!.height
+//                center(TABLE_INDICATOR)
+//                actor {
+//                    addAction(Actions.sequence(
+//                            Actions.parallel(
+//                                    Actions.scaleTo(0.8F, 0.8F, 0.22F),
+//                                    Actions.fadeIn(0.2F)
+//                            ),
+//                            Actions.scaleTo(0.8F, 0.8F, 1F),
+//                            Actions.scaleTo(0.3F, 0.3F, 0.4F)
+//                    ))
+//                }
+//                //moveUnits(- FURO_TILE_WIDTH * 0.5F, FURO_TILE_HEIGHT * 2F)
+//
+//            }
         }
     }
 
@@ -151,8 +166,9 @@ class MainGameRootViews: Views() {
         rootStage.addActor(riverRightGroup)
         rootStage.addActor(riverOppoGroup)
 
-        rootStage.addActor(indicator)
-        rootStage.addActor(centerFont)
+//        rootStage.addActor(indicator)
+//        rootStage.addActor(centerFont)
+        rootStage.addActor(centerTableGroup)
 
         //layoutHelper.calculate()
         setPosition()
@@ -170,7 +186,7 @@ class MainGameRootViews: Views() {
         riverRightGroup.update(MockData4Test.instance2.getHaiList4Test(19))
         riverOppoGroup.update(MockData4Test.instance2.getHaiList4Test(19))
 
-        centerFont.text = "東一局"
+        centerTableGroup.idText.text = "東一局"
     }
 
     fun clearScreen() {
@@ -191,27 +207,13 @@ class MainGameRootViews: Views() {
     private fun setPosition() {
 
         leftGroup.rotateBy(270F)
-        //oppoGroup.rotateBy(180F)
         rightGroup.rotateBy(90F)
 
         riverLeftGroup.rotateBy(270F)
         riverRightGroup.rotateBy(90F)
         riverOppoGroup.rotateBy(180F)
 
-//        handGroup.setPosition(layoutHelper.handsBottomLayout.origin.x,
-//                layoutHelper.handsBottomLayout.origin.y)
-//        leftGroup.setPosition(layoutHelper.handsLeftLayout.origin.x,
-//                layoutHelper.handsLeftLayout.top())
-//        rightGroup.setPosition(layoutHelper.handsRightLayout.origin.x,
-//                layoutHelper.handsRightLayout.origin.y)
-//        oppoGroup.setPosition(layoutHelper.handsOppoLayout.origin.x,
-//                layoutHelper.handsOppoLayout.origin.y)
         layout()
-        /*
-        val table = TableLayoutHelper()
-        table.calculate(handGroup, leftGroup, oppoGroup, rightGroup)
-        rootStage.addActor(table.layout)
-        */
     }
 
     private fun drawDesk() {
