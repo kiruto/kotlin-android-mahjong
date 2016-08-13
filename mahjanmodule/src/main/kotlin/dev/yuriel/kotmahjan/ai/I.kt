@@ -22,7 +22,7 @@ class I(val name: String = "名無し"): AI(), PlayerModel {
     override var tehai: Tehai = Tehai()
     override val kawa: Kawa = Kawa()
     override val mentsu: MutableList<Mentsu> = mutableListOf()
-    override var tsumo: Hai? = null
+    override var tsumo: TsumoHaiModel = TsumoHaiModel()
     override var point: Int = 0
 
     override fun getObservable(event: RoundEvent, duration: Long): Observable<RoundEvent> {

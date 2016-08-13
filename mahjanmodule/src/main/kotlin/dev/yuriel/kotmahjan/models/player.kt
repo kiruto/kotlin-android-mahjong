@@ -23,14 +23,14 @@ interface PlayerModel {
     val kawa: Kawa
     val mentsu: MutableList<Mentsu>
 
-    var tsumo: Hai?
+    var tsumo: TsumoHaiModel
 
     var point: Int
 
     fun resetHai() {
         tehai.clear()
         kawa.clear()
-        tsumo = null
+        tsumo.hai = null
     }
 
     /*
@@ -45,6 +45,6 @@ class GameMaster : PlayerModel {
     override val tehai: Tehai = Tehai()
     override val kawa: Kawa = Kawa()
     override val mentsu: MutableList<Mentsu> = mutableListOf()
-    override var tsumo: Hai? = null
+    override var tsumo: TsumoHaiModel = TsumoHaiModel()
     override var point: Int = -1
 }

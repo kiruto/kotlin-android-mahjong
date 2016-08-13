@@ -2,10 +2,10 @@ package dev.yuriel.mahjan
 
 import dev.yuriel.kotmvp.Dev
 import dev.yuriel.kotmvp.bases.BaseScreen
+import dev.yuriel.mahjan.presenter.PlayPresenter
 import dev.yuriel.mahjan.texture.TileMgr
 import dev.yuriel.mahjan.texture.UITexture
 import dev.yuriel.mahjan.views.MainGameRootViews
-import java.util.*
 
 /**
  * Created by yuriel on 8/5/16.
@@ -13,12 +13,15 @@ import java.util.*
 class MainGameScreen: BaseScreen() {
 
     val views = MainGameRootViews()
+    val play = PlayPresenter(views)
 
     override fun preload() = listOf(TileMgr, UITexture)
 
     override fun show() {
         views.inject()
-        views.mockLayout4Test()
+        //views.mockLayout4Test()
+        play.addPlayer()
+        play.start()
         Dev.setViewport(Dev.stretchViewport)
     }
 

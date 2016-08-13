@@ -16,6 +16,8 @@ import java.util.*
  */
 class HaiMgr(u: HaiUtil = HaiUtil()): Comparator<Hai> {
 
+    private val listeners = mutableMapOf<Int, (Int) -> Unit>()
+
     private val haiList: MutableList<Hai> = u.getAllHaiRand()
     private val haiSan: MutableList<Hai> = mutableListOf()
     private val ouHai: MutableList<Hai> = mutableListOf()
@@ -72,6 +74,16 @@ class HaiMgr(u: HaiUtil = HaiUtil()): Comparator<Hai> {
     }
 
     fun hasHai(): Boolean = !haiSan.isEmpty()
+
+    fun listen(id: Int, listener: (Int) -> Unit) {
+        listeners.put(id, listener)
+    }
+
+    private fun notifiDataChange() {
+        for ((id, l) in listeners) {
+             l.invoke(haiSan.size)
+        }
+    }
 
     @Throws(MahjanException::class)
     fun kan(): Hai {

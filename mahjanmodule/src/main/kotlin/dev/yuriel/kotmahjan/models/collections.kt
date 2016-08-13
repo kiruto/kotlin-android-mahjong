@@ -14,13 +14,25 @@ import java.util.*
 
 abstract class TileCollection {
 
-    abstract val haiList: MutableList<Hai>
+    protected val listeners = mutableMapOf<Int, (List<Hai>) -> Unit>()
+    protected abstract val haiListStore: MutableList<Hai>
+    val haiList: List<Hai> by lazy { haiListStore }
 
+    fun listen(id: Int, listener: (List<Hai>) -> Unit) {
+        listeners.put(id, listener)
+    }
+
+    protected fun notifyDataChange() {
+        for ((id, l) in listeners) {
+            l.invoke(haiList)
+        }
+    }
 
     fun remove(hai: Hai) {
         for (h in haiList) {
             if (h sameAs hai) {
-                haiList.remove(hai)
+                haiListStore.remove(hai)
+                notifyDataChange()
                 return
             }
         }
@@ -35,25 +47,30 @@ abstract class TileCollection {
     fun toTypedArray(removeFuro:Boolean = true): IntArray = toTypedHaiArray(haiList, removeFuro)
 }
 
-class Yama(override val haiList: MutableList<Hai>): TileCollection() {
+class Yama(override val haiListStore: MutableList<Hai>): TileCollection() {
 
 }
 
 class Kawa: TileCollection() {
-    override val haiList: MutableList<Hai> by lazy { ArrayList<Hai>() }
+    override val haiListStore: MutableList<Hai> by lazy { ArrayList<Hai>() }
 
-    fun push(hai: Hai) = haiList.add(hai)
+    fun push(hai: Hai) {
+        haiListStore.add(hai)
+        notifyDataChange()
+    }
 
     fun pop(): Hai {
         val hai = haiList.get(haiList.size - 1)
-        haiList.remove(hai)
+        haiListStore.remove(hai)
+        notifyDataChange()
         return hai
     }
 
     fun get(): List<Hai> = haiList
 
     fun clear() {
-        haiList.clear()
+        haiListStore.clear()
+        notifyDataChange()
     }
 }
 
@@ -74,20 +91,23 @@ class Tehai: Comparator<Hai>, TileCollection() {
         }
     }
 
-    override val haiList: MutableList<Hai> by lazy {
-        ArrayList<Hai>()
-    }
+//    private val haiListStoreL MutableList<Hai>
+
+    override val haiListStore: MutableList<Hai> by lazy { ArrayList<Hai>() }
 
     fun put(hai: Hai) {
-        haiList.add(hai)
+        haiListStore.add(hai)
+        notifyDataChange()
     }
 
     fun put(list: Collection<Hai>) {
-        haiList.addAll(list)
+        haiListStore.addAll(list)
+        notifyDataChange()
     }
 
     fun clear() {
-        haiList.clear()
+        haiListStore.clear()
+        notifyDataChange()
     }
 
     fun enough(): Boolean {
@@ -96,7 +116,7 @@ class Tehai: Comparator<Hai>, TileCollection() {
 
     fun sort() {
         //val result: ArrayList<Hai> = ArrayList()
-        haiList.sortWith(this)
+        haiListStore.sortWith(this)
         val resultArray: Array<ArrayList<Hai>> = Array(HaiType.values().size, { i -> ArrayList<Hai>() })
         for (hai: Hai in haiList) {
             for (t: HaiType in HaiType.values()) {
@@ -106,10 +126,11 @@ class Tehai: Comparator<Hai>, TileCollection() {
                 }
             }
         }
-        haiList.clear()
+        haiListStore.clear()
         for (list in resultArray) {
-            haiList.addAll(list)
+            haiListStore.addAll(list)
         }
+        notifyDataChange()
     }
 
     override fun toString(): String {

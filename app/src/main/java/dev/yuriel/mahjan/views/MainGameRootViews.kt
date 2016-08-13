@@ -1,24 +1,24 @@
 package dev.yuriel.mahjan.views
 
+import android.util.Log
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.scenes.scene2d.Action
-import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import dev.yuriel.kotmahjan.ctrl.impl.Kaze
+import dev.yuriel.kotmahjan.models.Hai
+import dev.yuriel.kotmahjan.models.PlayerModel
 import dev.yuriel.kotmvp.*
 import dev.yuriel.kotmvp.layout.RootScreen.Companion.layout
 import dev.yuriel.kotmvp.views.Views
 import dev.yuriel.mahjan.MockData4Test
-import dev.yuriel.mahjan.actor.CenterFont
-import dev.yuriel.mahjan.actor.CenterIndicator
 import dev.yuriel.mahjan.group.*
+import dev.yuriel.mahjan.interfaces.PlayViewsInterface
 import dev.yuriel.mahjan.stage.ViewStage
 
 /**
  * Created by yuriel on 8/5/16.
  */
-class MainGameRootViews: Views() {
-//    private val desk = Image()
+class MainGameRootViews: Views(), PlayViewsInterface {
     private val background = Texture("table.jpg")
     private val handGroup = HandsGroup()
     private val leftGroup = LeftSideGroup()
@@ -30,11 +30,8 @@ class MainGameRootViews: Views() {
     private val riverRightGroup = RiverGroup()
     private val riverOppoGroup = RiverGroup()
 
-    //private val indicator = CenterIndicator()
-    //private val centerFont = CenterFont()
     private val centerTableGroup = CenterTableGroup()
 
-    //private val layoutHelper = LayoutHelper()
 
     val rootStage = ViewStage()
 
@@ -51,7 +48,6 @@ class MainGameRootViews: Views() {
         val RIVER_OPPO = "river_oppo"
         val TABLE = "table"
         val TABLE_INDICATOR = "table_indicator"
-        val CENTER_FONT = "center_font"
 
         layout {
             id = SCREEN
@@ -130,32 +126,40 @@ class MainGameRootViews: Views() {
                 moveUnits(FURO_TILE_HEIGHT * 1.25, FURO_TILE_HEIGHT * 0.25)
             }
 
-//            relative(CENTER_FONT) {
-//                actor = centerFont
-//                actor!!.width x actor!!.height
-//                center(TABLE_INDICATOR)
-//                actor {
-//                    addAction(Actions.sequence(
-//                            Actions.parallel(
-//                                    Actions.scaleTo(0.8F, 0.8F, 0.22F),
-//                                    Actions.fadeIn(0.2F)
-//                            ),
-//                            Actions.scaleTo(0.8F, 0.8F, 1F),
-//                            Actions.scaleTo(0.3F, 0.3F, 0.4F)
-//                    ))
-//                }
-//                //moveUnits(- FURO_TILE_WIDTH * 0.5F, FURO_TILE_HEIGHT * 2F)
-//
-//            }
         }
     }
 
+    override fun updateKawaFor(position: Int, haiList: List<Hai>) {
+        val river: RiverGroup = when (position) {
+            0 -> riverBottomGroup
+            1 -> riverRightGroup
+            2 -> riverOppoGroup
+            3 -> riverLeftGroup
+            else -> return
+        }
+        river.update(haiList)
+    }
+
+    override fun updateTehaiFor(position: Int, haiList: List<Hai>) {
+        val hands: TileGroup<*> = when (position) {
+            0 -> handGroup
+            1 -> rightGroup
+            2 -> oppoGroup
+            3 -> leftGroup
+            else -> return
+        }
+        hands.updateList(haiList)
+    }
+
+    override fun updateTsumoFor(position: Int, hai: Hai?) {
+
+    }
+
+    override fun updateHaisanLast(last: Int) {
+        Log.d("last", last.toString())
+    }
+
     fun inject() {
-//        desk.drawable = SpriteDrawable(Sprite(background))
-//        desk.width = Dev.getDefaultWidth()
-//        desk.height = Dev.getDefaultHeight()
-//
-//        rootStage.addActor(desk)
         rootStage.addActor(handGroup)
         rootStage.addActor(leftGroup)
         rootStage.addActor(rightGroup)
@@ -166,11 +170,8 @@ class MainGameRootViews: Views() {
         rootStage.addActor(riverRightGroup)
         rootStage.addActor(riverOppoGroup)
 
-//        rootStage.addActor(indicator)
-//        rootStage.addActor(centerFont)
         rootStage.addActor(centerTableGroup)
 
-        //layoutHelper.calculate()
         setPosition()
 
     }

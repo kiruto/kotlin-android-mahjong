@@ -23,7 +23,7 @@ import kotlin.reflect.KProperty
  * 结束
  */
 class RoundController(val rounder: RoundContextV2) {
-    var haiMgr: HaiMgr? = null
+    private var haiMgr: HaiMgr? = null
 
     private var log: RoundEvent by Delegates.observable(RoundEvent()) {
         prop, old, new -> rounder.onReceiveEvent(new)
@@ -35,6 +35,10 @@ class RoundController(val rounder: RoundContextV2) {
 
     private var roundEvent: RoundEvent by Delegates.observable(RoundEvent()) {
         prop, old, new -> onEvent(prop, old, new)
+    }
+
+    fun listen(id: Int, listener: (Int) -> Unit) {
+        haiMgr?.listen(id, listener)
     }
 
     // 結果発表
@@ -199,8 +203,10 @@ class RoundController(val rounder: RoundContextV2) {
             } else break
         }
         if (event.action == ACTION_SUTE) {
+            player.kawa.push(event.hai!!)
             result.addAll(askOtherPlayersFor(event, context, player))
         } else if (event.action == ACTION_RICHI) {
+            player.kawa.push(event.hai!!)
             result.addAll(askOtherPlayersFor(event, context, player))
             roundEvent = event.change()
         } else {
