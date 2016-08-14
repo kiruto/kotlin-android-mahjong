@@ -6,6 +6,7 @@
 
 package dev.yuriel.mahjan.group
 
+import dev.yuriel.kotmahjan.models.TsumoHaiModel
 import dev.yuriel.kotmvp.Dev
 import dev.yuriel.mahjan.actor.TilePlaceHolderActor
 
@@ -14,5 +15,5 @@ import dev.yuriel.mahjan.actor.TilePlaceHolderActor
  */
 class HandsGroup : TileGroup<TilePlaceHolderActor>() {
     override fun getOrigin(): Pair<Float, Float> = Pair(50F * Dev.UX, 0F)
-    override fun factory() = TilePlaceHolderActor()
+    override fun factory(position: Int, isTsumo: Boolean) = TilePlaceHolderActor(position, isTsumo)
 }

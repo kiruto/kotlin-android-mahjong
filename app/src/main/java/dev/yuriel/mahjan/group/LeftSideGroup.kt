@@ -14,5 +14,5 @@ import dev.yuriel.mahjan.actor.LeftTilePlaceHolderActor
  */
 class LeftSideGroup : TileGroup<LeftTilePlaceHolderActor>() {
     override fun getOrigin(): Pair<Float, Float> = Pair(20F * Dev.UX, Dev.MAX_Y * Dev.UY - 30F * Dev.UY)
-    override fun factory() = LeftTilePlaceHolderActor()
+    override fun factory(position: Int, isTsumo: Boolean) = LeftTilePlaceHolderActor(position, isTsumo)
 }

@@ -15,19 +15,20 @@ import dev.yuriel.mahjan.model.TileWrapper
 /**
  * Created by yuriel on 8/6/16.
  */
-abstract class TileActor: BaseActor(), Comparable<TilePlaceHolderActor> {
-    abstract fun getSize(): Pair<Float,  Float>
+abstract class TileActor(val isTsumo: Boolean = false): BaseActor(), Comparable<TilePlaceHolderActor> {
+    abstract fun getTileSize(): Pair<Float,  Float>
+    abstract fun getTileOrigin(): Pair<Float, Float>
+    abstract fun getTilePosition(): Int
+    abstract fun setTilePosition(value: Int)
 
-    init {
-        setSize(getSize().first, getSize().second)
+    fun resetPosition() {
+        val size = getTileSize()
+        setSize(size.first, size.second)
+        val origin = getTileOrigin()
+        setPosition(origin.first, origin.second)
+        setOrigin(origin.first, origin.second)
     }
 
-    var position: Int = 0
-        set(value) {
-            if (value > -1 || value < 14) {
-                field = value
-            }
-        }
     var texture: TextureRegion? = null
         get() = tile?.texture
         private set
@@ -45,6 +46,9 @@ abstract class TileActor: BaseActor(), Comparable<TilePlaceHolderActor> {
 
         }
     fun update(hai: Hai?) {
+        if (isTsumo) {
+            resetPosition()
+        }
         if (tile == null)
             tile = TileWrapper()
         tile?.hai = hai
@@ -55,5 +59,5 @@ abstract class TileActor: BaseActor(), Comparable<TilePlaceHolderActor> {
         tile = null
     }
 
-    override fun compareTo(other: TilePlaceHolderActor): Int = position - other.position
+    override fun compareTo(other: TilePlaceHolderActor): Int = getTilePosition() - other.getTilePosition()
 }

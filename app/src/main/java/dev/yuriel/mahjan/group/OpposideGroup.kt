@@ -13,5 +13,5 @@ import dev.yuriel.mahjan.actor.OppoTilePlaceHolderActor
  */
 class OpposideGroup: TileGroup<OppoTilePlaceHolderActor>() {
     override fun getOrigin(): Pair<Float, Float> = Pair(0F, 0F)
-    override fun factory(): OppoTilePlaceHolderActor = OppoTilePlaceHolderActor()
+    override fun factory(position: Int, isTsumo: Boolean) = OppoTilePlaceHolderActor(position, isTsumo)
 }

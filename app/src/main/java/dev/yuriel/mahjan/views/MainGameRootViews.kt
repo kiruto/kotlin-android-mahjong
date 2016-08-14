@@ -18,6 +18,7 @@ import dev.yuriel.kotmvp.*
 import dev.yuriel.kotmvp.layout.RootScreen.Companion.layout
 import dev.yuriel.kotmvp.views.Views
 import dev.yuriel.mahjan.MockData4Test
+import dev.yuriel.mahjan.actor.TileActor
 import dev.yuriel.mahjan.group.*
 import dev.yuriel.mahjan.interfaces.MainScreenPresenter
 import dev.yuriel.mahjan.interfaces.PlayViewsInterface
@@ -161,7 +162,14 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
     }
 
     override fun updateTsumoFor(position: Int, hai: Hai?) {
-
+        val hands: TileGroup<*> = when (position) {
+            0 -> handGroup
+            1 -> rightGroup
+            2 -> oppoGroup
+            3 -> leftGroup
+            else -> return
+        }
+        hands.updateTsumo(hai)
     }
 
     override fun updateHaisanLast(last: Int) {

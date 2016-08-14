@@ -23,21 +23,22 @@ import dev.yuriel.mahjan.model.TileWrapper
 /**
  * Created by yuriel on 8/5/16.
  */
-class TilePlaceHolderActor: TileActor(){
-    override fun getSize() = Pair(TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UY)
-
-    companion object {
-        fun from(hai: Hai): TilePlaceHolderActor {
-            val result = TilePlaceHolderActor()
-            result.tile = TileWrapper(hai)
-            return result
-        }
+class TilePlaceHolderActor(private var position: Int, isTsumo: Boolean = false): TileActor(isTsumo){
+    override fun getTileSize() = Pair(TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UY)
+    override fun getTileOrigin() = Pair(width * (position + getOffset()), 0F)
+    override fun getTilePosition(): Int = position
+    override fun setTilePosition(value: Int) {
+        position = value
     }
 
     override fun onDraw(batch: Batch?, parentAlpha: Float) {
         if (null == texture) return
-        batch?.draw(back, width * position, TILE_HEIGHT * Dev.UX - 0.5F * Dev.UX
+        batch?.draw(back, originX, originY + TILE_HEIGHT * Dev.UX - 0.5F * Dev.UX
                 , TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UX * 0.3F)
-        batch?.draw(texture, width * position, 0F, TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UX)
+        batch?.draw(texture, originX, originY, TILE_WIDTH * Dev.UX, TILE_HEIGHT * Dev.UX)
+    }
+
+    private fun getOffset(): Float {
+        return if (isTsumo) 0.5F else 0F
     }
 }

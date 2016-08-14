@@ -14,5 +14,5 @@ import dev.yuriel.mahjan.actor.RightTilePlaceHolderActor
  */
 class RightSideGroup: TileGroup<RightTilePlaceHolderActor>() {
     override fun getOrigin(): Pair<Float, Float> = Pair(Dev.MAX_X * Dev.UX - 50 * Dev.UX, 0F)
-    override fun factory() = RightTilePlaceHolderActor()
+    override fun factory(position: Int, isTsumo: Boolean) = RightTilePlaceHolderActor(position, isTsumo)
 }

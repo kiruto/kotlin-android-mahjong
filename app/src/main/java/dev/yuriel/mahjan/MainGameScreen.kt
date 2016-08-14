@@ -6,6 +6,7 @@
 
 package dev.yuriel.mahjan
 
+import com.badlogic.gdx.graphics.FPSLogger
 import dev.yuriel.kotmvp.Dev
 import dev.yuriel.kotmvp.bases.BaseScreen
 import dev.yuriel.mahjan.interfaces.MainScreenPresenter
@@ -19,6 +20,7 @@ import dev.yuriel.mahjan.views.MainGameRootViews
  */
 class MainGameScreen: BaseScreen(), MainScreenPresenter {
 
+    private val fPSLogger = FPSLogger()
     val views = MainGameRootViews(this)
     val play = PlayPresenter(views)
 
@@ -45,6 +47,7 @@ class MainGameScreen: BaseScreen(), MainScreenPresenter {
     }
 
     override fun render(delta: Float) {
+        fPSLogger.log()
         views.clearScreen()
         drawGrid()
         views.render()

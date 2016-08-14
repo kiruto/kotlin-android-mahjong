@@ -14,11 +14,20 @@ import dev.yuriel.kotmvp.SMALL_TILE_WIDTH
 /**
  * Created by yuriel on 8/7/16.
  */
-class OppoTilePlaceHolderActor : TileActor() {
-    override fun getSize() = Pair(SMALL_TILE_WIDTH * Dev.U, SMALL_TILE_HEIGHT * Dev.U)
+class OppoTilePlaceHolderActor(private var position: Int, isTsumo: Boolean = false): TileActor(isTsumo) {
+    override fun getTileSize() = Pair(SMALL_TILE_WIDTH * Dev.U, SMALL_TILE_HEIGHT * Dev.U)
+    override fun getTileOrigin() = Pair(- (position + getOffset()) * width, 0F)
+    override fun getTilePosition(): Int = position
+    override fun setTilePosition(value: Int) {
+        position = value
+    }
 
     override fun onDraw(batch: Batch?, parentAlpha: Float) {
         if (null == obverse) return
-        batch?.draw(obverse, - position * width, 0F, width, height)
+        batch?.draw(obverse, originX, originY, width, height)
+    }
+
+    private fun getOffset(): Float {
+        return if (isTsumo) 0.5F else 0F
     }
 }

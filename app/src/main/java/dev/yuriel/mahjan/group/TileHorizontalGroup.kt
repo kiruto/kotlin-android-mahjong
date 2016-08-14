@@ -39,7 +39,7 @@ class TileHorizontalGroup(tiles: List<TileWrapper>, val position: Int): BaseGrou
     fun calculate() {
         var originX = 0F
         for (t in tileList) {
-            //t.setPosition(originX, 0F)
+            //t.setTilePosition(originX, 0F)
             t.position = originX
             when (t.status) {
                 TileStatus.NORMAL,

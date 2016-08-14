@@ -17,15 +17,17 @@ import dev.yuriel.mahjan.texture.TileMgr
  * Created by yuriel on 8/6/16.
  */
 abstract class TileGroup<out ACTOR: TileActor>: BaseGroup() {
-    val tileList: Array<out TileActor>
+    protected val tileList: Array<out TileActor>
+    protected val tsumo: TileActor
     abstract fun getOrigin(): Pair<Float, Float>
-    protected abstract fun factory(): ACTOR
+    protected abstract fun factory(position: Int, isTsumo: Boolean = false): ACTOR
+    var size: Int = 0
 
     init {
         TileMgr.load()
         tileList = Array<TileActor>(13) { i ->
-            val actor = factory()
-            actor.position = i
+            val actor = factory(position = i)
+            actor.resetPosition()
             actor.addListener(object: InputListener(){
                 override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
 
@@ -35,6 +37,8 @@ abstract class TileGroup<out ACTOR: TileActor>: BaseGroup() {
             addActor(actor)
             actor
         }
+        tsumo = factory(14, true)
+        addActor(tsumo)
     }
 
     fun updateList(haiList: List<Hai>) {
@@ -46,6 +50,12 @@ abstract class TileGroup<out ACTOR: TileActor>: BaseGroup() {
                 actor.update(null)
             }
         }
+        size = haiList.size
+    }
+
+    fun updateTsumo(hai: Hai?) {
+        tsumo.setTilePosition(size)
+        tsumo.update(hai)
     }
 
     override fun destroy() {

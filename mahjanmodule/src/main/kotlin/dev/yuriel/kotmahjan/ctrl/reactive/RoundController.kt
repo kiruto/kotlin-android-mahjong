@@ -80,11 +80,13 @@ class RoundController(val rounder: RoundContextV2) {
             // 配牌
             for (i in 0..2)
                 for (p in rounder.getPlayerList()) {
+                    Thread.sleep(200L)
                     rounder.getPlayerContext(p).onHaiPai(getHaiPai())
                 }
 
             // 配牌最后一张
             for (p in rounder.getPlayerList()) {
+                Thread.sleep(200L)
                 rounder.getPlayerContext(p).onReceiveHai(getHai())
             }
             rounder.isFirstLoop = true
