@@ -75,3 +75,4 @@ const val STATUS_HORIZON = 1 shl 3
 const val STATUS_NEGATIVE = 1 shl 4
 const val STATUS_DORA = 1 shl 5
 const val STATUS_FURO = 1 shl 6
+const val STATUS_INVISIBLE = 1 shl 7

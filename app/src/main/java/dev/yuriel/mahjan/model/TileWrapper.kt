@@ -51,10 +51,15 @@ class TileWrapper() {
     }
 
     private fun initTexture(hai: Hai? = this.hai, status: TileStatus = this.status): TextureRegion? {
-        if (null == hai) return null
-        TileMgr.load()
-        back = TileMgr.getBack()
-        obverse = TileMgr.getObverse()
-        return TileMgr[hai]
+        if (null == hai) {
+            back = null
+            obverse = null
+            return null
+        } else {
+            TileMgr.load()
+            back = TileMgr.getBack()
+            obverse = TileMgr.getObverse()
+            return TileMgr[hai]
+        }
     }
 }

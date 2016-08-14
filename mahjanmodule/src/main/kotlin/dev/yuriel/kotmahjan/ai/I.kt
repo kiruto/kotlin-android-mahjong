@@ -60,19 +60,19 @@ class I(val name: String = "名無し"): AI(), PlayerModel {
 
     override fun da(haiList: List<Hai>, basis: List<Hai>): Hai {
         var resultHai: Hai
-        val tehai = Tehai()
-        tehai.put(this.tehai.haiList)
-        if (tsumo.hai != null) tehai.put(tsumo.hai!!)
+        val temp = Tehai()
+        temp.put(this.tehai.haiList)
+        if (tsumo.hai != null) temp.put(tsumo.hai!!)
 
-        var u = getUselessGeneralized(tehai.toTypedArray(false))
+        var u = getUselessGeneralized(temp.toTypedArray(false))
         val array = toTypedHaiArray(basis)
-        var result = printResultByGen(u, tehai, array, false)
+        var result = printResultByGen(u, temp, array, false)
         if (result.first != 0) {
             resultHai = Hai.newInstance(result.first)
             outln("da: $resultHai")
         } else {
-            u = getUselessSpecialized(tehai.toTypedArray(false))
-            result = printResultByGen(u, tehai, array, true)
+            u = getUselessSpecialized(temp.toTypedArray(false))
+            result = printResultByGen(u, temp, array, true)
         }
 
         if (result.first != 0) {
@@ -80,7 +80,7 @@ class I(val name: String = "名無し"): AI(), PlayerModel {
             outln("da: $resultHai")
         } else {
 
-            val b = sortEffectInRange(u, tehai.toTypedArray(), array)
+            val b = sortEffectInRange(u, temp.toTypedArray(), array)
             resultHai = Hai.newInstance(b.g2kList[0].group[0])
             outln("extreme da: $resultHai")
 
@@ -95,14 +95,17 @@ class I(val name: String = "名無し"): AI(), PlayerModel {
             */
         }
         println()
-        Thread.sleep(400L)
+        Thread.sleep(250L)
         if (tsumo.hai?.sameAs(resultHai)?: false) {
             tsumo.hai = null
+            Thread.sleep(250L)
         } else {
+            remove(resultHai)
+            Thread.sleep(250L)
             this.tehai.put(tsumo.hai!!)
             tsumo.hai = null
+            this.tehai.sort()
         }
-        Thread.sleep(100L)
         return resultHai
     }
 

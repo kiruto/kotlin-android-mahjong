@@ -21,14 +21,6 @@ abstract class TileActor(val isTsumo: Boolean = false): BaseActor(), Comparable<
     abstract fun getTilePosition(): Int
     abstract fun setTilePosition(value: Int)
 
-    fun resetPosition() {
-        val size = getTileSize()
-        setSize(size.first, size.second)
-        val origin = getTileOrigin()
-        setPosition(origin.first, origin.second)
-        setOrigin(origin.first, origin.second)
-    }
-
     var texture: TextureRegion? = null
         get() = tile?.texture
         private set
@@ -52,6 +44,14 @@ abstract class TileActor(val isTsumo: Boolean = false): BaseActor(), Comparable<
         if (tile == null)
             tile = TileWrapper()
         tile?.hai = hai
+    }
+
+    fun resetPosition() {
+        val size = getTileSize()
+        setSize(size.first, size.second)
+        val origin = getTileOrigin()
+        setPosition(origin.first, origin.second)
+        setOrigin(origin.first, origin.second)
     }
 
     override fun destroy() {

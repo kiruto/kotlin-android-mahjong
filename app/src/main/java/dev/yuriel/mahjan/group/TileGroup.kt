@@ -42,12 +42,20 @@ abstract class TileGroup<out ACTOR: TileActor>: BaseGroup() {
     }
 
     fun updateList(haiList: List<Hai>) {
-        for (index in 0..tileList.size - 1) {
-            val actor = tileList[index]
-            if (haiList.size - 1 >= index) {
-                actor.update(haiList[index])
-            } else {
-                actor.update(null)
+        if (haiList.size < size) {
+            for (actor in tileList) {
+                if (!haiList.contains(actor.tile?.hai)) {
+                    actor.update(null)
+                }
+            }
+        } else {
+            for (index in 0..tileList.size - 1) {
+                val actor = tileList[index]
+                if (haiList.size - 1 >= index) {
+                    actor.update(haiList[index])
+                } else {
+                    actor.update(null)
+                }
             }
         }
         size = haiList.size

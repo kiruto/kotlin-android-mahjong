@@ -29,9 +29,7 @@ abstract class AI: PlayerCommander {
     protected var msg: String by Delegates.observable("") { prop, old, new -> say(new) }
 
     override fun da(basis: List<Hai>): Hai {
-        val result = da(getHai(), basis)
-        remove(result)
-        return result
+        return da(getHai(), basis)
     }
 
     fun setListener(vararg listener: AISaid) {

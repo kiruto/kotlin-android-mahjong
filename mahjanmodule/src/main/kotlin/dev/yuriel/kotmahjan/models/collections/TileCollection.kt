@@ -37,7 +37,7 @@ abstract class TileCollection {
 
     fun remove(hai: Hai) {
         for (h in haiList) {
-            if (h sameAs hai) {
+            if (h == hai) {
                 haiListStore.remove(hai)
                 notifyDataChange()
                 return
