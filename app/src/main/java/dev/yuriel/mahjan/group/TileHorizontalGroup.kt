@@ -54,6 +54,13 @@ class TileHorizontalGroup(tiles: List<TileWrapper>, val position: Int): BaseGrou
         calculate()
     }
 
+    fun append(tile: TileWrapper) {
+        val actor = SingleTileActor(tile)
+        tileList.add(actor)
+        addActor(actor)
+        calculate()
+    }
+
     fun calculate() {
         var originX = 0F
         for (t in tileList) {

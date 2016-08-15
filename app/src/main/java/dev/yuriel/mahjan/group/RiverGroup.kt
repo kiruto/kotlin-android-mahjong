@@ -34,6 +34,7 @@ import dev.yuriel.mahjan.model.TileWrapper
 class RiverGroup(): BaseGroup() {
 
     private val lines: Array<TileHorizontalGroup>
+    private var tiles: List<TileWrapper>? = null
 
     init {
         lines = Array(3) { i ->
@@ -45,10 +46,16 @@ class RiverGroup(): BaseGroup() {
 
     fun update(tile: List<Hai>) {
         val list = Array(tile.size) { i -> TileWrapper(tile[i]) }.toList()
-        addTiles(list)
+        if (list.size <= tiles?.size?: Int.MAX_VALUE) {
+            resetTiles(list)
+        } else if (list.size - tiles!!.size == 1) {
+            val targetLine = if (list.size <= 6) 0 else if (list.size <= 12) 1 else 2
+            lines[targetLine].append(list.last())
+        }
+        tiles = list
     }
 
-    private fun addTiles(tile: List<TileWrapper>) {
+    private fun resetTiles(tile: List<TileWrapper>) {
         var index = -1
         var subList: MutableList<TileWrapper>? = null
         for (i in 0..tile.size - 1) {
@@ -67,6 +74,10 @@ class RiverGroup(): BaseGroup() {
             lines[index].update(subList)
         }
         calculate()
+    }
+
+    private fun append(tile: TileWrapper, line: Int) {
+
     }
 
     fun calculate() {

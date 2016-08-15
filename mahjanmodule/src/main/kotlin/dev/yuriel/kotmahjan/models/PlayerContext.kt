@@ -37,6 +37,7 @@ interface PlayerContext: Comparable<PlayerContext> {
      */
     fun onReceiveHai(hai: Hai)
     fun onHaiPai(haiList: List<Hai>)
+    fun afterHaiPai()
     fun onEnd()
 
     fun onRichi()

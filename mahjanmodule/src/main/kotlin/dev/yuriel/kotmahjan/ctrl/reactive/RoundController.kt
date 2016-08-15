@@ -113,6 +113,10 @@ class RoundController(val rounder: RoundContextV2) {
             var targetPlayer = rounder.getPlayerList()[0]
             var tsumoType: String = SHOULD_TSUMO
 
+            for (p in rounder.getPlayerList()) {
+                rounder.getPlayerContext(p).afterHaiPai()
+            }
+
             // 第一巡开始
             round@while (hasHai()) {
                 rounder.isHoutei = !hasHai()

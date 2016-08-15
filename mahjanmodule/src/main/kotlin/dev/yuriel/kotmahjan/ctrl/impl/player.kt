@@ -40,8 +40,6 @@ open class Player(private val model: PlayerModel,
 
     }
 
-    fun getModel() = model
-
     override fun onStart() {
 
     }
@@ -52,6 +50,10 @@ open class Player(private val model: PlayerModel,
 
     override fun onHaiPai(haiList: List<Hai>) {
         model.tehai.put(haiList)
+    }
+
+    override fun afterHaiPai() {
+        model.tehai.sort()
     }
 
     override fun onEnd() {
