@@ -1,3 +1,4 @@
+[🇨🇳 中文](https://github.com/kiruto/kotlin-android-mahjong/blob/master/README-ZH.md) / [🇯🇵 日本語](https://github.com/kiruto/kotlin-android-mahjong/blob/master/README.md)
 # kotlin-android-mahjong
 趣味で作ってるスマホ麻雀ゲームです。いつの日か知り合いと共にAIを気軽に戦うのなら幸いです。
 
