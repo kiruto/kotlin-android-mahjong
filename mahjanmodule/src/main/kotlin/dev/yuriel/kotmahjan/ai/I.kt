@@ -96,16 +96,16 @@ class I(val name: String = "名無し"): AI(), PlayerModel {
         }
         println()
         Thread.sleep(250L)
-        if (tsumo.hai?.sameAs(resultHai)?: false) {
-            tsumo.hai = null
-            Thread.sleep(250L)
-        } else {
-            remove(resultHai)
-            Thread.sleep(250L)
-            this.tehai.put(tsumo.hai!!)
-            tsumo.hai = null
-            this.tehai.sort()
-        }
+//        if (tsumo.hai?.sameAs(resultHai)?: false) {
+//            tsumo.hai = null
+//            Thread.sleep(250L)
+//        } else {
+//            remove(resultHai)
+//            Thread.sleep(250L)
+//            this.tehai.put(tsumo.hai!!)
+//            tsumo.hai = null
+//            this.tehai.sort()
+//        }
         return resultHai
     }
 

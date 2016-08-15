@@ -9,6 +9,7 @@ package dev.yuriel.mahjan
 import com.badlogic.gdx.graphics.FPSLogger
 import dev.yuriel.kotmvp.Dev
 import dev.yuriel.kotmvp.bases.BaseScreen
+import dev.yuriel.mahjan.group.HandsGroup
 import dev.yuriel.mahjan.interfaces.MainScreenPresenter
 import dev.yuriel.mahjan.presenter.PlayPresenter
 import dev.yuriel.mahjan.texture.TileMgr
@@ -64,5 +65,9 @@ class MainGameScreen: BaseScreen(), MainScreenPresenter {
 
     override fun startRound() {
         play.start()
+    }
+
+    override fun getActionListener(): HandsGroup.Listener {
+        return play
     }
 }

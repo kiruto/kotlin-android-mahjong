@@ -195,6 +195,11 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
 
         setPosition()
 
+        setAction()
+    }
+
+    fun setAction() {
+        handGroup.addOnActionListener(presenter.getActionListener())
     }
 
     fun mockLayout4Test() {

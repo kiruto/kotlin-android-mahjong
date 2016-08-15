@@ -28,12 +28,6 @@ abstract class TileGroup<out ACTOR: TileActor>: BaseGroup() {
         tileList = Array<TileActor>(13) { i ->
             val actor = factory(position = i)
             actor.resetPosition()
-            actor.addListener(object: InputListener(){
-                override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
-
-                    return true
-                }
-            })
             addActor(actor)
             actor
         }

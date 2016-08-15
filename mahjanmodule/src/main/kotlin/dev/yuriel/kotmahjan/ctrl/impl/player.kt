@@ -71,6 +71,18 @@ open class Player(private val model: PlayerModel,
                     response.from = model
                     response.action = ACTION_SUTE
                     response.hai = commander.da(basis)
+
+                    if (model.tsumo.hai == response.hai) {
+                        model.tsumo.hai = null
+                        Thread.sleep(250L)
+                    } else {
+                        model.tehai.remove(response.hai!!)
+                        Thread.sleep(250L)
+                        model.tehai.put(model.tsumo.hai!!)
+                        model.tsumo.hai = null
+                        model.tehai.sort()
+                    }
+
                     return response
                 }
             }

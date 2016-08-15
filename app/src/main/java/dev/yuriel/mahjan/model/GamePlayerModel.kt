@@ -6,21 +6,15 @@
 
 package dev.yuriel.mahjan.model
 
-import dev.yuriel.kotmahjan.models.*
+import dev.yuriel.kotmahjan.models.PlayerModel
+import dev.yuriel.kotmahjan.models.TsumoHaiModel
 import dev.yuriel.kotmahjan.models.collections.Kawa
 import dev.yuriel.kotmahjan.models.collections.Mentsu
 import dev.yuriel.kotmahjan.models.collections.Tehai
 
 /**
- * Created by yuriel on 8/13/16.
+ * Created by yuriel on 8/14/16.
  */
-open class PlayerClient: PlayerModel {
+class GamePlayerModel: PlayerClient() {
 
-    override val tehai:
-            Tehai = Tehai()
-    override val kawa: Kawa = Kawa()
-    override val mentsu: MutableList<Mentsu> = mutableListOf()
-    override var tsumo: TsumoHaiModel = TsumoHaiModel()
-
-    override var point: Int = 0
 }
