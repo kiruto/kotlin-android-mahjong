@@ -2,6 +2,7 @@
 趣味で作ってるスマホ麻雀ゲームです。いつの日か知り合いと共にAIを気軽に戦うのなら幸いです。
 
 今の階段のUI:
+
 <img src="http://dev.exyui.com/Screenshot_20160815-221801.png" alt="スクリーンショット" title="サンプル" width="400" height="225"/>
 
 Feature:
