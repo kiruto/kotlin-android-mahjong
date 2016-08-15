@@ -14,7 +14,7 @@ import dev.yuriel.mahjan.interfaces.MainScreenPresenter
 import dev.yuriel.mahjan.presenter.PlayPresenter
 import dev.yuriel.mahjan.texture.TileMgr
 import dev.yuriel.mahjan.texture.UITexture
-import dev.yuriel.mahjan.view.MainGameRootViews
+import dev.yuriel.mahjan.views.MainGameRootViews
 
 /**
  * Created by yuriel on 8/5/16.
