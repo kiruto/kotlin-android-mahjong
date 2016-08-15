@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.mahjan.views
+package dev.yuriel.mahjan.view
 
 import android.support.v4.view.ViewPager
 import dev.yuriel.kotmvp.*

@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import dev.yuriel.kotmvp.Dev
 import dev.yuriel.mahjan.texture.TextureMgr
-import dev.yuriel.kotmvp.views.GridLayerViews
+import dev.yuriel.kotmvp.view.GridLayerViews
 
 /**
  * Created by yuriel on 8/3/16.

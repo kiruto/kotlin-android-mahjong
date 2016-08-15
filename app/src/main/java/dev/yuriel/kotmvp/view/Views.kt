@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.kotmvp.views
+package dev.yuriel.kotmvp.view
 
 /**
  * Created by yuriel on 8/2/16.

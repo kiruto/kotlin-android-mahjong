@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.mahjan.views
+package dev.yuriel.mahjan.view
 
 import android.util.Log
 import com.badlogic.gdx.Gdx
@@ -16,7 +16,7 @@ import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmahjan.models.PlayerModel
 import dev.yuriel.kotmvp.*
 import dev.yuriel.kotmvp.layout.RootScreen.Companion.layout
-import dev.yuriel.kotmvp.views.Views
+import dev.yuriel.kotmvp.view.Views
 import dev.yuriel.mahjan.MockData4Test
 import dev.yuriel.mahjan.actor.TileActor
 import dev.yuriel.mahjan.group.*

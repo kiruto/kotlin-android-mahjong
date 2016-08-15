@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.kotmvp.views
+package dev.yuriel.kotmvp.view
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer

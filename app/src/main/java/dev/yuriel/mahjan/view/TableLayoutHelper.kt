@@ -4,7 +4,7 @@
  * Proprietary and confidential
  */
 
-package dev.yuriel.mahjan.views
+package dev.yuriel.mahjan.view
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
