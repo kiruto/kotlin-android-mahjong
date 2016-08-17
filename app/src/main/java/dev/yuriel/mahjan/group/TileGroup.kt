@@ -53,6 +53,7 @@ abstract class TileGroup<out ACTOR: TileActor>: BaseGroup() {
         addActor(tsumo)
     }
 
+    // fixme: cause crash
     fun updateList(haiList: List<Hai>) {
         if (haiList.size < size) {
             for (actor in tileList) {

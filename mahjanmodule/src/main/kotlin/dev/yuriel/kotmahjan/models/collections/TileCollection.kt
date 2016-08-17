@@ -43,14 +43,16 @@ abstract class TileCollection {
     }
 
     protected fun notifyDataChange() {
-        Observable.just(0)
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    for ((id, l) in listeners) {
-                        l.invoke(haiList)
+        synchronized(haiListStore) {
+            Observable.just(haiListStore)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map { list ->
+                        for ((id, l) in listeners) {
+                            l.invoke(list)
+                        }
                     }
-                }
-                .subscribe()
+                    .subscribe()
+        }
     }
 
     fun remove(hai: Hai) {

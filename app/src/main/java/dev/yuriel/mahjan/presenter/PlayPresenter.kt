@@ -140,18 +140,22 @@ class PlayPresenter(private val view: PlayViewsInterface): Interaction, HandsGro
     }
 
     override fun waiting4Kan(): Boolean {
+        Thread.sleep(5000)
         return false
     }
 
     override fun waiting4Pon(): Boolean {
+        Thread.sleep(5000)
         return false
     }
 
     override fun waiting4Chi(): Boolean {
+        Thread.sleep(5000)
         return false
     }
 
     override fun waiting4Ron(): Boolean {
+        Thread.sleep(5000)
         return false
     }
 
