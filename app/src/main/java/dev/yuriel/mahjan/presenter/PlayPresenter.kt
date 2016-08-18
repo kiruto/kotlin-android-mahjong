@@ -36,15 +36,17 @@ import dev.yuriel.mahjan.group.HandsGroup
 import dev.yuriel.mahjan.interfaces.Interaction
 import dev.yuriel.mahjan.interfaces.PlayViewsInterface
 import dev.yuriel.mahjan.model.GamePlayerModel
+import dev.yuriel.mahjan.texture.Naki
+import dev.yuriel.mahjan.texture.NakiBtn
 import rx.Observable
-import rx.Scheduler
 import rx.schedulers.Schedulers
 import java.util.concurrent.CountDownLatch
 
 /**
  * Created by yuriel on 8/13/16.
  */
-class PlayPresenter(private val view: PlayViewsInterface): Interaction, HandsGroup.Listener {
+class PlayPresenter(private val view: PlayViewsInterface):
+        Interaction, HandsGroup.Listener, NakiBtn.Listener {
 
     private val ID_LAST = 0x103
     private val ID_KAWA_LISTENER = 0x100
@@ -159,12 +161,23 @@ class PlayPresenter(private val view: PlayViewsInterface): Interaction, HandsGro
         return false
     }
 
-    override fun onTouchDown(hai: Hai) {
+    override fun onTileTouchDown(hai: Hai) {
 
     }
 
-    override fun onTouchUp(hai: Hai) {
+    override fun onTileTouchUp(hai: Hai) {
         touch = hai
+    }
+
+    override fun onNakiBtnTouchDown(btn: NakiBtn) {
+
+    }
+
+    override fun onNakiBtnTouchUp(btn: NakiBtn) {
+        when(btn.naki) {
+            Naki.YES -> view.hideNaki()
+            Naki.NO -> view.showNaki()
+        }
     }
 
     private fun roleOf(tileModel: PlayerModel): Kaze {

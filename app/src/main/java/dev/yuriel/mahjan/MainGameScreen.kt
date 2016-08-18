@@ -30,6 +30,7 @@ import dev.yuriel.kotmvp.bases.BaseScreen
 import dev.yuriel.mahjan.group.HandsGroup
 import dev.yuriel.mahjan.interfaces.MainScreenPresenter
 import dev.yuriel.mahjan.presenter.PlayPresenter
+import dev.yuriel.mahjan.texture.NakiBtn
 import dev.yuriel.mahjan.texture.TileMgr
 import dev.yuriel.mahjan.texture.UITexture
 import dev.yuriel.mahjan.views.MainGameRootViews
@@ -86,6 +87,10 @@ class MainGameScreen: BaseScreen(), MainScreenPresenter {
     }
 
     override fun getActionListener(): HandsGroup.Listener {
+        return play
+    }
+
+    override fun getNakiBtnListener(): NakiBtn.Listener {
         return play
     }
 }

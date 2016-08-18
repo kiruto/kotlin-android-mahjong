@@ -82,12 +82,14 @@ class HaiMgr(u: HaiUtil = HaiUtil()): Comparator<Hai> {
             result.add(haiSan[0])
             haiSan.removeAt(0)
         }
+        notifiDataChange()
         return result
     }
 
     fun getHai(): Hai {
         val result = haiSan[0]
         haiSan.removeAt(0)
+        notifiDataChange()
         return result
     }
 
@@ -98,8 +100,10 @@ class HaiMgr(u: HaiUtil = HaiUtil()): Comparator<Hai> {
     }
 
     private fun notifiDataChange() {
-        for ((id, l) in listeners) {
-             l.invoke(haiSan.size)
+        synchronized(haiSan) {
+            for ((id, l) in listeners) {
+                l.invoke(haiSan.size)
+            }
         }
     }
 

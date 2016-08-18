@@ -36,11 +36,14 @@ import dev.yuriel.kotmvp.*
 import dev.yuriel.kotmvp.layout.RootScreen.Companion.layout
 import dev.yuriel.kotmvp.views.Views
 import dev.yuriel.mahjan.MockData4Test
+import dev.yuriel.mahjan.actor.LastFontActor
 import dev.yuriel.mahjan.actor.TileActor
 import dev.yuriel.mahjan.group.*
 import dev.yuriel.mahjan.interfaces.MainScreenPresenter
 import dev.yuriel.mahjan.interfaces.PlayViewsInterface
 import dev.yuriel.mahjan.stage.ViewStage
+import dev.yuriel.mahjan.texture.Naki
+import dev.yuriel.mahjan.texture.NakiBtn
 
 /**
  * Created by yuriel on 8/5/16.
@@ -57,10 +60,15 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
     private val riverRightGroup = RiverGroup()
     private val riverOppoGroup = RiverGroup()
 
-    private val centerTableGroup = CenterTableGroup() {
-        presenter.startRound()
-    }
+    private val btnNaki = NakiBtn(Naki.YES)
+    private val btnNoNaki = NakiBtn(Naki.NO)
+    private val btnChi = NakiBtn(Naki.CHI)
+    private val btnPon = NakiBtn(Naki.PON)
+    private val btnKan = NakiBtn(Naki.KAN)
+    private val btnRon = NakiBtn(Naki.RON)
+    private val btnTsumo = NakiBtn(Naki.TSUMO)
 
+    private val centerTableGroup = CenterTableGroup()
 
     val rootStage = ViewStage()
 
@@ -77,6 +85,14 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
         val RIVER_OPPO = "river_oppo"
         val TABLE = "table"
         val TABLE_INDICATOR = "table_indicator"
+//        val LAST_TILE = "last_tile"
+        val BTN_CHI = "btn_chi"
+        val BTN_PON = "btn_pon"
+        val BTN_KAN = "btn_kan"
+        val BTN_RON = "btn_ron"
+        val BTN_TSUMO = "btn_tsmo"
+        val BTN_NAKI = "btn_naki"
+        val BTN_NO_NAKI = "btn_no_naki"
 
         layout {
             id = SCREEN
@@ -154,6 +170,65 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
                 rect(RIVER_OPPO.bottom(), RIVER_RIGHT.left(), RIVER_BOTTOM.top(), RIVER_LEFT.right())
                 moveUnits(FURO_TILE_HEIGHT * 1.25, FURO_TILE_HEIGHT * 0.25)
             }
+
+//            relative(LAST_TILE) {
+//                20 x 50
+//                actor = lastTile
+//                alignRightOf(TABLE_INDICATOR)
+//                alignTopOf(TABLE_INDICATOR)
+//            }
+
+            relative(BTN_NAKI) {
+                32 x 25
+                actor = btnNaki
+                alignRightOf(SCREEN)
+                moveTop(275)
+            }
+
+            relative(BTN_NO_NAKI) {
+                65 x 25
+                actor = btnNoNaki
+                alignRightOf(SCREEN)
+                moveTop(275)
+            }
+
+            relative(BTN_KAN) {
+                65 x 25
+                actor = btnKan
+                alignRightOf(SCREEN)
+                below(BTN_NAKI)
+                moveTop(25)
+            }
+
+            relative(BTN_CHI) {
+                65 x 25
+                actor = btnChi
+                alignRightOf(SCREEN)
+                below(BTN_KAN)
+                moveBottom(25)
+            }
+
+            relative(BTN_PON) {
+                65 x 25
+                actor = btnPon
+                alignRightOf(SCREEN)
+                below(BTN_CHI)
+                moveBottom(25)
+            }
+
+            relative(BTN_RON) {
+                65 x 25
+                actor = btnRon
+                alignRightOf(SCREEN)
+                above(HANDS_BOTTOM)
+            }
+
+            relative(BTN_TSUMO) {
+                65 x 25
+                actor = btnTsumo
+                alignRightOf(SCREEN)
+                above(HANDS_BOTTOM)
+            }
         }
     }
 
@@ -191,11 +266,14 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
     }
 
     override fun updateHaisanLast(last: Int) {
-        Log.d("last", last.toString())
+        //Log.d("last", last.toString())
+//        lastTile.update(last)
+        centerTableGroup.lastTile.update(last)
     }
 
     override fun updateRoundText(roundText: String) {
         centerTableGroup.idText.text = roundText
+        centerTableGroup.idText.animate { presenter.startRound() }
     }
 
     fun inject() {
@@ -210,14 +288,56 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
         rootStage.addActor(riverOppoGroup)
 
         rootStage.addActor(centerTableGroup)
+//        rootStage.addActor(lastTile)
+
+        rootStage.addActor(btnNaki)
+        rootStage.addActor(btnNoNaki)
+        rootStage.addActor(btnChi)
+        rootStage.addActor(btnPon)
+        rootStage.addActor(btnKan)
+        rootStage.addActor(btnRon)
+        rootStage.addActor(btnTsumo)
 
         setPosition()
 
         setAction()
+
+        initBtn()
     }
 
-    fun setAction() {
+    private fun setAction() {
         handGroup.addOnActionListener(presenter.getActionListener())
+        for (b in listOf(btnNaki, btnNoNaki, btnChi, btnPon, btnKan, btnRon, btnTsumo)) {
+            b.listener = presenter.getNakiBtnListener()
+        }
+    }
+
+    private fun initBtn() {
+        hideBtn(btnNoNaki, btnKan, btnPon, btnChi, btnRon, btnTsumo)
+    }
+
+    private fun hideBtn(vararg btn: NakiBtn) {
+        var i = 0
+        for (b in btn) {
+            b.hide(0.1F * i++)
+        }
+    }
+
+    private fun showBtn(vararg btn: NakiBtn) {
+        var i = 0
+        for (b in btn) {
+            b.show(0.1F * i++)
+        }
+    }
+
+    override fun showNaki() {
+        btnNoNaki.hide()
+        btnNaki.show(0.1F)
+    }
+
+    override fun hideNaki() {
+        btnNaki.hide()
+        btnNoNaki.show(0.1F)
     }
 
     fun mockLayout4Test() {
@@ -266,6 +386,4 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
         rootStage.batch.draw(background, 0F, 0F, Dev.getDefaultWidth(), Dev.getDefaultHeight())
         rootStage.batch.end()
     }
-
-
 }

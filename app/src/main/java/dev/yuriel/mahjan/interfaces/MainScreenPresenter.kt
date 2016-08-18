@@ -25,6 +25,7 @@
 package dev.yuriel.mahjan.interfaces
 
 import dev.yuriel.mahjan.group.HandsGroup
+import dev.yuriel.mahjan.texture.NakiBtn
 
 /**
  * Created by yuriel on 8/13/16.
@@ -32,4 +33,5 @@ import dev.yuriel.mahjan.group.HandsGroup
 interface MainScreenPresenter {
     fun startRound()
     fun getActionListener(): HandsGroup.Listener
+    fun getNakiBtnListener(): NakiBtn.Listener
 }

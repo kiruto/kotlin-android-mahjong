@@ -26,18 +26,14 @@ package dev.yuriel.mahjan.actor
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.GlyphLayout
-import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import dev.yuriel.kotmvp.Dev
-import dev.yuriel.kotmvp.FURO_TILE_WIDTH
 import dev.yuriel.kotmvp.bases.BaseActor
-import dev.yuriel.mahjan.animator.GradientUtil
 import dev.yuriel.mahjan.texture.NormalFontBlock
 
 /**
- * Created by yuriel on 8/13/16.
+ * Created by yuriel on 8/18/16.
  */
-class CenterFont: BaseActor() {
+class LastFontActor: BaseActor() {
+
     var font: NormalFontBlock?
         private set
 
@@ -45,49 +41,20 @@ class CenterFont: BaseActor() {
         set(value) {
             field = value
             font?.painter?.text(field)
-            update()
-
+            width = font!!.layout.width
+            height = font!!.layout.height
         }
-
-    override fun setPosition(x: Float, y: Float) {
-        super.setPosition(x, y)
-        font?.painter?.origin(x, y)
-    }
 
     init {
         font = NormalFontBlock()
-
-        //val animator = GradientUtil.linearAnimator(200, 110, 1F, 0.2F)
-
-        font!!.load("kyoku.fnt", "kyoku.png")
+        font!!.load("last.fnt", "last.png")
                 .color { i -> Color(255F, 255F, 255F, color.a) }
-                .scale { i -> Pair(scaleX, scaleY) }
-                //.scale(animator.get())
-                //.scale { i -> Pair((i.toFloat() % 100F) / 10F, (i.toFloat() % 100F) / 10F) }
-                .origin { i -> font!!.getCenterOriginToText(x, y, width, height) }
-        update()
+                //.scale { i -> Pair(scaleX, scaleY) }
+                //.origin { i -> font!!.getCenterOriginToText(x, y, width, height) }
     }
 
-    fun animate(callback: () -> Unit) {
-        addAction(Actions.sequence(
-                Actions.parallel(
-                        Actions.scaleTo(0.8F, 0.8F, 0.22F),
-                        Actions.fadeIn(0.2F)
-                ),
-                Actions.scaleTo(0.8F, 0.8F, 2F),
-                Actions.parallel(
-                        Actions.scaleTo(0.2F, 0.2F, 0.4F),
-                        Actions.moveBy(- FURO_TILE_WIDTH * 1.5F * Dev.U, FURO_TILE_WIDTH * 0.5F * Dev.U, 0.4F)
-                ),
-                Actions.run() {
-                    callback()
-                }
-        ))
-    }
-
-    fun update() {
-        width = font!!.layout.width
-        height = font!!.layout.height
+    fun update(num: Int) {
+        text = "残り $num"
     }
 
     override fun destroy() {

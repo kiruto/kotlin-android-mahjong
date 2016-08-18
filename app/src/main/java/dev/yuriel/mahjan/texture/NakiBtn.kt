@@ -22,52 +22,77 @@
  *
  */
 
-package dev.yuriel.mahjan.group
+package dev.yuriel.mahjan.texture
 
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
-import dev.yuriel.kotmahjan.models.Hai
-import dev.yuriel.kotmvp.Dev
-import dev.yuriel.mahjan.actor.TilePlaceHolderActor
-import rx.Observable
+import dev.yuriel.kotmvp.bases.BaseActor
 
 /**
- * Created by yuriel on 8/5/16.
+ * Created by yuriel on 8/18/16.
  */
-class HandsGroup: TileGroup<TilePlaceHolderActor>() {
+class NakiBtn(val naki: Naki): BaseActor() {
 
-    private val actionListener = mutableListOf<Listener>()
+    var listener: Listener? = null
 
-    override fun getOrigin(): Pair<Float, Float> = Pair(50F * Dev.UX, 0F)
-    override fun factory(position: Int, isTsumo: Boolean): TilePlaceHolderActor {
-        val actor = TilePlaceHolderActor(position, isTsumo)
-        val listener = object: ClickListener() {
+    private val texture by lazy {
+        when (naki) {
+            Naki.CHI -> Texture("btn_chi.gif")
+            Naki.PON -> Texture("btn_pon.gif")
+            Naki.KAN -> Texture("btn_kan.gif")
+            Naki.RON -> Texture("btn_ron.gif")
+            Naki.TSUMO -> Texture("btn_tsumo.gif")
+            Naki.YES -> Texture("btn_naki.gif")
+            Naki.NO -> Texture("btn_no_naki.gif")
+        }
+    }
+
+    init {
+        val l = object: ClickListener() {
             override fun touchDown(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int): Boolean {
-                //println("touch down: ${actor.tile?.hai.toString()}")
-                for (l in actionListener) {
-                    l.onTileTouchDown(actor.tile?.hai?: break)
+                if (null != listener) {
+                    listener!!.onNakiBtnTouchDown(this@NakiBtn)
                 }
                 return super.touchDown(event, x, y, pointer, button)
             }
 
             override fun touchUp(event: InputEvent?, x: Float, y: Float, pointer: Int, button: Int) {
-                //println("touch up: ${actor.tile?.hai.toString()}")
                 super.touchUp(event, x, y, pointer, button)
-                for (l in actionListener) {
-                    l.onTileTouchUp(actor.tile?.hai?: break)
+                if (null != listener) {
+                    listener!!.onNakiBtnTouchUp(this@NakiBtn)
                 }
             }
         }
-        actor.addListener(listener)
-        return actor
+        addListener(l)
     }
 
-    fun addOnActionListener(l: Listener) {
-        actionListener.add(l)
+    fun show(delay: Number = 0F) {
+        addAction(Actions.sequence(
+                Actions.moveBy(0F, 0F, delay.toFloat()),
+                Actions.moveBy(-width, 0F, 0.1F)
+        ))
+    }
+
+    fun hide(delay: Number = 0F) {
+        addAction(Actions.sequence(
+                Actions.moveBy(0F, 0F, delay.toFloat()),
+                Actions.moveBy(width, 0F, 0.1F)
+        ))
+    }
+
+    override fun destroy() {
+        texture.dispose()
+    }
+
+    override fun onDraw(batch: Batch?, parentAlpha: Float) {
+        batch?.draw(texture, x, y, width, height)
     }
 
     interface Listener {
-        fun onTileTouchDown(hai: Hai)
-        fun onTileTouchUp(hai: Hai)
+        fun onNakiBtnTouchDown(btn: NakiBtn)
+        fun onNakiBtnTouchUp(btn: NakiBtn)
     }
 }

@@ -1,0 +1,18 @@
+info face="MS-PMincho" size=32 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=1,1,1,1 spacing=-2,-2
+common lineHeight=33 base=28 scaleW=512 scaleH=512 pages=1 packed=0
+page id=0 file="last.png"
+chars count=14
+char id=0     x=0    y=0    width=0    height=0    xoffset=-1   yoffset=0    xadvance=0    page=0    chnl=0 
+char id=32    x=0    y=0    width=0    height=0    xoffset=-1   yoffset=0    xadvance=10   page=0    chnl=0 
+char id=48    x=186  y=0    width=16   height=24   xoffset=2    yoffset=5    xadvance=16   page=0    chnl=0 
+char id=49    x=50   y=0    width=12   height=25   xoffset=2    yoffset=4    xadvance=16   page=0    chnl=0 
+char id=50    x=62   y=0    width=15   height=24   xoffset=2    yoffset=5    xadvance=16   page=0    chnl=0 
+char id=51    x=77   y=0    width=15   height=24   xoffset=2    yoffset=5    xadvance=16   page=0    chnl=0 
+char id=52    x=92   y=0    width=16   height=24   xoffset=2    yoffset=5    xadvance=16   page=0    chnl=0 
+char id=53    x=108  y=0    width=15   height=24   xoffset=2    yoffset=5    xadvance=16   page=0    chnl=0 
+char id=54    x=123  y=0    width=16   height=24   xoffset=2    yoffset=5    xadvance=16   page=0    chnl=0 
+char id=55    x=139  y=0    width=15   height=24   xoffset=2    yoffset=5    xadvance=16   page=0    chnl=0 
+char id=56    x=154  y=0    width=16   height=24   xoffset=2    yoffset=5    xadvance=16   page=0    chnl=0 
+char id=57    x=170  y=0    width=16   height=24   xoffset=2    yoffset=5    xadvance=16   page=0    chnl=0 
+char id=12426 x=33   y=0    width=17   height=29   xoffset=2    yoffset=2    xadvance=21   page=0    chnl=0 
+char id=27531 x=0    y=0    width=33   height=31   xoffset=2    yoffset=1    xadvance=32   page=0    chnl=0 
