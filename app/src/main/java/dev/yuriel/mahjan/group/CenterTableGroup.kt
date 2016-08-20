@@ -31,7 +31,7 @@ import dev.yuriel.kotmvp.FURO_TILE_WIDTH
 import dev.yuriel.kotmvp.bases.BaseGroup
 import dev.yuriel.mahjan.actor.CenterFont
 import dev.yuriel.mahjan.actor.CenterIndicator
-import dev.yuriel.mahjan.actor.LastFontActor
+import dev.yuriel.mahjan.actor.LastFont
 
 /**
  * Created by yuriel on 8/13/16.
@@ -40,12 +40,10 @@ class CenterTableGroup: BaseGroup() {
 
     val bg: CenterIndicator = CenterIndicator()
     val idText: CenterFont = CenterFont()
-    val lastTile = LastFontActor()
 
     init {
         addActor(bg)
         addActor(idText)
-        addActor(lastTile)
         idText.setPosition(- FURO_TILE_WIDTH * 2.25F * Dev.U, FURO_TILE_WIDTH * 2.75F * Dev.U)
     }
 

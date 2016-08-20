@@ -31,6 +31,7 @@ import dev.yuriel.kotmahjan.models.Hai
 import dev.yuriel.kotmvp.*
 import dev.yuriel.kotmvp.views.Views
 import dev.yuriel.mahjan.MockData4Test
+import dev.yuriel.mahjan.actor.LastFont
 import dev.yuriel.mahjan.group.*
 import dev.yuriel.mahjan.interfaces.MainScreenPresenter
 import dev.yuriel.mahjan.interfaces.PlayViewsInterface
@@ -62,6 +63,7 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
     internal val btnTsumo = NakiBtn(Naki.TSUMO)
 
     internal val centerTableGroup = CenterTableGroup()
+    internal val lastFont = LastFont()
 
     val rootStage = ViewStage()
 
@@ -100,8 +102,7 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
 
     override fun updateHaisanLast(last: Int) {
         //Log.d("last", last.toString())
-//        lastTile.update(last)
-        centerTableGroup.lastTile.update(last)
+        lastFont.update(last)
     }
 
     override fun updateRoundText(roundText: String) {
@@ -121,7 +122,7 @@ class MainGameRootViews(val presenter: MainScreenPresenter): Views(), PlayViewsI
         rootStage.addActor(riverOppoGroup)
 
         rootStage.addActor(centerTableGroup)
-//        rootStage.addActor(lastTile)
+        rootStage.addActor(lastFont.actor)
 
         rootStage.addActor(btnNaki)
         rootStage.addActor(btnNoNaki)

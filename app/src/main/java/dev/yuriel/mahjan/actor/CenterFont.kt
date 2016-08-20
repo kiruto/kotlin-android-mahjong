@@ -32,13 +32,13 @@ import dev.yuriel.kotmvp.Dev
 import dev.yuriel.kotmvp.FURO_TILE_WIDTH
 import dev.yuriel.kotmvp.bases.BaseActor
 import dev.yuriel.mahjan.animator.GradientUtil
-import dev.yuriel.mahjan.texture.NormalFontBlock
+import dev.yuriel.mahjan.texture.AnimatedFontBlock
 
 /**
  * Created by yuriel on 8/13/16.
  */
 class CenterFont: BaseActor() {
-    var font: NormalFontBlock?
+    var font: AnimatedFontBlock?
         private set
 
     var text: String = ""
@@ -55,7 +55,7 @@ class CenterFont: BaseActor() {
     }
 
     init {
-        font = NormalFontBlock()
+        font = AnimatedFontBlock()
 
         //val animator = GradientUtil.linearAnimator(200, 110, 1F, 0.2F)
 

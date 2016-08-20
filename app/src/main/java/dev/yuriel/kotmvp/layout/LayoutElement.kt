@@ -41,7 +41,14 @@ abstract class LayoutElement {
     abstract val id: String
     protected val attributes = hashMapOf<String, String>()
     open val attr = LayoutPosition(0F, 0F, 0F, 0F)
-    var actor: Actor? = null
+    open var actor: Actor? = null
+        set(value) {
+            field = value
+            if (attr.size.width == 0F && attr.size.height == 0F) {
+                attr.size.width = value?.width?: 0F
+                attr.size.height = value?.height?: 0F
+            }
+        }
 
     var top: Number? = null
         get() = attr.top()

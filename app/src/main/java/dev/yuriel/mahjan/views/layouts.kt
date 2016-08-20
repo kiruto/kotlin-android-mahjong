@@ -42,7 +42,7 @@ const val RIVER_RIGHT = "river_right"
 const val RIVER_OPPO = "river_oppo"
 const val TABLE = "table"
 const val TABLE_INDICATOR = "table_indicator"
-//        val LAST_TILE = "last_tile"
+const val LAST_TILE = "last_tile"
 const val BTN_CHI = "btn_chi"
 const val BTN_PON = "btn_pon"
 const val BTN_KAN = "btn_kan"
@@ -130,12 +130,12 @@ fun MainGameRootViews.layout() {
             moveUnits(FURO_TILE_HEIGHT * 1.25, FURO_TILE_HEIGHT * 0.25)
         }
 
-//            relative(LAST_TILE) {
-//                20 x 50
-//                actor = lastTile
-//                alignRightOf(TABLE_INDICATOR)
-//                alignTopOf(TABLE_INDICATOR)
-//            }
+        relative(LAST_TILE) {
+            actor = lastFont.actor
+            alignRightOf(TABLE_INDICATOR)
+            alignTopOf(TABLE_INDICATOR)
+            moveUnits(-90, -40)
+        }
 
         relative(BTN_NAKI) {
             32 x 25

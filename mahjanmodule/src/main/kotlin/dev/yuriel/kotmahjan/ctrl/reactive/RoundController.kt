@@ -45,6 +45,7 @@ import kotlin.reflect.KProperty
  */
 class RoundController(val rounder: RoundContextV2) {
     private var haiMgr: HaiMgr? = null
+    private val haiMgrListeners = mutableMapOf<Int, (Int) -> Unit>()
 
     private var log: RoundEvent by Delegates.observable(RoundEvent()) {
         prop, old, new -> rounder.onReceiveEvent(new)
@@ -59,7 +60,7 @@ class RoundController(val rounder: RoundContextV2) {
     }
 
     fun listen(id: Int, listener: (Int) -> Unit) {
-        haiMgr?.listen(id, listener)
+        haiMgrListeners.put(id, listener)
     }
 
     // 結果発表
@@ -355,6 +356,7 @@ class RoundController(val rounder: RoundContextV2) {
 
     private fun reset() {
         haiMgr = HaiMgr()
+        haiMgr?.listenAll(haiMgrListeners)
     }
 
     fun <T> List<T>.startOf(t: T): List<T> {

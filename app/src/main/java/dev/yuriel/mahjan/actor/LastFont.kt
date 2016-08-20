@@ -24,15 +24,13 @@
 
 package dev.yuriel.mahjan.actor
 
-import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.g2d.Batch
-import dev.yuriel.kotmvp.bases.BaseActor
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import dev.yuriel.mahjan.texture.NormalFontBlock
 
 /**
  * Created by yuriel on 8/18/16.
  */
-class LastFontActor: BaseActor() {
+class LastFont {
 
     var font: NormalFontBlock?
         private set
@@ -40,28 +38,19 @@ class LastFontActor: BaseActor() {
     var text: String = ""
         set(value) {
             field = value
-            font?.painter?.text(field)
-            width = font!!.layout.width
-            height = font!!.layout.height
+            font?.text = value
         }
+
+    val actor: Label?
+        get() = font?.label
 
     init {
         font = NormalFontBlock()
         font!!.load("last.fnt", "last.png")
-                .color { i -> Color(255F, 255F, 255F, color.a) }
-                //.scale { i -> Pair(scaleX, scaleY) }
-                //.origin { i -> font!!.getCenterOriginToText(x, y, width, height) }
+        actor?.setFontScale(0.7F)
     }
 
     fun update(num: Int) {
         text = "残り $num"
-    }
-
-    override fun destroy() {
-        font = null
-    }
-
-    override fun onDraw(batch: Batch?, parentAlpha: Float) {
-        if (null != batch) font?.draw(batch) else font?.draw()
     }
 }
