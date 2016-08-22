@@ -146,7 +146,7 @@ class AnalysisTest {
 
     @Test
     fun daHai() {
-        var loop = 0;
+        var loop = 0
         //for (loop in 0..100) {
         loop@while(true) {
             loop ++

@@ -34,11 +34,11 @@ class HaiUtil {
 
     private var query: String = ""
 
-    companion object {
-        fun mock(str: String): HaiUtil {
-            throw UnsupportedOperationException("not implemented")
-        }
-    }
+//    companion object {
+//        fun mock(str: String): HaiUtil {
+//            throw UnsupportedOperationException("not implemented")
+//        }
+//    }
 
     fun getAllHai(): MutableList<Hai> {
         val result = mutableListOf<Hai>()

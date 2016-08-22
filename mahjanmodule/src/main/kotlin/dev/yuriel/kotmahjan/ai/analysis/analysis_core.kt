@@ -245,7 +245,7 @@ fun exclude2Correlation(tehai: IntArray,
     //val map = SparseArray<MutableList<Int>>()
     val k2gMap = HashMap<Int, MutableList<Int>>()
     val g2kList = mutableListOf<Group2KeyList>()
-    var hasJanto = false;
+    var hasJanto = false
     /*
     fun SparseArray<MutableList<Int>>.addTo(id: Int, addId: Int) {
         if (this[id] == null) {

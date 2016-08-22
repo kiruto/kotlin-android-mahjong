@@ -66,7 +66,7 @@ object AlphaClientDahaiSelector {
         return algorithm.evaluationResults
     }
 
-    private class DahaiEvaluationAlgorithm(private val tehais: List<Hai>, private val minShantensu: Int) : TehaiAnalysisAlgorithm {
+    private class DahaiEvaluationAlgorithm(private val tehais: List<Hai>, minShantensu: Int) : TehaiAnalysisAlgorithm {
         private val evaluationVector: Array<DahaiEvaluationResult?>
 
         init {

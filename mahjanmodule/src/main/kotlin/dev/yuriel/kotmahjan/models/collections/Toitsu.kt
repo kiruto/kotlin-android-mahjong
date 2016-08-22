@@ -30,14 +30,11 @@ import java.util.*
 
 /**
  * Created by yuriel on 8/13/16.
+ * 対子であることがわかっている場合に使います
+ * @param identifierTile 対子の種類
  */
-
 class Toitsu(override var identifierTile: Hai?) : Mentsu() {
 
-    /**
-     * 対子であることがわかっている場合に使います
-     * @param identifierTile 対子の種類
-     */
     init {
         this.isMentsu = true
     }
@@ -57,12 +54,12 @@ class Toitsu(override var identifierTile: Hai?) : Mentsu() {
     override val fu: Int
         get() = 0
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o !is Toitsu) return false
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Toitsu) return false
 
-        if (isMentsu !== o.isMentsu) return false
-        return identifierTile === o.identifierTile
+        if (isMentsu !== other.isMentsu) return false
+        return identifierTile === other.identifierTile
 
     }
 
