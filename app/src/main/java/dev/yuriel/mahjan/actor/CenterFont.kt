@@ -31,7 +31,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import dev.yuriel.kotmvp.Dev
 import dev.yuriel.kotmvp.FURO_TILE_WIDTH
 import dev.yuriel.kotmvp.bases.BaseActor
-import dev.yuriel.mahjan.animator.GradientUtil
 import dev.yuriel.mahjan.texture.AnimatedFontBlock
 
 /**
