@@ -26,14 +26,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def libs = rootProject.libraries
+
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "dev.yuriel.kotmvp"
-        minSdkVersion 18
-        targetSdkVersion 24
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -55,7 +57,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
+    testCompile "junit:junit:${libs.junit}"
     compile project(':core')
     compile project(':mahjanmodule')
 }

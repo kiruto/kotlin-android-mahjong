@@ -26,13 +26,15 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def libs = rootProject.libraries
+
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 24
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -49,15 +51,15 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'io.reactivex:rxandroid:1.2.1'
+    compile "io.reactivex:rxandroid:${libs.rxandroid}"
     // Because RxAndroid releases are few and far between, it is recommended you also
     // explicitly depend on RxJava's latest version for bug fixes and new features.
-    compile 'io.reactivex:rxjava:1.1.6'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    compile "io.reactivex:rxjava:${libs.rxjava}"
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${libs.espresso}", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    provided "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    provided "org.jetbrains.kotlin:kotlin-stdlib:${libs.kotlin}"
 }
 repositories {
     mavenCentral()

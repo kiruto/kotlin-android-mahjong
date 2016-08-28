@@ -22,4 +22,4 @@
  * SOFTWARE.
  */
 
-include ':app', ':core', ':mahjanmodule'
+include ':app', ':core', ':mahjanmodule', ':Overlap2dRuntime'

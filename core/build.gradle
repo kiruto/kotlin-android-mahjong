@@ -26,13 +26,15 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def libs = rootProject.libraries
+
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 18
-        targetSdkVersion 24
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
@@ -58,20 +60,23 @@ configurations {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:recyclerview-v7:24.1.1'
-    //provided 'com.android.support:support-v4:23.2.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile "junit:junit:${libs.junit}"
+    //compile "com.underwaterapps.overlap2druntime:overlap2d-runtime-libgdx:${libs.overlap2d}"
+    compile "com.android.support:appcompat-v7:${libs.support}"
+    compile "com.android.support:recyclerview-v7:${libs.support}"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:${libs.kotlin}"
 
-    compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+    compile project(":Overlap2dRuntime")
+
+    compile "com.badlogicgames.gdx:gdx-backend-android:${libs.gdx}"
+    natives "com.badlogicgames.gdx:gdx-platform:${libs.gdx}:natives-armeabi"
+    natives "com.badlogicgames.gdx:gdx-platform:${libs.gdx}:natives-armeabi-v7a"
+    natives "com.badlogicgames.gdx:gdx-platform:${libs.gdx}:natives-arm64-v8a"
+    natives "com.badlogicgames.gdx:gdx-platform:${libs.gdx}:natives-x86"
+    natives "com.badlogicgames.gdx:gdx-platform:${libs.gdx}:natives-x86_64"
 }
 repositories {
+    jcenter()
     mavenCentral()
 }
 
