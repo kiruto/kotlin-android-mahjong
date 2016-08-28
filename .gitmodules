@@ -1,0 +1,3 @@
+[submodule "Overlap2dRuntime"]
+    path = Overlap2dRuntime
+    url = git@github.com:kiruto/overlap2d-runtime-libgdx.git
